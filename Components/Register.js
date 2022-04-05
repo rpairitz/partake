@@ -75,38 +75,42 @@ const Register = ({ navigation, route }) => {
                 </View>
             </View>
             <View style={{flex: 5, alignItems: 'center'}}>
-                <View>
+                <View style={styles.inputView}>
                     <TextInput
+                    style={styles.TextInput}
                         value={username}
                         placeholder='Email'
-                        placeholderTextColor='#000000'
+                        placeholderTextColor='#bfbfbf'
                         onChangeText={(username) => setUsername(username)}
                     />
                 </View>
-                <View>
+                <View style={styles.inputView}>
                     <TextInput
+                        style={styles.TextInput}
                         value={password}
                         placeholder='Password'
-                        placeholderTextColor='#000000'
+                        placeholderTextColor='#bfbfbf'
                         secureTextEntry={true}
                         onChangeText={(password) => setPassword(password)}
                     />
                 </View>
-                <View>
+                <View style={styles.inputView}>
                     <TextInput
+                        style={styles.TextInput}
                         value={repeatPassword}
                         placeholder='Repeat password'
-                        placeholderTextColor='#000000'
+                        placeholderTextColor='#bfbfbf'
                         secureTextEntry={true}
                         onChangeText={(repeatPassword) => setRepeatPassword(repeatPassword)}
                     />
                 </View>
-                <TouchableOpacity>
-                    <Text>Sign Up</Text>
+                <TouchableOpacity style={styles.loginBtn}>
+                    <Text style={styles.loginText}>Sign Up</Text>
                 </TouchableOpacity>
+                <Text>{'\n'}</Text>
                 <TouchableOpacity>
                     <Text>Already a User?
-                        <Text> Log in</Text>
+                        <Text style={styles.login}> Log in</Text>
                     </Text>
                 </TouchableOpacity>
             </View>

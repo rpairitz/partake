@@ -1,5 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import Login from './Components/Login';
+import Register from './Components/Register';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -10,7 +11,7 @@ const LoginStack = createNativeStackNavigator();
 export default function App() {
   return (
     <View style={styles.container}>
-      <Login />
+      <Register />
     </View>
   );
 }
