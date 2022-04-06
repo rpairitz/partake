@@ -1,18 +1,25 @@
 import { StyleSheet, View } from 'react-native';
 import Login from './Components/Login';
+import Home from './Components/Home';
 import Register from './Components/Register';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Tab = createBottomTabNavigator();
-const LoginStack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Register />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Register' screenOptions={{
+        headerShown: true,
+        headerTintColor: '#75d2ff',
+      }}
+      >
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

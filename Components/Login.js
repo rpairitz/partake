@@ -6,10 +6,7 @@ import {
     TextInput,
     StyleSheet
 } from 'react-native';
-import {
-    useFonts,
-    Montserrat_400Regular
-} from '@expo-google-fonts/montserrat';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const styles = StyleSheet.create({
     container: {
@@ -54,8 +51,6 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 40,
-        backgroundColor: '#75d2ff',
       }
 });
 
@@ -98,13 +93,22 @@ const Login = ({ navigation, route }) => {
                         onChangeText={(password) => setPassword(password)}
                     />
                 </View>
-                <TouchableOpacity style={styles.loginBtn}>
-                    <Text style={styles.loginText}>Log In</Text>
-                </TouchableOpacity>
+                <Text>{'\n'}</Text>
+                <LinearGradient
+                    // Button Linear Gradient
+                    colors={['#75d2ff', '#96a9d5', '#9fa4d0', '#bfa8e0', '#d7b1cd']}
+                    start={[0, 1]} 
+                    end={[1, 0]}
+                    onPress={() => navigation.navigate('Home')}
+                    style={styles.loginBtn}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.loginBtn}>
+                            <Text style={styles.loginText}>Log In</Text>
+                        </TouchableOpacity>
+                </LinearGradient>
                 <Text>{'\n'}</Text>
                 <TouchableOpacity>
                     <Text>New User?
-                        <Text style={styles.login}> Sign up</Text>
+                        <Text onPress={() => navigation.navigate('Register')} style={styles.login}> Sign up</Text>
                     </Text>
                 </TouchableOpacity>
             </View>

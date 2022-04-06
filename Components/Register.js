@@ -6,6 +6,7 @@ import {
     TextInput,
     StyleSheet
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const styles = StyleSheet.create({
     container: {
@@ -50,8 +51,7 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 40,
-        backgroundColor: '#75d2ff',
+        marginTop: 0,
       }
 });
 
@@ -104,13 +104,22 @@ const Register = ({ navigation, route }) => {
                         onChangeText={(repeatPassword) => setRepeatPassword(repeatPassword)}
                     />
                 </View>
-                <TouchableOpacity style={styles.loginBtn}>
-                    <Text style={styles.loginText}>Sign Up</Text>
-                </TouchableOpacity>
+                <Text>{'\n'}</Text>
+                <LinearGradient
+                    // Button Linear Gradient
+                    colors={['#75d2ff', '#96a9d5', '#9fa4d0', '#bfa8e0', '#d7b1cd']}
+                    start={[0, 1]} 
+                    end={[1, 0]}
+                    onPress={() => navigation.navigate('Home')}
+                    style={styles.loginBtn}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.loginBtn}>
+                            <Text style={styles.loginText}>Sign Up</Text>
+                        </TouchableOpacity>
+                </LinearGradient>
                 <Text>{'\n'}</Text>
                 <TouchableOpacity>
                     <Text>Already a User?
-                        <Text style={styles.login}> Log in</Text>
+                        <Text onPress={() => navigation.navigate('Login')} style={styles.login}> Log in</Text>
                     </Text>
                 </TouchableOpacity>
             </View>
