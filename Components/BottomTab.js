@@ -10,7 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Search from './Search';
 import Profile from './Profile';
-import Forum from './Forum';
+import Chat from './Chat';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -26,8 +26,8 @@ const BottomTabNavigator = ({ navigation, route }) => {
 
                         if (route.name === "Search") {
                             iconName = focused ? "search" : "search-outline";
-                        } else if (route.name === "Forum") {
-                            iconName = focused ? "people-circle" : "people-circle-outline";
+                        } else if (route.name === "Chat") {
+                            iconName = focused ? "chatbubbles" : "chatbubbles-outline";
                         } else if (route.name === "Profile") {
                             iconName = focused ? "person" : "person-outline";
                         }
@@ -43,9 +43,6 @@ const BottomTabNavigator = ({ navigation, route }) => {
                         headerTintColor: '#75d2ff',
                         headerLeft: () => (
                             <Ionicons name="menu-outline" size="24px" color="#75d2ff" />
-                        ),
-                        headerRight: () => (
-                            <Ionicons name="chatbubbles-outline" size="24px" color="#75d2ff" />
                         )
                     }}
                 />
@@ -56,8 +53,8 @@ const BottomTabNavigator = ({ navigation, route }) => {
                         headerTintColor: '#75d2ff'
                     }}
                 />
-                <BottomTab.Screen name="Forum"
-                    component={Forum}
+                <BottomTab.Screen name="Chat"
+                    component={Chat}
                     options={{
                         //title: 'partake',
                         headerTintColor: '#75d2ff'
