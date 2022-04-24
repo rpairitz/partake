@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     loginText: {
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        fontWeight: 'bold'
     },
     inputView: {
         backgroundColor: '#ffffff',

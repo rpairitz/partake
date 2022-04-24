@@ -22,7 +22,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     loginText: {
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        fontWeight: 'bold',
+        fontFamily: 'Avenir',
     },
     inputView: {
         backgroundColor: '#ffffff',
@@ -39,11 +41,13 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         width: '100%',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Avenir',
       },
       login: {
         color: '#75d2ff',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Avenir',
       },
       loginBtn: {
         width: 300,
@@ -70,7 +74,7 @@ const Login = ({ navigation, route }) => {
             </View>
             <View style={styles.container}>
                 <View style={{ flex: 1, paddingTop: 30, }}>
-                    <Text style={{ textAlign: 'center', fontSize: 30 }}>partake</Text>
+                    <Text style={{ textAlign: 'center', fontSize: 30, fontFamily: 'Avenir' }}>partake</Text>
                 </View>
             </View>
             <View style={{flex: 5, alignItems: 'center'}}>
@@ -107,7 +111,7 @@ const Login = ({ navigation, route }) => {
                 </LinearGradient>
                 <Text>{'\n'}</Text>
                 <TouchableOpacity>
-                    <Text>New User?
+                    <Text style={{ fontFamily: 'Avenir'}}>New User?
                         <Text onPress={() => navigation.navigate('Register')} style={styles.login}> Sign up</Text>
                     </Text>
                 </TouchableOpacity>

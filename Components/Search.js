@@ -14,41 +14,41 @@ const Search = ({ navigation, route }) => {
         <View
         style={styles.container}
         >
-        <View style={styles.swiperContainer}>
-            <Swiper
-            ref={useSwiper}
-            animateCardOpacity
-            containerStyle={styles.container}
-            cards={photoCards}
-            renderCard={card => <Card card={card} />}
-            cardIndex={0}
-            backgroundColor="white"
-            stackSize={2}
-            infinite
-            showSecondCard
-            animateOverlayLabelsOpacity
-            overlayLabels={{
-                left: {
-                title: 'NOPE',
-                element: <OverlayLabel label="NOPE" color="#E5566D" />,
-                style: {
-                    wrapper: styles.overlayWrapper,
-                },
-                },
-                right: {
-                title: 'LIKE',
-                element: <OverlayLabel label="LIKE" color="#4CCC93" />,
-                style: {
-                    wrapper: {
-                    ...styles.overlayWrapper,
-                    alignItems: 'flex-start',
-                    marginLeft: 30,
+            <View style={styles.swiperContainer}>
+                <Swiper
+                ref={useSwiper}
+                animateCardOpacity
+                containerStyle={styles.container}
+                cards={photoCards}
+                renderCard={card => <Card card={card} />}
+                cardIndex={0}
+                backgroundColor="white"
+                stackSize={2}
+                infinite
+                showSecondCard
+                animateOverlayLabelsOpacity
+                overlayLabels={{
+                    left: {
+                    title: 'NOPE',
+                    element: <OverlayLabel label="NOPE" color="#d7b1cd" />,
+                    style: {
+                        wrapper: styles.overlayWrapper,
                     },
-                },
-                },
-            }}
-            />
-        </View>
+                    },
+                    right: {
+                    title: 'LIKE',
+                    element: <OverlayLabel label="LIKE" color="#75d2ff" />,
+                    style: {
+                        wrapper: {
+                        ...styles.overlayWrapper,
+                        alignItems: 'flex-start',
+                        marginLeft: 30,
+                        },
+                    },
+                    },
+                }}
+                />
+            </View>
         </View>
     );
 

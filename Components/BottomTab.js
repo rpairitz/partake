@@ -10,6 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Search from './Search';
 import Profile from './Profile';
+import ProfileStack from './ProfileStack';
 import Chat from './Chat';
 
 const BottomTab = createBottomTabNavigator();
@@ -38,12 +39,12 @@ const BottomTabNavigator = ({ navigation, route }) => {
                 })}
             >
                 <BottomTab.Screen name="Profile"
-                    component={Profile}
+                    component={ProfileStack}
                     options={{
                         headerTintColor: '#75d2ff',
-                        headerLeft: () => (
+                        /*headerLeft: () => (
                             <Ionicons name="menu-outline" size="24px" color="#75d2ff" />
-                        )
+                        )*/
                     }}
                 />
                 <BottomTab.Screen name="Search"

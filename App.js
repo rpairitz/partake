@@ -5,6 +5,7 @@ import BottomTabNavigator from './Components/BottomTab';
 import Register from './Components/Register';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginStack from './Components/LoginStack';
 
 const Stack = createNativeStackNavigator();
 

@@ -46,5 +46,13 @@ export default StyleSheet.create({
     fontFamily: 'Avenir',
     textShadowColor: colors.black,
     textShadowRadius: 10,
+  },
+  edit: {
+    fontSize: 14,
+    color: "#75d2ff",
+    fontFamily: 'Avenir',
+    textShadowColor: colors.black,
+    textShadowRadius: 10,
+
   }
 })
