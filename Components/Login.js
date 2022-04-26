@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import {
     View,
     Text,
@@ -60,8 +60,34 @@ const styles = StyleSheet.create({
 
 const Login = ({ navigation, route }) => {
 
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const login = () => {
+        var axios = require('axios');
+        axios.get('http://23.22.183.138:8806/login.php')
+        .then((response) => {
+            return response;
+        })
+        .then((data) => {
+            var dataArr = data.data.split(/(\s+)/).filter(
+                function(e) { 
+                    return e.trim().length > 0;
+                }
+            );
+            if(dataArr.includes(email)) {
+                var emailIndex = dataArr.indexOf(email);
+                if(email === dataArr[emailIndex] && password === dataArr[emailIndex + 1]) {
+                    console.log('authenticated');
+                    navigation.navigate('Home');
+                }
+                else {
+                    alert("Incorrect credentials entered. Try again.");
+                }
+            }
+        })
+        .catch((error) => console.log(error));
+    }
 
     return(
         <View style={{flex: 1}}>
@@ -81,10 +107,10 @@ const Login = ({ navigation, route }) => {
                 <View style={styles.inputView}>
                     <TextInput
                         style={styles.TextInput}
-                        value={username}
+                        value={email}
                         placeholder='Email'
                         placeholderTextColor='#bfbfbf'
-                        onChangeText={(username) => setUsername(username)}
+                        onChangeText={(email) => setEmail(email)}
                     />
                 </View>
                 <View style={styles.inputView}>
@@ -105,7 +131,7 @@ const Login = ({ navigation, route }) => {
                     end={[1, 0]}
                     onPress={() => navigation.navigate('Home')}
                     style={styles.loginBtn}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.loginBtn}>
+                        <TouchableOpacity onPress={() => {login()}} style={styles.loginBtn}>
                             <Text style={styles.loginText}>Log In</Text>
                         </TouchableOpacity>
                 </LinearGradient>
