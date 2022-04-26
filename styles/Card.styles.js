@@ -53,6 +53,14 @@ export default StyleSheet.create({
     fontFamily: 'Avenir',
     textShadowColor: colors.black,
     textShadowRadius: 10,
-
-  }
+  },
+  tag: {
+    borderRadius: 14,
+    width: 90,
+    height: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#75d2ff',
+    justifyContent: 'center'
+  },
 })

@@ -14,6 +14,20 @@ const EditProfileCard = ({ card, navigation, route }) => (
       resizeMode="cover"
     />
     <View style={styles.photoDescriptionContainer}>
+      <View style={{flexDirection: 'row'}}>
+        <TouchableOpacity style={styles.tag}>
+          <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 12}}>&nbsp;Soccer</Text>
+        </TouchableOpacity>
+        <Text>&nbsp;&nbsp;&nbsp;</Text>
+        <TouchableOpacity style={[styles.tag, {backgroundColor: '#9fa4d0'}]}>
+          <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 12}}>&nbsp;Painting</Text>
+        </TouchableOpacity>
+        <Text>&nbsp;&nbsp;&nbsp;</Text>
+        <TouchableOpacity style={[styles.tag, {backgroundColor: '#d7b1cd'}]}>
+          <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 12}}>&nbsp;Poetry</Text>
+        </TouchableOpacity>
+        <Text style={{marginBottom: 15}}>{'\n'}</Text>
+      </View>
       <Text style={styles.text}>
         {`${card.name}, ${card.age}`}
         <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>

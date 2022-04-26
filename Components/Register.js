@@ -113,7 +113,7 @@ const Register = ({ navigation, route }) => {
                     end={[1, 0]}
                     onPress={() => navigation.navigate('Home')}
                     style={styles.loginBtn}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.loginBtn}>
+                        <TouchableOpacity onPress={() => navigation.navigate('CreateProfile')} style={styles.loginBtn}>
                             <Text style={styles.loginText}>Sign Up</Text>
                         </TouchableOpacity>
                 </LinearGradient>

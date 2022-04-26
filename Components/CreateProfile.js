@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const EditProfile = ({ navigation, route }) => {
+const CreateProfile = ({ navigation, route }) => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -166,4 +166,4 @@ const EditProfile = ({ navigation, route }) => {
 
 }
 
-export default EditProfile;
+export default CreateProfile;
