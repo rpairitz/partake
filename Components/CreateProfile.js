@@ -91,7 +91,7 @@ const CreateProfile = ({ navigation, route }) => {
             </View>
             <View style={styles.content}>
                 <TouchableOpacity>
-                    <Text style={{ fontFamily: 'Avenir' }}>Edit</Text>
+                    <Text style={{ fontFamily: 'Avenir' }}>Upload Profile Picture</Text>
                 </TouchableOpacity>
                 <View style={{ paddingTop: 20 }}>
                     <View style={styles.inputView}>

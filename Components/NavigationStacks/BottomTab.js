@@ -8,10 +8,10 @@ import {
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";
-import Search from './Search';
-import Profile from './Profile';
+import Search from '../Search';
+import Profile from '../Profile';
 import ProfileStack from './ProfileStack';
-import Chat from './Chat';
+import Chat from '../Chat';
 
 const BottomTab = createBottomTabNavigator();
 

@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     },
     loginText: {
         color: '#FFFFFF',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontFamily: 'Avenir',
     },
     inputView: {
         backgroundColor: '#ffffff',
@@ -40,11 +41,13 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         width: '100%',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Avenir',
       },
       login: {
         color: '#75d2ff',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Avenir',
       },
       loginBtn: {
         width: 300,
@@ -72,7 +75,7 @@ const Register = ({ navigation, route }) => {
             </View>
             <View style={styles.container}>
                 <View style={{ flex: 1, paddingTop: 30, }}>
-                    <Text style={{ textAlign: 'center', fontSize: 30 }}>partake</Text>
+                    <Text style={{ textAlign: 'center', fontSize: 30, fontFamily: 'Avenir' }}>partake</Text>
                 </View>
             </View>
             <View style={{flex: 5, alignItems: 'center'}}>
@@ -113,7 +116,7 @@ const Register = ({ navigation, route }) => {
                     end={[1, 0]}
                     onPress={() => navigation.navigate('Home')}
                     style={styles.loginBtn}>
-                        <TouchableOpacity onPress={() => navigation.navigate('CreateProfile')} style={styles.loginBtn}>
+                        <TouchableOpacity onPress={() => navigation.navigate('CreateProfile', { navigation: navigation })} style={styles.loginBtn}>
                             <Text style={styles.loginText}>Sign Up</Text>
                         </TouchableOpacity>
                 </LinearGradient>

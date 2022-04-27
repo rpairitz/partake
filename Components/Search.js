@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { View } from 'react-native';
 import Swiper from 'react-native-deck-swiper'
-import photoCards from '../photoCards'
+import photoCards from '../assets/photoCards'
 import Card from './Card'
 import OverlayLabel from './OverlayLabel'
 import styles from '../styles/Search.styles'

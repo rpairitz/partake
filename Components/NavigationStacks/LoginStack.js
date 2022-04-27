@@ -1,7 +1,7 @@
 import React from 'react';
-import Login from './Login';
-import Register from './Register';
-import CreateProfile from './CreateProfile';
+import Login from '../Login';
+import Register from '../Register';
+import CreateProfile from '../CreateProfile';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';

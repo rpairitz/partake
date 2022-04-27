@@ -75,14 +75,22 @@ const Login = ({ navigation, route }) => {
                     return e.trim().length > 0;
                 }
             );
-            if(dataArr.includes(email)) {
-                var emailIndex = dataArr.indexOf(email);
-                if(email === dataArr[emailIndex] && password === dataArr[emailIndex + 1]) {
-                    console.log('authenticated');
-                    navigation.navigate('Home');
+            if(!email || !password) {
+                alert('One or more fields is missing. Please fill out all required fields.');
+            }
+            else if(email) {
+                if(dataArr.includes(email)) {
+                    var emailIndex = dataArr.indexOf(email);
+                    if(email === dataArr[emailIndex] && password === dataArr[emailIndex + 1]) {
+                        console.log('authenticated');
+                        navigation.navigate('Home');
+                    }
+                    else {
+                        alert("Incorrect credentials entered. Try again.");
+                    }
                 }
                 else {
-                    alert("Incorrect credentials entered. Try again.");
+                    alert("This email does not have an account associated with it. Please register before continuing.");
                 }
             }
         })

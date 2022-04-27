@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Login from './Components/Login';
-import BottomTabNavigator from './Components/BottomTab';
+import BottomTabNavigator from './Components/NavigationStacks/BottomTab';
 import Register from './Components/Register';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginStack from './Components/LoginStack';
+import LoginStack from './Components/NavigationStacks/LoginStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,9 +23,9 @@ export default function App() {
           headerShown: false,
         }}
         >
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Home" component={BottomTabNavigator}/>
+          <Stack.Screen name="Register" component={Register} options={{ gestureEnabled: false }} />
+          <Stack.Screen name="Login" component={Login} options={{ gestureEnabled: false }} />
+          <Stack.Screen name="Home" component={BottomTabNavigator} options={{ gestureEnabled: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     );
