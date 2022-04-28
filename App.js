@@ -7,6 +7,7 @@ import Register from './Components/Register';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginStack from './Components/NavigationStacks/LoginStack';
+import axios from 'axios';
 
 const Stack = createNativeStackNavigator();
 

@@ -11,6 +11,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -86,11 +87,13 @@ const CreateProfile = ({ navigation, route }) => {
             alert('One or more fields is missing. Please fill out all fields.');
         }
         var axios = require('axios');
-        let formData = new URLSearchParams();
+        let formData = new FormData();
+        //let formData = new URLSearchParams();
         var fullName = firstName + ' ' + lastName;
-        console.log(fullName);
-        console.log(zipCode);
-        console.log(bio);
+
+        //Decrypt username for use in query
+        var userName = localStorage.getItem("username");
+        formData.append('username', userName);
         formData.append('name', fullName);
         formData.append('bio', bio);
         formData.append('zipcode', zipCode);
@@ -180,7 +183,7 @@ const CreateProfile = ({ navigation, route }) => {
                     start={[0, 1]} 
                     end={[1, 0]}
                     style={styles.loginBtn}>
-                        <TouchableOpacity style={styles.login}>
+                        <TouchableOpacity style={{ fontFamily: 'Avenir'}}>
                             <Text onPress={() => {createProfile()}} style={styles.login}>Save Changes</Text>
                         </TouchableOpacity>
                 </LinearGradient>
