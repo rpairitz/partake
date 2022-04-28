@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
     View,
     Text,
     StyleSheet
 } from 'react-native';
+import { GiftedChat } from 'react-native-gifted-chat';
 
 const styles = StyleSheet.create({
     container: {
@@ -14,12 +15,36 @@ const styles = StyleSheet.create({
 });
 
 const Chat = ({ navigation, route }) => {
+
+    const [messages, setMessages] = useState([]);
+
+    useEffect(() => {
+        setMessages([
+          {
+            _id: 1,
+            text: 'Hello developer',
+            createdAt: new Date(),
+            user: {
+              _id: 2,
+              name: 'React Native',
+              avatar: 'https://placeimg.com/140/140/any',
+            },
+          },
+        ])
+    }, []);
+
+    const onSend = useCallback((messages = []) => {
+        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+    }, []);
+
     return(
-        <View style={styles.container}>
-            <Text>
-                Chat page.
-            </Text>
-        </View>
+        <GiftedChat
+            messages={messages}
+            onSend={messages => onSend(messages)}
+            user={{
+                _id: 1,
+            }}
+        />
     );
 
 }
