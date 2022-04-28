@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -34,7 +35,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 1
+        borderWidth: 1,
+        borderColor: "#d4d4d4"
       },
       TextInput: {
         height: 50,
@@ -69,14 +71,19 @@ const Register = ({ navigation, route }) => {
             alert('One or more fields is missing. Please fill out all required fields.');
         }
         var axios = require('axios');
-        let formData = new URLSearchParams();
+        
+        let formData = new FormData();
+        //let formData = new URLSearchParams();
         if(password === repeatPassword){
             formData.append('email', username);
             formData.append('password', password);
             axios.post('http://23.22.183.138:8806/register.php', formData)
-            .then(res=>{ 
+            .then(res=>{
+                console.log(res.data);
                 if(res.data === 'Success'){
                     navigation.navigate('CreateProfile');
+                    //Store username for future use
+                    localStorage.setItem("username", username);
                 } else{
                     alert("Unable to register. There may already be a user registered with this email.");
                 }

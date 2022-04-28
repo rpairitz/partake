@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 1,
+        borderColor: "#d4d4d4"
       },
       TextInput: {
         height: 50,

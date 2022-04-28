@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -34,7 +35,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 1
+        borderWidth: 1,
+        borderColor: "#d4d4d4"
       },
       TextInput: {
         height: 50,
@@ -65,14 +67,17 @@ const Login = ({ navigation, route }) => {
 
     const login = () => {
         var axios = require('axios');
-        let formData = new URLSearchParams();
+        let formData = new FormData();
+        //let formData = new URLSearchParams();
         formData.append('email', email);
         formData.append('password', password);
+        //console.log(cryptr.encrypt(password));
         axios.post('http://23.22.183.138:8806/login.php', formData)
             .then(res=>{ 
                 console.log(res.data);
                 if(res.data === 'Success'){
                     navigation.navigate('Home');
+                    localStorage.setItem("username", email);
                 } else if(res.data === 'User'){
                     alert("This email does not have an account associated with it. Please register before continuing.");
                 } else if(res.data === 'Password'){
@@ -80,6 +85,7 @@ const Login = ({ navigation, route }) => {
                 }
             }).catch(err=>console.log(err));
         } 
+        
         /*
         axios.get('http://23.22.183.138:8806/login.php')
         .then((response) => {
@@ -91,7 +97,6 @@ const Login = ({ navigation, route }) => {
                     return e.trim().length > 0;
                 }
             );
-            console.log(dataArr);
             if(!email || !password) {
                 alert('One or more fields is missing. Please fill out all required fields.');
             }

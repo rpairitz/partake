@@ -11,6 +11,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 1,
+        borderColor: "#d4d4d4"
       },
       TextInput: {
         height: 50,
@@ -86,11 +88,13 @@ const CreateProfile = ({ navigation, route }) => {
             alert('One or more fields is missing. Please fill out all fields.');
         }
         var axios = require('axios');
-        let formData = new URLSearchParams();
+        let formData = new FormData();
+        //let formData = new URLSearchParams();
         var fullName = firstName + ' ' + lastName;
-        console.log(fullName);
-        console.log(zipCode);
-        console.log(bio);
+
+        //Decrypt username for use in query
+        var userName = localStorage.getItem("username");
+        formData.append('username', userName);
         formData.append('name', fullName);
         formData.append('bio', bio);
         formData.append('zipcode', zipCode);
@@ -180,8 +184,8 @@ const CreateProfile = ({ navigation, route }) => {
                     start={[0, 1]} 
                     end={[1, 0]}
                     style={styles.loginBtn}>
-                        <TouchableOpacity style={styles.login}>
-                            <Text onPress={() => {createProfile()}} style={styles.login}>Save Changes</Text>
+                        <TouchableOpacity style={styles.loginBtn}>
+                            <Text onPress={() => {createProfile(); navigation.navigate('AddHobby')}} style={{color: 'white', fontFamily: 'Avenir', fontSize: 14, fontWeight: 'bold'}}>Continue</Text>
                         </TouchableOpacity>
                 </LinearGradient>
             </View>
