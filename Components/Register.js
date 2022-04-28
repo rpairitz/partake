@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 1
+        borderWidth: 1,
+        borderColor: "#d4d4d4"
       },
       TextInput: {
         height: 50,
@@ -69,7 +70,7 @@ const Register = ({ navigation, route }) => {
             alert('One or more fields is missing. Please fill out all required fields.');
         }
         var axios = require('axios');
-        let formData = new URLSearchParams();
+        let formData = new FormData();
         if(password === repeatPassword){
             formData.append('email', username);
             formData.append('password', password);
