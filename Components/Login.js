@@ -91,6 +91,7 @@ const Login = ({ navigation, route }) => {
                     return e.trim().length > 0;
                 }
             );
+            console.log(dataArr);
             if(!email || !password) {
                 alert('One or more fields is missing. Please fill out all required fields.');
             }
