@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 1,
+        borderColor: "#d4d4d4"
       },
       TextInput: {
         height: 50,
@@ -183,8 +184,8 @@ const CreateProfile = ({ navigation, route }) => {
                     start={[0, 1]} 
                     end={[1, 0]}
                     style={styles.loginBtn}>
-                        <TouchableOpacity style={{ fontFamily: 'Avenir'}}>
-                            <Text onPress={() => {createProfile()}} style={styles.login}>Save Changes</Text>
+                        <TouchableOpacity style={styles.loginBtn}>
+                            <Text onPress={() => {createProfile(); navigation.navigate('AddHobby')}} style={{color: 'white', fontFamily: 'Avenir', fontSize: 14, fontWeight: 'bold'}}>Continue</Text>
                         </TouchableOpacity>
                 </LinearGradient>
             </View>

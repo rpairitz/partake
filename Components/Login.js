@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 1
+        borderWidth: 1,
+        borderColor: "#d4d4d4"
       },
       TextInput: {
         height: 50,
@@ -70,7 +71,7 @@ const Login = ({ navigation, route }) => {
         //let formData = new URLSearchParams();
         formData.append('email', email);
         formData.append('password', password);
-        console.log(cryptr.encrypt(password));
+        //console.log(cryptr.encrypt(password));
         axios.post('http://23.22.183.138:8806/login.php', formData)
             .then(res=>{ 
                 console.log(res.data);
