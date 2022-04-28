@@ -65,6 +65,22 @@ const Login = ({ navigation, route }) => {
 
     const login = () => {
         var axios = require('axios');
+        let formData = new URLSearchParams();
+        formData.append('email', email);
+        formData.append('password', password);
+        axios.post('http://23.22.183.138:8806/login.php', formData)
+            .then(res=>{ 
+                console.log(res.data);
+                if(res.data === 'Success'){
+                    navigation.navigate('Home');
+                } else if(res.data === 'User'){
+                    alert("This email does not have an account associated with it. Please register before continuing.");
+                } else if(res.data === 'Password'){
+                    alert("Incorrect password.")
+                }
+            }).catch(err=>console.log(err));
+        } 
+        /*
         axios.get('http://23.22.183.138:8806/login.php')
         .then((response) => {
             return response;
@@ -95,7 +111,9 @@ const Login = ({ navigation, route }) => {
             }
         })
         .catch((error) => console.log(error));
+        
     }
+    */
 
     return(
         <View style={{flex: 1}}>

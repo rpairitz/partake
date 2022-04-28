@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Login from './Components/Login';
+import CreateProfile from './Components/CreateProfile';
 import BottomTabNavigator from './Components/NavigationStacks/BottomTab';
 import Register from './Components/Register';
 import { NavigationContainer } from '@react-navigation/native';
@@ -26,6 +27,7 @@ export default function App() {
           <Stack.Screen name="Register" component={Register} options={{ gestureEnabled: false }} />
           <Stack.Screen name="Login" component={Login} options={{ gestureEnabled: false }} />
           <Stack.Screen name="Home" component={BottomTabNavigator} options={{ gestureEnabled: false }} />
+          <Stack.Screen name="CreateProfile" component={CreateProfile} options={{ gestureEnabled: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     );

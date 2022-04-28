@@ -78,14 +78,39 @@ const CreateProfile = ({ navigation, route }) => {
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [birthday, setBirthday] = useState('');
+    const [zipCode, setZipCode] = useState('');
     const [bio, setBio] = useState('');
+
+    const createProfile = () => {
+        if(!firstName || !lastName || !zipCode || !bio) {
+            alert('One or more fields is missing. Please fill out all fields.');
+        }
+        var axios = require('axios');
+        let formData = new URLSearchParams();
+        var fullName = firstName + ' ' + lastName;
+        console.log(fullName);
+        console.log(zipCode);
+        console.log(bio);
+        formData.append('name', fullName);
+        formData.append('bio', bio);
+        formData.append('zipcode', zipCode);
+        axios.post('http://23.22.183.138:8806/createProfile.php', formData)
+            .then(res=>{ 
+                console.log(res.data);
+                if(res.data === 'Success'){
+                    navigation.navigate('Home');
+                } else{
+                    alert("Failed to register.");
+                }
+            }).catch(err=>console.log(err));
+    } 
+    
 
     return(
         <View style={{flex: 1, paddingTop: 15}}>
             <View style={styles.container}>
                 <Image 
-                    source={require('../assets/teymi-townsend-AvLHH8qYbAI-unsplash.jpg')}  
+                    source={require('../assets/profile.png')}  
                     style={{width: 100, height: 100, borderRadius: 100/ 2}} 
                 />
             </View>
@@ -115,19 +140,19 @@ const CreateProfile = ({ navigation, route }) => {
                     <View style={styles.inputView}>
                         <TextInput
                             style={styles.TextInput}
-                            value={birthday}
-                            placeholder='Birthday'
+                            value={bio}
+                            placeholder='Bio'
                             placeholderTextColor='#bfbfbf'
-                            onChangeText={(birthday) => setBirthday(birthday)}
+                            onChangeText={(bio) => setBio(bio)}
                         />
                     </View>
                     <View style={styles.inputView}>
                         <TextInput
                             style={styles.TextInput}
-                            value={bio}
-                            placeholder='Bio'
+                            value={zipCode}
+                            placeholder='Zip Code'
                             placeholderTextColor='#bfbfbf'
-                            onChangeText={(bio) => setBio(bio)}
+                            onChangeText={(zipCode) => setZipCode(zipCode)}
                         />
                     </View>
                 </View>
@@ -154,10 +179,9 @@ const CreateProfile = ({ navigation, route }) => {
                     colors={['#75d2ff', '#96a9d5', '#9fa4d0', '#bfa8e0', '#d7b1cd']}
                     start={[0, 1]} 
                     end={[1, 0]}
-                    onPress={() => navigation.navigate('Home')}
                     style={styles.loginBtn}>
-                        <TouchableOpacity style={styles.loginBtn}>
-                            <Text style={styles.loginText}>Save Changes</Text>
+                        <TouchableOpacity style={styles.login}>
+                            <Text onPress={() => {createProfile()}} style={styles.login}>Save Changes</Text>
                         </TouchableOpacity>
                 </LinearGradient>
             </View>

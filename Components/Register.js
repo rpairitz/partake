@@ -64,6 +64,28 @@ const Register = ({ navigation, route }) => {
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
 
+    const register = () => {
+        if(!username || !password || !repeatPassword) {
+            alert('One or more fields is missing. Please fill out all required fields.');
+        }
+        var axios = require('axios');
+        let formData = new URLSearchParams();
+        if(password === repeatPassword){
+            formData.append('email', username);
+            formData.append('password', password);
+            axios.post('http://23.22.183.138:8806/register.php', formData)
+            .then(res=>{ 
+                if(res.data === 'Success'){
+                    navigation.navigate('CreateProfile');
+                } else{
+                    alert("Unable to register. There may already be a user registered with this email.");
+                }
+            }).catch(err=>console.log(err));
+        } else{
+            alert("Passwords don't match");
+        }
+    }
+
     return(
         <View style={{flex: 1}}>
             <View style={styles.container}>
@@ -114,15 +136,14 @@ const Register = ({ navigation, route }) => {
                     colors={['#75d2ff', '#96a9d5', '#9fa4d0', '#bfa8e0', '#d7b1cd']}
                     start={[0, 1]} 
                     end={[1, 0]}
-                    onPress={() => navigation.navigate('Home')}
                     style={styles.loginBtn}>
-                        <TouchableOpacity onPress={() => navigation.navigate('CreateProfile', { navigation: navigation })} style={styles.loginBtn}>
+                        <TouchableOpacity onPress={() => {register()}} style={styles.loginBtn}>
                             <Text style={styles.loginText}>Sign Up</Text>
                         </TouchableOpacity>
                 </LinearGradient>
                 <Text>{'\n'}</Text>
                 <TouchableOpacity>
-                    <Text>Already a User?
+                    <Text style={{ fontFamily: 'Avenir'}}>Already a User?
                         <Text onPress={() => navigation.navigate('Login')} style={styles.login}> Log in</Text>
                     </Text>
                 </TouchableOpacity>
