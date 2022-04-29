@@ -141,7 +141,7 @@ const AddHobby = ({ navigation, route }) => {
         if(isBaseSelected) {
             hobbies.push('BASE Jumping');
         }
-        if(isBackSelected) {
+        if(isBaseballSelected) {
             hobbies.push('Baseball');
         }
         if(isBasketSelected) {
@@ -345,7 +345,22 @@ const AddHobby = ({ navigation, route }) => {
         if(isWatSelected) {
             hobbies.push('Water Polo');
         }
-        console.log(hobbies);
+        //console.log(hobbies);
+
+        var axios = require('axios');
+        let formData = new FormData();
+
+        var username = 'imoore1098@example.com';
+        formData.append('username', username);
+        for(let i = 0; i < hobbies.length; i++) {
+            formData.append('hobbies[]', hobbies[i]);
+        }
+
+        axios.post('http://23.22.183.138:8806/addHobby.php', formData)
+            .then(res=>{
+                console.log(res.data);
+                
+            }).catch(err=>console.log(err));
     };
 
     return(
