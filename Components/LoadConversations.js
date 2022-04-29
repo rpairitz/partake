@@ -42,7 +42,7 @@ const LoadConversations = ({ navigation, route }) => {
     return conversations.map((convo) => {
         return(
             <View>
-                <TouchableOpacity onPress={() => {navigation.navigate('Chat')}}>
+                <TouchableOpacity onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo}})}}>
                     <Text>{/* onPress will pass convoID as a prop down to messages page for that conversation */}</Text>
                     <Text style={styles.section}>Conversation #{convo}</Text>
                 </TouchableOpacity>
