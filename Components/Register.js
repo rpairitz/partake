@@ -7,6 +7,7 @@ import {
     StyleSheet
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const styles = StyleSheet.create({
@@ -81,6 +82,7 @@ const Register = ({ navigation, route }) => {
             .then(res=>{
                 console.log(res.data);
                 if(res.data === 'Success'){
+                    AsyncStorage.setItem("partakeCredentials", username);
                     navigation.navigate('CreateProfile');
                     //Store username for future use
                     localStorage.setItem("username", username);

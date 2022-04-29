@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     View,
     StyleSheet,
@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Ionicons from "@expo/vector-icons/Ionicons";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const styles = StyleSheet.create({
@@ -82,19 +83,29 @@ const CreateProfile = ({ navigation, route }) => {
     const [lastName, setLastName] = useState('');
     const [zipCode, setZipCode] = useState('');
     const [bio, setBio] = useState('');
+    const [username, setUsername] = useState('');
 
+    useEffect(() => {
+        AsyncStorage.getItem('partakeCredentials').
+        then((gotItem) => {
+            setUsername(gotItem);
+        })
+        .catch((error) => console.log(error))
+    }, [username]);
+    
     const createProfile = () => {
         if(!firstName || !lastName || !zipCode || !bio) {
             alert('One or more fields is missing. Please fill out all fields.');
         }
+        console.log("HERE");
         var axios = require('axios');
         let formData = new FormData();
         //let formData = new URLSearchParams();
         var fullName = firstName + ' ' + lastName;
 
         //Decrypt username for use in query
-        var userName = localStorage.getItem("username");
-        formData.append('username', userName);
+        console.log("Testing AsyncStorage:" + username);
+        formData.append('username', username);
         formData.append('name', fullName);
         formData.append('bio', bio);
         formData.append('zipcode', zipCode);
