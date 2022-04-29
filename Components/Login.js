@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react'
+import React, { useState , useEffect, useContext} from 'react'
 import {
     View,
     Text,
@@ -7,7 +7,8 @@ import {
     StyleSheet
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {CredentialsContext} from './CredentialsContext';
 
 const styles = StyleSheet.create({
     container: {
@@ -64,20 +65,34 @@ const Login = ({ navigation, route }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const {storedCredentials, setStoredCredentials} = useContext(CredentialsContext);
+
+    const persistLogin = (credentials) => {
+        AsyncStorage.setItem('partakeCredentials', credentials)
+        .then(() => {
+            console.log("Successfully logged in");
+            setStoredCredentials(credentials);
+        })
+        .catch((error) => {
+            console.log(error);
+            console.log('Persistent login failed');
+        })
+    }
 
     const login = () => {
+
         var axios = require('axios');
         let formData = new FormData();
         //let formData = new URLSearchParams();
         formData.append('email', email);
         formData.append('password', password);
-        //console.log(cryptr.encrypt(password));
+
         axios.post('http://23.22.183.138:8806/login.php', formData)
             .then(res=>{ 
                 console.log(res.data);
                 if(res.data === 'Success'){
+                    persistLogin(email);
                     navigation.navigate('Home');
-                    localStorage.setItem("username", email);
                 } else if(res.data === 'User'){
                     alert("This email does not have an account associated with it. Please register before continuing.");
                 } else if(res.data === 'Password'){
@@ -85,6 +100,17 @@ const Login = ({ navigation, route }) => {
                 }
             }).catch(err=>console.log(err));
         } 
+
+        /* For future use when we logout
+        const clearLogin = () => {
+            AsyncStorage.removeItem('partakeCredentials')
+            .then(() => {
+                setStoredCredentials("");
+            })
+            .catch((error) => console.log(error))
+        }
+
+        */
         
         /*
         axios.get('http://23.22.183.138:8806/login.php')
