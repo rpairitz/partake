@@ -1,17 +1,11 @@
 import React from 'react'
-import {
-    View,
-    StyleSheet,
-    Text,
-    Button
-} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Search from '../Search';
-import Profile from '../Profile';
 import ProfileStack from './ProfileStack';
-import Chat from '../Chat';
+import Conversations from '../Conversations';
+import MessageStack from './MessageStack';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -50,14 +44,12 @@ const BottomTabNavigator = ({ navigation, route }) => {
                 <BottomTab.Screen name="Search"
                     component={Search}
                     options={{
-                        //title: 'partake',
                         headerTintColor: '#75d2ff'
                     }}
                 />
                 <BottomTab.Screen name="Chat"
-                    component={Chat}
+                    component={MessageStack}
                     options={{
-                        //title: 'partake',
                         headerTintColor: '#75d2ff'
                     }}
                 />
