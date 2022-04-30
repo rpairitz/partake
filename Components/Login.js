@@ -10,6 +10,7 @@ import Logomark from '../img/logo_logomark.svg';
 import colors from '../styles/theme';
 import InlineButton from './InlineButton';
 import Button from './Button';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -62,14 +63,17 @@ const Login = ({ navigation, route }) => {
 
     const login = () => {
         var axios = require('axios');
-        let formData = new URLSearchParams();
+        let formData = new FormData();
+        //let formData = new URLSearchParams();
         formData.append('email', email);
         formData.append('password', password);
+        //console.log(cryptr.encrypt(password));
         axios.post('http://23.22.183.138:8806/login.php', formData)
             .then(res=>{ 
                 console.log(res.data);
                 if(res.data === 'Success'){
                     navigation.navigate('Home');
+                    AsyncStorage.setItem("partakeCredentials", username);
                 } else if(res.data === 'User'){
                     alert("This email does not have an account associated with it. Please register before continuing.");
                 } else if(res.data === 'Password'){

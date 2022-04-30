@@ -1,17 +1,22 @@
 import React from 'react'
-import {
-    View,
-    StyleSheet,
-    Text,
-    Button
-} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Search from '../Search';
-import Profile from '../Profile';
 import ProfileStack from './ProfileStack';
-import Chat from '../Chat';
+import Conversations from '../Conversations';
+import MessageStack from './MessageStack';
+
+const styles = StyleSheet.create({
+    container: {
+      color: "#75d2ff",
+      fontFamily: 'Avenir',
+      fontSize: 16,
+      fontWeight: 'bold',
+      paddingRight: 15
+    },
+});
 
 const BottomTab = createBottomTabNavigator();
 
@@ -42,22 +47,22 @@ const BottomTabNavigator = ({ navigation, route }) => {
                     component={ProfileStack}
                     options={{
                         headerTintColor: '#75d2ff',
-                        /*headerLeft: () => (
-                            <Ionicons name="menu-outline" size="24px" color="#75d2ff" />
-                        )*/
+                        headerRight: () => (
+                            <TouchableOpacity>
+                                <Text style={styles.container}>Log Out</Text>
+                            </TouchableOpacity>
+                        )
                     }}
                 />
                 <BottomTab.Screen name="Search"
                     component={Search}
                     options={{
-                        //title: 'partake',
                         headerTintColor: '#75d2ff'
                     }}
                 />
                 <BottomTab.Screen name="Chat"
-                    component={Chat}
+                    component={MessageStack}
                     options={{
-                        //title: 'partake',
                         headerTintColor: '#75d2ff'
                     }}
                 />
