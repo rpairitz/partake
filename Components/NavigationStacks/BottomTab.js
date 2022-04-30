@@ -51,7 +51,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
                             <TouchableOpacity>
                                 <Text style={styles.container}>Log Out</Text>
                             </TouchableOpacity>
-                        )
+                        ),
                     }}
                 />
                 <BottomTab.Screen name="Search"
@@ -63,7 +63,8 @@ const BottomTabNavigator = ({ navigation, route }) => {
                 <BottomTab.Screen name="Chat"
                     component={MessageStack}
                     options={{
-                        headerTintColor: '#75d2ff'
+                        headerTintColor: '#75d2ff',
+                        unmountOnBlur: true
                     }}
                 />
             </BottomTab.Navigator>

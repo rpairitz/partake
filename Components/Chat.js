@@ -8,9 +8,7 @@ import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+      paddingTop: 10
     },
 });
 
@@ -43,7 +41,6 @@ const Chat = ({ navigation, route }) => {
                   avatar: 'https://placeimg.com/140/140/any'
                 };
                 setUser(tempMess[2]);
-                console.log(tempMess[2]);
                 mess.push(tempMessageObj);
               }
               setMessages(mess);
@@ -52,13 +49,19 @@ const Chat = ({ navigation, route }) => {
 
     const addMessage = (message) => {
       var axios = require('axios');
+      let sentDate = new Date().toLocaleDateString('en-GB', {
+        day: 'numeric', month: 'short', year: 'numeric'
+      }).replace(/ /g, '-').toUpperCase();
+      let sentTime = new Date().toLocaleTimeString().split(" ")[0];
+
       let formData = new FormData();
 
       formData.append('messageID', message[0]._id);
       formData.append('convoID', route.params.convoID);
       formData.append('senderID', message[0].user._id);
       formData.append('content', message[0].text);
-      formData.append('sentTime', '29-APR-22');
+      formData.append('sentDate', sentDate);
+      formData.append('sentTime', sentTime);
 
       axios.post('http://23.22.183.138:8806/addMessage.php', formData)
             .then(res=>{
@@ -90,7 +93,10 @@ const Chat = ({ navigation, route }) => {
     };
 
     useEffect(() => {
+      //const interval = setInterval(() => {
         loadMessages();
+      //}, 1000);
+      //loadMessages();
     }, []);
 
     const onSend = useCallback((messages = []) => {
@@ -101,13 +107,13 @@ const Chat = ({ navigation, route }) => {
 
     return(
         <GiftedChat
+            style={styles.container}
             messages={messages}
             showAvatarForEveryMessage={true}
             onSend={messages => onSend(messages)}
-            alignTop="true"
-            inverted="false"
+            alignTop={true}
             user={{
-                _id: 1,
+                _id: user,
                 name: 'Me',
                 avatar: 'https://placeimg.com/140/140/any'
             }}

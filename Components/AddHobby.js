@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
     container: {
@@ -40,6 +41,7 @@ const styles = StyleSheet.create({
 const AddHobby = ({ navigation, route }) => {
 
     const hobbies = [];
+    const [username, setUsername] = useState('');
 
     // Sports
     const [isAirsoftSelected, setIsAirsoftSelected] = useState(false);
@@ -115,6 +117,15 @@ const AddHobby = ({ navigation, route }) => {
     const [isThruSelected, setIsThruSelected] = useState(false);
     const [isVollSelected, setIsVollSelected] = useState(false);
     const [isWatSelected, setIsWatSelected] = useState(false);
+
+    useEffect(() => {
+        AsyncStorage.getItem('partakeCredentials').
+        then((gotItem) => {
+            console.log(gotItem);
+            setUsername(gotItem);
+        })
+        .catch((error) => console.log(error))
+    }, [username]);
 
     // Lifestyle
 
@@ -345,12 +356,10 @@ const AddHobby = ({ navigation, route }) => {
         if(isWatSelected) {
             hobbies.push('Water Polo');
         }
-        //console.log(hobbies);
 
         var axios = require('axios');
         let formData = new FormData();
 
-        var username = 'imoore1098@example.com';
         formData.append('username', username);
         for(let i = 0; i < hobbies.length; i++) {
             formData.append('hobbies[]', hobbies[i]);
