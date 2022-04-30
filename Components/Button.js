@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
       buttonText: {
           color: colors.white,
           fontWeight: 'bold',
-          fontFamily: 'Arial',
+          fontFamily: 'Avenir',
           textAlign: 'center',
       },
 });

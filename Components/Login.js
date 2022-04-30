@@ -4,12 +4,13 @@ import {
     Text,
     TextInput,
     StyleSheet,
-    Dimensions
+    Dimensions,
 } from 'react-native';
 import Logomark from '../img/logo_logomark.svg';
 import colors from '../styles/theme';
 import InlineButton from './InlineButton';
 import Button from './Button';
+import HideKeyboard from './HideKeyboard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const windowWidth = Dimensions.get('window').width;
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
         width: (windowWidth / 1.618),
         fontSize: 13,
         textAlign: 'left',
-        fontFamily: 'Arial',
+        fontFamily: 'Avenir',
     },
     inlineContainer: { 
         flexDirection: 'row', 
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
         alignItems: 'baseline',
     },
     inlineLabel: { 
-        fontFamily: 'Arial', 
+        fontFamily: 'Avenir', 
         fontWeight: 'bold', 
         color: colors.grayActive 
     },
@@ -72,8 +73,10 @@ const Login = ({ navigation, route }) => {
             .then(res=>{ 
                 console.log(res.data);
                 if(res.data === 'Success'){
-                    navigation.navigate('Home');
                     AsyncStorage.setItem("partakeCredentials", email);
+                    navigation.navigate('Home');
+                    setEmail('');
+                    setPassword('');
                 } else if(res.data === 'User'){
                     alert("This email does not have an account associated with it. Please register before continuing.");
                 } else if(res.data === 'Password'){
@@ -83,39 +86,41 @@ const Login = ({ navigation, route }) => {
         }
 
     return(
-        <View style={styles.container}>
-            <View style={styles.logoContainer}>
-                <Logomark width={(windowWidth/1.618)+26} height='100%'/>
-            </View>
-            <View style={styles.authInputContainer}>
-                <TextInput
-                    style={styles.authInput}
-                    value={email}
-                    placeholder='Email'
-                    placeholderTextColor={colors.grayInactive}
-                    onChangeText={(email) => setEmail(email)}
-                />
-            </View>
-            <View style={styles.authInputContainer}>
-                <TextInput
-                    style={styles.authInput}
-                    value={password}
-                    placeholder='Password'
-                    placeholderTextColor={colors.grayInactive}
-                    secureTextEntry={true}
-                    onChangeText={(password) => setPassword(password)}
-                />
-            </View>
-            <Button onPress={() => { login() }} text={'Log in'} width={(windowWidth/1.618)}/>
+        <HideKeyboard>
+            <View style={styles.container}>
+                <View style={styles.logoContainer}>
+                    <Logomark width={(windowWidth/1.618)+26} height='100%'/>
+                </View>
+                <View style={styles.authInputContainer}>
+                    <TextInput
+                        style={styles.authInput}
+                        value={email}
+                        placeholder='Email'
+                        placeholderTextColor={colors.grayInactive}
+                        onChangeText={(email) => setEmail(email)}
+                    />
+                </View>
+                <View style={styles.authInputContainer}>
+                    <TextInput
+                        style={styles.authInput}
+                        value={password}
+                        placeholder='Password'
+                        placeholderTextColor={colors.grayInactive}
+                        secureTextEntry={true}
+                        onChangeText={(password) => setPassword(password)}
+                    />
+                </View>
+                <Button onPress={() => { login() }} text={'Log in'} width={(windowWidth/1.618)}/>
 
-            <View style={styles.inlineContainer}>
-                <Text style={styles.inlineLabel}>
-                    New user?{'\u00A0'}
-                </Text>
-                <InlineButton onPress={() => navigation.navigate('Register')} text={'Sign up.'} />
+                <View style={styles.inlineContainer}>
+                    <Text style={styles.inlineLabel}>
+                        New user?{'\u00A0'}
+                    </Text>
+                    <InlineButton onPress={() => navigation.navigate('Register')} text={'Sign up.'} />
+                </View>
+                <View style={{ flex: 1 }} />
             </View>
-            <View style={{ flex: 1 }} />
-        </View>
+        </HideKeyboard>
     );
 }
 

@@ -5,8 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Search from '../Search';
 import ProfileStack from './ProfileStack';
-import Conversations from '../Conversations';
 import MessageStack from './MessageStack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
     container: {
@@ -21,6 +21,12 @@ const styles = StyleSheet.create({
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNavigator = ({ navigation, route }) => {
+
+    const logOut = () => {
+        AsyncStorage.setItem("partakeCredentials", '');
+        navigation.navigate('Login');
+    };
+
     return(
         <NavigationContainer independent={true}>
             <BottomTab.Navigator
@@ -48,7 +54,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
                     options={{
                         headerTintColor: '#75d2ff',
                         headerRight: () => (
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => {logOut()}}>
                                 <Text style={styles.container}>Log Out</Text>
                             </TouchableOpacity>
                         ),
