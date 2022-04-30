@@ -21,8 +21,7 @@ const Chat = ({ navigation, route }) => {
       var axios = require('axios');
       let formData = new FormData();
 
-      var username = 'imoore1098@example.com';
-      formData.append('username', username);
+      formData.append('username', route.params.username);
       formData.append('convoID', route.params.convoID);
 
       axios.post('http://23.22.183.138:8806/messages.php', formData)

@@ -79,7 +79,7 @@ const Login = ({ navigation, route }) => {
                 console.log(res.data);
                 if(res.data === 'Success'){
                     navigation.navigate('Home');
-                    AsyncStorage.setItem("partakeCredentials", username);
+                    AsyncStorage.setItem("partakeCredentials", email);
                 } else if(res.data === 'User'){
                     alert("This email does not have an account associated with it. Please register before continuing.");
                 } else if(res.data === 'Password'){

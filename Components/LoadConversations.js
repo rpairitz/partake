@@ -56,16 +56,14 @@ const LoadConversations = ({ navigation, route }) => {
 
     const [conversations, setConversations] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
+    const [username, setUsername] = useState('');
     const [newName, setNewName] = useState('');
-    //const [username, setUsername] = useState('');
 
-    const loadConversations = () => {
+    const loadConversations = (uname) => {
         var axios = require('axios');
         let formData = new FormData();
-        //console.log(username);
 
-        var username = 'imoore1098@example.com';
-        formData.append('username', username);
+        formData.append('username', uname);
 
         axios.post('http://23.22.183.138:8806/conversations.php', formData)
             .then(res=>{
@@ -78,13 +76,13 @@ const LoadConversations = ({ navigation, route }) => {
     };
 
     useEffect(() => {
-        AsyncStorage.getItem('partakeCredentials').
-        then((gotItem) => {
-            //setUsername(gotItem);
+        AsyncStorage.getItem('partakeCredentials')
+        .then((gotItem) => {
+            setUsername(gotItem);
+            return gotItem;
         })
-        .then(() => {
-
-            loadConversations();
+        .then((uname) => {
+            loadConversations(uname);
         })
         .catch((error) => console.log(error))
     }, []);
@@ -93,7 +91,6 @@ const LoadConversations = ({ navigation, route }) => {
         var axios = require('axios');
         let formData = new FormData();
 
-        //var username = 'imoore1098@example.com';
         formData.append('name', newName);
         formData.append('convoID', convoID);
 
@@ -107,8 +104,7 @@ const LoadConversations = ({ navigation, route }) => {
     return conversations.map((convo) => {
         return(
             <View style={{ flexDirection: 'row', flexWrap: 'wrap ' }}>
-                <TouchableOpacity onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo}})}}>
-                    <Text>{/* onPress will pass convoID as a prop down to messages page for that conversation */}</Text>
+                <TouchableOpacity key={convo} onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo, username: username}});}}>
                     <Text style={styles.section}>Conversation #{convo}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.icon} onPress={() => setModalVisible(true)}>
