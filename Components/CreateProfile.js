@@ -12,7 +12,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
