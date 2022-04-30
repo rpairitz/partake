@@ -11,6 +11,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as ImagePicker from 'expo-image-picker';
 
 
 const styles = StyleSheet.create({
@@ -84,6 +85,7 @@ const CreateProfile = ({ navigation, route }) => {
     const [zipCode, setZipCode] = useState('');
     const [bio, setBio] = useState('');
     const [username, setUsername] = useState('');
+    const [imageSource, setImageSource] = useState(null);
 
     useEffect(() => {
         AsyncStorage.getItem('partakeCredentials').
@@ -108,7 +110,7 @@ const CreateProfile = ({ navigation, route }) => {
         formData.append('username', username);
         formData.append('name', fullName);
         formData.append('bio', bio);
-        formData.append('zipcode', zipCode);
+        formData.append('zipCode', zipCode);
         axios.post('http://23.22.183.138:8806/createProfile.php', formData)
             .then(res=>{ 
                 console.log(res.data);
@@ -119,19 +121,28 @@ const CreateProfile = ({ navigation, route }) => {
                 }
             }).catch(err=>console.log(err));
     } 
+
+    const handleChoosePhoto = () =>{
+        let options = {}
+        
+        ImagePicker.launchImageLibraryAsync(options, response => {
+            console.log({response});
+            setImageSource(response.uri);
+        })
+    }
     
 
     return(
         <View style={{flex: 1, paddingTop: 15}}>
             <View style={styles.container}>
                 <Image 
-                    source={require('../assets/profile.png')}  
+                    source={imageSource ? require("../assets/profile.png") : {uri:imageSource}}
                     style={{width: 100, height: 100, borderRadius: 100/ 2}} 
                 />
             </View>
             <View style={styles.content}>
                 <TouchableOpacity>
-                    <Text style={{ fontFamily: 'Avenir' }}>Upload Profile Picture</Text>
+                    <Text onPress={() => {handleChoosePhoto()}} style={{ fontFamily: 'Avenir' }}>Upload Profile Picture</Text>
                 </TouchableOpacity>
                 <View style={{ paddingTop: 20 }}>
                     <View style={styles.inputView}>
@@ -195,8 +206,8 @@ const CreateProfile = ({ navigation, route }) => {
                     start={[0, 1]} 
                     end={[1, 0]}
                     style={styles.loginBtn}>
-                        <TouchableOpacity style={styles.loginBtn}>
-                            <Text onPress={() => {createProfile(); navigation.navigate('AddHobby')}} style={{color: 'white', fontFamily: 'Avenir', fontSize: 14, fontWeight: 'bold'}}>Continue</Text>
+                        <TouchableOpacity onPress={() => {createProfile(); navigation.navigate('AddHobby')}} style={styles.loginBtn}>
+                            <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 14, fontWeight: 'bold'}}>Continue</Text>
                         </TouchableOpacity>
                 </LinearGradient>
             </View>

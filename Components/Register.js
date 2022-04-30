@@ -85,7 +85,6 @@ const Register = ({ navigation, route }) => {
                     AsyncStorage.setItem("partakeCredentials", username);
                     navigation.navigate('CreateProfile');
                     //Store username for future use
-                    localStorage.setItem("username", username);
                 } else{
                     alert("Unable to register. There may already be a user registered with this email.");
                 }

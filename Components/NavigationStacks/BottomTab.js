@@ -7,6 +7,9 @@ import Search from '../Search';
 import ProfileStack from './ProfileStack';
 import Conversations from '../Conversations';
 import MessageStack from './MessageStack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Login} from "../Login";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const styles = StyleSheet.create({
     container: {
@@ -19,8 +22,11 @@ const styles = StyleSheet.create({
 });
 
 const BottomTab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
 
 const BottomTabNavigator = ({ navigation, route }) => {
+
     return(
         <NavigationContainer independent={true}>
             <BottomTab.Navigator
@@ -49,7 +55,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
                         headerTintColor: '#75d2ff',
                         headerRight: () => (
                             <TouchableOpacity>
-                                <Text style={styles.container}>Log Out</Text>
+                                <Text onPress={() => {AsyncStorage.setItem('partakeCredentials', "")}} style={styles.container}>Log Out</Text>
                             </TouchableOpacity>
                         )
                     }}
@@ -66,6 +72,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
                         headerTintColor: '#75d2ff'
                     }}
                 />
+               
             </BottomTab.Navigator>
         </NavigationContainer>
     );
