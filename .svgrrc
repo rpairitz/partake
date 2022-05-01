@@ -1,0 +1,10 @@
+{
+  "replaceAttrValues": {
+    "#000": "{props.color}",
+    "#f00": "{props.gradStart}",
+    "#ff0": "{props.gradEnd}",
+    "#fff": "{props.spoke1}",
+    "#0ff": "{props.spoke2}",
+    "#00f": "{props.spoke3}"
+  }
+}

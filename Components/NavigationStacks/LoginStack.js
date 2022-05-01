@@ -15,7 +15,8 @@ const LoginStack = ({ navigation, route }) => {
         <NavigationContainer>
             <Stack.Navigator initialRouteName='Login'
                 screenOptions={{
-                    headerShown: false
+                    headerShown: false,
+                    animation: 'none',
                 }}
             >
                 <Stack.Screen name="Login" component={Login} options={{ gestureEnabled: false, unmountOnBlur: true }} />

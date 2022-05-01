@@ -2,10 +2,13 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import Ionicons from "@expo/vector-icons/Ionicons";
 import Search from '../Search';
 import ProfileStack from './ProfileStack';
 import MessageStack from './MessageStack';
+import Brandmark from '../../img/logo_brandmark.svg';
+import MessagesIcon from '../../img/icon_messages.svg';
+import ProfileIcon from '../../img/icon_profile.svg';
+import colors from '../../styles/theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
@@ -35,20 +38,39 @@ const BottomTabNavigator = ({ navigation, route }) => {
                 initialRouteName='Search'
                 screenOptions={({ route }) => ({
                     headerShown: true,
-                    tabBarIcon: ({ focused, color, size }) => {
-                        let iconName;
-
+                    tabBarIcon: ({ focused }) => {
                         if (route.name === "Search") {
-                            iconName = focused ? "search" : "search-outline";
+                            return (
+                                focused ? 
+                                <Brandmark width={36.16} height={34} 
+                                    color={colors.logoActive} gradStart={colors.iceBlue} gradEnd={colors.orchid}/>
+                                :
+                                <Brandmark width={36.16} height={34} 
+                                    color={colors.grayInactive} gradStart={colors.grayInactive} gradEnd={colors.grayInactive}/>
+                            );
                         } else if (route.name === "Chat") {
-                            iconName = focused ? "chatbubbles" : "chatbubbles-outline";
+                            return (
+                                focused ?
+                                <MessagesIcon width={34} height={34}
+                                    color={colors.grayActive}/>
+                                :
+                                <MessagesIcon width={34} height={34}
+                                    color={colors.grayInactive}/>
+                            );
                         } else if (route.name === "Profile") {
-                            iconName = focused ? "person" : "person-outline";
+                            return (
+                                focused ?
+                                <ProfileIcon width={34} height={34}
+                                    color={colors.grayActive}/>
+                                :
+                                <ProfileIcon width={34} height={34}
+                                    color={colors.grayInactive}/>
+                            );
                         }
-                        return <Ionicons name={iconName} size={size} color="#75d2ff" />
                     },
                     tabBarActiveTintColor: "#75d2ff",
                     tabBarInactiveTintColor: "#75d2ff",
+                    tabBarShowLabel: false,
                 })}
             >
                 <BottomTab.Screen name="Profile"
