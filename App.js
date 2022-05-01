@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import BottomTabNavigator from './Components/NavigationStacks/BottomTab';
 import LoginStack from './Components/NavigationStacks/LoginStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
 import HomeStack from './Components/NavigationStacks/HomeStack';
 
-const Stack = createNativeStackNavigator();
-
 export default function App() {
-
   const [user, setUser] = useState(false);
 
   useEffect(() => {
@@ -26,7 +18,6 @@ export default function App() {
   if(!user){
     return(<LoginStack />);
   } else{
-    // return(<BottomTabNavigator />);
     return (<HomeStack/>);
   }
 }
