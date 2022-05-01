@@ -19,7 +19,7 @@ const LoginStack = ({ navigation, route }) => {
                     animation: 'none',
                 }}
             >
-                <Stack.Screen name="Login" component={Login} options={{ gestureEnabled: false }} />
+                <Stack.Screen name="Login" component={Login} options={{ gestureEnabled: false, unmountOnBlur: true }} />
                 <Stack.Screen name="Register" component={Register} options={{ gestureEnabled: false }} />
                 <Stack.Screen name="Home" component={BottomTabNavigator} options={{ gestureEnabled: false }} />
                 <Stack.Screen name="CreateProfile" component={CreateProfile} options={{ gestureEnabled: false }} />

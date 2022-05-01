@@ -9,6 +9,7 @@ import Brandmark from '../../img/logo_brandmark.svg';
 import MessagesIcon from '../../img/icon_messages.svg';
 import ProfileIcon from '../../img/icon_profile.svg';
 import colors from '../../styles/theme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
     container: {
@@ -21,8 +22,16 @@ const styles = StyleSheet.create({
 });
 
 const BottomTab = createBottomTabNavigator();
+//const Stack = createNativeStackNavigator();
+
 
 const BottomTabNavigator = ({ navigation, route }) => {
+
+    const logOut = () => {
+        AsyncStorage.setItem("partakeCredentials", '');
+        navigation.navigate('Login');
+    };
+
     return(
         <NavigationContainer independent={true}>
             <BottomTab.Navigator
@@ -69,7 +78,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
                     options={{
                         headerTintColor: '#75d2ff',
                         headerRight: () => (
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => {logOut()}}>
                                 <Text style={styles.container}>Log Out</Text>
                             </TouchableOpacity>
                         ),
@@ -88,6 +97,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
                         unmountOnBlur: true
                     }}
                 />
+               
             </BottomTab.Navigator>
         </NavigationContainer>
     );

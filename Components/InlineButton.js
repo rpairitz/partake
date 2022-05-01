@@ -14,7 +14,7 @@ const InlineButton = ({text, onPress}) => {
                 start={[0, 1]} 
                 end={[1, 0]}
                 >
-                    <Text style={{fontSize: 13, fontWeight: 'bold',opacity: 0}}>{text}</Text>
+                    <Text style={{fontSize: 13, fontFamily: 'Avenir', fontWeight: 'bold',opacity: 0}}>{text}</Text>
                 </LinearGradient>
             </MaskedView>
         </TouchableOpacity>
