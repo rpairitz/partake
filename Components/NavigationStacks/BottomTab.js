@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
 });
 
 const BottomTab = createBottomTabNavigator();
+//const Stack = createNativeStackNavigator();
+
 
 const BottomTabNavigator = ({ navigation, route }) => {
 
@@ -73,6 +75,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
                         unmountOnBlur: true
                     }}
                 />
+               
             </BottomTab.Navigator>
         </NavigationContainer>
     );

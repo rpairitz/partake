@@ -29,7 +29,7 @@ const EditProfileCard = ({ card, navigation, route }) => (
         <Text style={{marginBottom: 15}}>{'\n'}</Text>
       </View>
       <Text style={styles.text}>
-        {`${card.name}, ${card.age}`}
+        {`${card.name}`}
         <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
             <Text style={styles.edit}>&nbsp;&nbsp;&nbsp;Edit</Text>
         </TouchableOpacity>
