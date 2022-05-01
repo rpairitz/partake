@@ -112,7 +112,7 @@ const CreateProfile = ({ navigation, route }) => {
             .then(res=>{ 
                 console.log(res.data);
                 if(res.data === 'Success'){
-                    navigation.navigate('Home');
+                    navigation.navigate('AddHobby');
                 } else{
                     alert("Failed to register.");
                 }
@@ -206,7 +206,7 @@ const CreateProfile = ({ navigation, route }) => {
                     start={[0, 1]} 
                     end={[1, 0]}
                     style={styles.loginBtn}>
-                        <TouchableOpacity onPress={() => {createProfile(); navigation.navigate('AddHobby')}} style={styles.loginBtn}>
+                        <TouchableOpacity onPress={() => {createProfile();}} style={styles.loginBtn}>
                             <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 14, fontWeight: 'bold'}}>Continue</Text>
                         </TouchableOpacity>
                 </LinearGradient>
