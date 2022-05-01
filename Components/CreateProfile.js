@@ -13,7 +13,6 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,

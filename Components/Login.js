@@ -1,63 +1,60 @@
-import React, { useState , useEffect} from 'react'
+import React, { useState } from 'react';
 import {
     View,
     Text,
-    TouchableOpacity,
     TextInput,
-    StyleSheet
+    StyleSheet,
+    Dimensions,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import Logomark from '../img/logo_logomark.svg';
+import colors from '../styles/theme';
+import InlineButton from './InlineButton';
+import Button from './Button';
+import HideKeyboard from './HideKeyboard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 1, 
+        flexDirection: 'column', 
+        justifyContent: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
+        backgroundColor: colors.white,
     },
-    title: {
-        textAlign: 'center',
-        fontSize: 30,
-        paddingTop: 60,
-        flex: 1, flexDirection: 'row', 
-        justifyContent: 'space-between'
+    logoContainer: {
+        marginTop: windowHeight/3.44,
+        marginBottom: 21,
+        top: 0,
+        height:((windowWidth/1.618)+26)/2.0261
     },
-    loginText: {
-        color: '#FFFFFF',
-        fontWeight: 'bold',
-        fontFamily: 'Avenir',
-    },
-    inputView: {
+    authInputContainer: {
         backgroundColor: '#ffffff',
-        borderRadius: 8,
-        width: 300,
-        height: 45,
-        marginBottom: 20,
-        alignItems: 'center',
+        borderRadius: 13,
+        padding: 13,
+        marginBottom: 13,
         justifyContent: 'center',
-        borderWidth: 1,
-        borderColor: "#d4d4d4"
-      },
-      TextInput: {
-        height: 50,
-        flex: 1,
-        padding: 10,
-        width: '100%',
-        textAlign: 'center',
+        borderWidth: 0.618,
+        borderColor: colors.grayInactive
+    },
+    authInput: {
+        width: (windowWidth / 1.618),
+        fontSize: 13,
+        textAlign: 'left',
         fontFamily: 'Avenir',
-      },
-      login: {
-        color: '#75d2ff',
-        textAlign: 'center',
-        fontFamily: 'Avenir',
-      },
-      loginBtn: {
-        width: 300,
-        borderRadius: 8,
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }
+    },
+    inlineContainer: { 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        alignItems: 'baseline',
+    },
+    inlineLabel: { 
+        fontFamily: 'Avenir', 
+        fontWeight: 'bold', 
+        color: colors.grayActive 
+    },
 });
 
 const Login = ({ navigation, route }) => {
@@ -76,105 +73,54 @@ const Login = ({ navigation, route }) => {
             .then(res=>{ 
                 console.log(res.data);
                 if(res.data === 'Success'){
-                    navigation.navigate('Home');
                     AsyncStorage.setItem("partakeCredentials", email);
+                    navigation.navigate('Home');
+                    setEmail('');
+                    setPassword('');
                 } else if(res.data === 'User'){
                     alert("This email does not have an account associated with it. Please register before continuing.");
                 } else if(res.data === 'Password'){
                     alert("Incorrect password.")
                 }
             }).catch(err=>console.log(err));
-        } 
-        
-        /*
-        axios.get('http://23.22.183.138:8806/login.php')
-        .then((response) => {
-            return response;
-        })
-        .then((data) => {
-            var dataArr = data.data.split(/(\s+)/).filter(
-                function(e) { 
-                    return e.trim().length > 0;
-                }
-            );
-            if(!email || !password) {
-                alert('One or more fields is missing. Please fill out all required fields.');
-            }
-            else if(email) {
-                if(dataArr.includes(email)) {
-                    var emailIndex = dataArr.indexOf(email);
-                    if(email === dataArr[emailIndex] && password === dataArr[emailIndex + 1]) {
-                        console.log('authenticated');
-                        navigation.navigate('Home');
-                    }
-                    else {
-                        alert("Incorrect credentials entered. Try again.");
-                    }
-                }
-                else {
-                    alert("This email does not have an account associated with it. Please register before continuing.");
-                }
-            }
-        })
-        .catch((error) => console.log(error));
-        
-    }
-    */
+        }
 
     return(
-        <View style={{flex: 1}}>
+        <HideKeyboard>
             <View style={styles.container}>
-                <View style={styles.title}>
-                    <View
-                        style={{ flex: 1, paddingRight: 10 }}>
-                    </View>
+                <View style={styles.logoContainer}>
+                    <Logomark width={(windowWidth/1.618)+26} height='100%'/>
                 </View>
-            </View>
-            <View style={styles.container}>
-                <View style={{ flex: 1, paddingTop: 30, }}>
-                    <Text style={{ textAlign: 'center', fontSize: 30, fontFamily: 'Avenir' }}>partake</Text>
-                </View>
-            </View>
-            <View style={{flex: 5, alignItems: 'center'}}>
-                <View style={styles.inputView}>
+                <View style={styles.authInputContainer}>
                     <TextInput
-                        style={styles.TextInput}
+                        style={styles.authInput}
                         value={email}
                         placeholder='Email'
-                        placeholderTextColor='#bfbfbf'
+                        placeholderTextColor={colors.grayInactive}
                         onChangeText={(email) => setEmail(email)}
                     />
                 </View>
-                <View style={styles.inputView}>
+                <View style={styles.authInputContainer}>
                     <TextInput
-                        style={styles.TextInput}
+                        style={styles.authInput}
                         value={password}
                         placeholder='Password'
-                        placeholderTextColor='#bfbfbf'
+                        placeholderTextColor={colors.grayInactive}
                         secureTextEntry={true}
                         onChangeText={(password) => setPassword(password)}
                     />
                 </View>
-                <Text>{'\n'}</Text>
-                <LinearGradient
-                    // Button Linear Gradient
-                    colors={['#75d2ff', '#96a9d5', '#9fa4d0', '#bfa8e0', '#d7b1cd']}
-                    start={[0, 1]} 
-                    end={[1, 0]}
-                    onPress={() => navigation.navigate('Home')}
-                    style={styles.loginBtn}>
-                        <TouchableOpacity onPress={() => {login()}} style={styles.loginBtn}>
-                            <Text style={styles.loginText}>Log In</Text>
-                        </TouchableOpacity>
-                </LinearGradient>
-                <Text>{'\n'}</Text>
-                <TouchableOpacity>
-                    <Text style={{ fontFamily: 'Avenir'}}>New User?
-                        <Text onPress={() => navigation.navigate('Register')} style={styles.login}> Sign up</Text>
+                <Button onPress={() => { login() }} text={'Log in'} width={(windowWidth/1.618)}/>
+
+                <View style={styles.inlineContainer}>
+                    <Text style={styles.inlineLabel}>
+                        New user?{'\u00A0'}
                     </Text>
-                </TouchableOpacity>
+                    <InlineButton onPress={() => navigation.navigate('Register')} text={'Sign up.'} />
+                </View>
+                <View style={{ flex: 1 }} />
             </View>
-        </View>
+        </HideKeyboard>
     );
 }
 

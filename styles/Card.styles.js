@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import colors from './colors'
+import colors from './theme';
 const { height } = Dimensions.get('window')
 export default StyleSheet.create({
   card: {

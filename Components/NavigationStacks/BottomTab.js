@@ -5,11 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Search from '../Search';
 import ProfileStack from './ProfileStack';
-import Conversations from '../Conversations';
 import MessageStack from './MessageStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Login} from "../Login";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const styles = StyleSheet.create({
     container: {
@@ -22,10 +19,15 @@ const styles = StyleSheet.create({
 });
 
 const BottomTab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+//const Stack = createNativeStackNavigator();
 
 
 const BottomTabNavigator = ({ navigation, route }) => {
+
+    const logOut = () => {
+        AsyncStorage.setItem("partakeCredentials", '');
+        navigation.navigate('Login');
+    };
 
     return(
         <NavigationContainer independent={true}>
@@ -54,10 +56,10 @@ const BottomTabNavigator = ({ navigation, route }) => {
                     options={{
                         headerTintColor: '#75d2ff',
                         headerRight: () => (
-                            <TouchableOpacity>
-                                <Text onPress={() => {AsyncStorage.setItem('partakeCredentials', "")}} style={styles.container}>Log Out</Text>
+                            <TouchableOpacity onPress={() => {logOut()}}>
+                                <Text style={styles.container}>Log Out</Text>
                             </TouchableOpacity>
-                        )
+                        ),
                     }}
                 />
                 <BottomTab.Screen name="Search"
@@ -69,7 +71,8 @@ const BottomTabNavigator = ({ navigation, route }) => {
                 <BottomTab.Screen name="Chat"
                     component={MessageStack}
                     options={{
-                        headerTintColor: '#75d2ff'
+                        headerTintColor: '#75d2ff',
+                        unmountOnBlur: true
                     }}
                 />
                
