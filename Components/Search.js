@@ -95,7 +95,7 @@ const Search = ({ navigation, route }) => {
                 tempUser.id = data[0];
                 tempUser.name = data[1];
                 tempUser.bio = data[2];
-                tempUser.photo = require('../assets/don-delfin-espino-nBywXevf_jE-unsplash.jpg')
+                tempUser.photo = require('../assets/don-delfin-espino-nBywXevf_jE-unsplash-min-3.jpg')
                 users.push(tempUser);
             }
             setRankedUsers(users);

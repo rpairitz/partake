@@ -25,19 +25,6 @@ const Chat = ({ navigation, route }) => {
 
     const [messages, setMessages] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [user, setUser] = useState();
-
-    const getID = () => {
-      var axios = require('axios');
-      let formData = new FormData();
-
-      formData.append('username', route.params.username);
-      axios.post('http://23.22.183.138:8806/getID.php', formData)
-      .then((res) => {
-        setUser(res.data);
-      })
-      .catch(err=>console.log(err));
-    };
 
     const loadMessages = () => {
       var axios = require('axios');
@@ -63,9 +50,10 @@ const Chat = ({ navigation, route }) => {
                   avatar: 'https://placeimg.com/140/140/any'
                 };
                 mess.push(tempMessageObj);
-                setUser(tempMess[2]);
               }
               setMessages(mess);
+              console.log(mess);
+              setIsLoaded(true);
           }).catch(err=>console.log(err));
     };
 
@@ -94,12 +82,12 @@ const Chat = ({ navigation, route }) => {
     };
 
     useEffect(() => {
-      getID();
+      console.log('username: ', route.params.username);
+      console.log('id: ', route.params.userID);
       const interval = setInterval(() => {
         loadMessages();
-        setIsLoaded(true);
       }, 1000);
-    }, []); // remove this? move it to separate use effect that does nothing really?
+    }, []);
 
     const onSend = useCallback((messages = []) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
@@ -123,7 +111,7 @@ const Chat = ({ navigation, route }) => {
             onSend={messages => onSend(messages)}
             alignTop={true}
             user={{
-                _id: user,
+                _id: route.params.userID,
                 name: 'Me',
                 createdAt: new Date(),
                 avatar: 'https://placeimg.com/140/140/any'
