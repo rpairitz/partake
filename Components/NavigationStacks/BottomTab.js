@@ -2,10 +2,8 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-// import Ionicons from "@expo/vector-icons/Ionicons";
 import Search from '../Search';
 import ProfileStack from './ProfileStack';
-// import Conversations from '../Conversations';
 import MessageStack from './MessageStack';
 import Brandmark from '../../img/logo_brandmark.svg';
 import MessagesIcon from '../../img/icon_messages.svg';
