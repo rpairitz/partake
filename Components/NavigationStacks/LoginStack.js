@@ -18,9 +18,9 @@ const LoginStack = ({ navigation, route }) => {
                     headerShown: false
                 }}
             >
-                <Stack.Screen name="Login" component={Login} options={{ gestureEnabled: false, unmountOnBlur: true }} />
+                <Stack.Screen name="Login" component={Login} initialParams={{ navigation: navigation}} options={{ gestureEnabled: false, unmountOnBlur: true }} />
                 <Stack.Screen name="Register" component={Register} options={{ gestureEnabled: false }} />
-                <Stack.Screen name="Home" component={BottomTabNavigator} options={{ gestureEnabled: false }} />
+                <Stack.Screen name="Home" component={BottomTabNavigator} initialParams={{ navigation: navigation}} options={{ gestureEnabled: false }} />
                 <Stack.Screen name="CreateProfile" component={CreateProfile} options={{ gestureEnabled: false }} />
                 <Stack.Screen name="AddHobby" component={AddHobby} options={{ gestureEnabled: false }} />
             </Stack.Navigator>

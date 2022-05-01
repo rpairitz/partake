@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, Text, Image } from 'react-native'
-import { shape, string, number } from 'prop-types'
+import { shape, string } from 'prop-types'
 import styles from '../styles/Card.styles'
+
 const Card = ({ card }) => (
   <View
     activeOpacity={1}
@@ -14,7 +15,7 @@ const Card = ({ card }) => (
     />
     <View style={styles.photoDescriptionContainer}>
       <Text style={styles.text}>
-        {`${card.name}, ${card.age}`}
+        {`${card.name}`}
       </Text>
       <Text style={styles.bio}>
         {`${card.bio}`}
@@ -26,7 +27,6 @@ const Card = ({ card }) => (
 Card.propTypes = { 
   card: shape({
     name: string,
-    age: number,
     bio: string
   }).isRequired,
 }

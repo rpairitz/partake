@@ -19,8 +19,6 @@ const styles = StyleSheet.create({
 });
 
 const BottomTab = createBottomTabNavigator();
-//const Stack = createNativeStackNavigator();
-
 
 const BottomTabNavigator = ({ navigation, route }) => {
 
