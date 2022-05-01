@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { LogBox } from 'react-native';
 import BottomTabNavigator from './Components/NavigationStacks/BottomTab';
 import LoginStack from './Components/NavigationStacks/LoginStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
+
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs();
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 
