@@ -85,7 +85,7 @@ const CreateProfile = ({ navigation, route }) => {
     const [zipCode, setZipCode] = useState('');
     const [bio, setBio] = useState('');
     const [username, setUsername] = useState('');
-    const [imageSource, setImageSource] = useState(null);
+    const [image, setImage] = useState(null);
 
     useEffect(() => {
         AsyncStorage.getItem('partakeCredentials').
@@ -99,12 +99,10 @@ const CreateProfile = ({ navigation, route }) => {
         if(!firstName || !lastName || !zipCode || !bio) {
             alert('One or more fields is missing. Please fill out all fields.');
         }
-        console.log("HERE");
         var axios = require('axios');
         let formData = new FormData();
         //let formData = new URLSearchParams();
         var fullName = firstName + ' ' + lastName;
-
         //Decrypt username for use in query
         console.log("Testing AsyncStorage:" + username);
         formData.append('username', username);
@@ -122,23 +120,26 @@ const CreateProfile = ({ navigation, route }) => {
             }).catch(err=>console.log(err));
     } 
 
-    const handleChoosePhoto = () =>{
-        let options = {}
-        
-        ImagePicker.launchImageLibraryAsync(options, response => {
-            console.log({response});
-            setImageSource(response.uri);
-        })
-    }
+    const handleChoosePhoto = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+        console.log(result);
+        if(!result.cancelled){
+            setImage(result.uri);
+        }
+    };
     
 
     return(
         <View style={{flex: 1, paddingTop: 15}}>
             <View style={styles.container}>
-                <Image 
-                    source={imageSource ? require("../assets/profile.png") : {uri:imageSource}}
+            {image && <Image 
+                    source={image ? {uri:image} : require('../assets/profile.png')}
                     style={{width: 100, height: 100, borderRadius: 100/ 2}} 
-                />
+            />}
             </View>
             <View style={styles.content}>
                 <TouchableOpacity>

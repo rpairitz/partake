@@ -16,7 +16,7 @@ export default function App() {
   useEffect(() => {
     AsyncStorage.getItem('partakeCredentials')
     .then((loggedIn) => {
-      if(loggedIn != ""){
+      if(loggedIn){
         setUser(true);
       }
     });
