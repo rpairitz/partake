@@ -46,13 +46,12 @@ const Chat = ({ navigation, route }) => {
                 let tempCreate = new Date(Number(tempMess[6]));
                 tempMessageObj.createdAt = tempCreate;
                 tempMessageObj.user = {
-                  _id: tempMess[2],
+                  _id: Number(tempMess[2]),
                   avatar: 'https://placeimg.com/140/140/any'
                 };
                 mess.push(tempMessageObj);
               }
               setMessages(mess);
-              console.log(mess);
               setIsLoaded(true);
           }).catch(err=>console.log(err));
     };
