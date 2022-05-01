@@ -4,7 +4,7 @@ import {
     View,
     ActivityIndicator
 } from 'react-native';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import { GiftedChat } from 'react-native-gifted-chat';
 
 const styles = StyleSheet.create({
     container: {
