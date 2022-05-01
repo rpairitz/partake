@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {
     View,
-    Text
+    Text,
+    ActivityIndicator
 } from 'react-native';
 import EditProfileCard from './EditProfileCard';
 import Swiper from 'react-native-deck-swiper';
@@ -14,11 +15,12 @@ const Profile = ({ navigation, route }) => {
     const useSwiper = useRef(null).current
 
     const[email, setEmail] = useState('');
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const[card, setCard] = useState([{
-        "bio": "Fuck you, bitch",
-        "key": "",
-        "name": "",
+        "bio": " ",
+        "key": " ",
+        "name": " ",
         "photo": require('../assets/profile.png')
     }]);
     
@@ -55,30 +57,39 @@ const Profile = ({ navigation, route }) => {
                 }).catch(err=>console.log(err));
             }
         });
+        setIsLoaded(true);
     }, [email])
     
-    return(
-        <View style={styles.container}>
-            <View style={styles.swiperContainer}>
-                <Swiper
-                ref={useSwiper}
-                animateCardOpacity
-                containerStyle={styles.container}
-                cards={card}
-                renderCard={card => <EditProfileCard card={card} navigation={navigation} />}
-                cardIndex={0}
-                backgroundColor="white"
-                stackSize={1}
-                horizontalSwipe={false}
-                verticalSwipe={false}
-                infinite
-                showSecondCard
-                animateOverlayLabelsOpacity
-                />
+    if(!isLoaded) {
+        return(
+            <View style={[styles.loadingContainer, styles.horizontal]}>
+              <ActivityIndicator size="large" color="#75d2ff" />
             </View>
-        </View>
-    );
-
+        );
+    }
+    else {
+        return(
+            <View style={styles.container}>
+                <View style={styles.swiperContainer}>
+                    <Swiper
+                    ref={useSwiper}
+                    animateCardOpacity
+                    containerStyle={styles.container}
+                    cards={card}
+                    renderCard={card => <EditProfileCard card={card} navigation={navigation} />}
+                    cardIndex={0}
+                    backgroundColor="white"
+                    stackSize={1}
+                    horizontalSwipe={false}
+                    verticalSwipe={false}
+                    infinite
+                    showSecondCard
+                    animateOverlayLabelsOpacity
+                    />
+                </View>
+            </View>
+        );
+    }
 }
 
 export default Profile;

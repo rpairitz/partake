@@ -22,14 +22,11 @@ const styles = StyleSheet.create({
 });
 
 const BottomTab = createBottomTabNavigator();
-//const Stack = createNativeStackNavigator();
-
 
 const BottomTabNavigator = ({ navigation, route }) => {
 
     const logOut = () => {
         AsyncStorage.setItem("partakeCredentials", '');
-        navigation.navigate('Login');
     };
 
     return(
@@ -78,7 +75,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
                     options={{
                         headerTintColor: '#75d2ff',
                         headerRight: () => (
-                            <TouchableOpacity onPress={() => {logOut()}}>
+                            <TouchableOpacity onPress={() => {logOut(); navigation.navigate('Login');}}>
                                 <Text style={styles.container}>Log Out</Text>
                             </TouchableOpacity>
                         ),
