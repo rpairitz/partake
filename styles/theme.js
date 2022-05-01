@@ -9,6 +9,7 @@ const colors = {
     offWhite: '#F7F7F7',
     grayInactive: '#BFBFBF',
     grayActive: '#5B5D5F',
+    logoActive: '#24272A',
     nope: '#E5566D',
     like: '#4CCC93',
     favorite: '#3CA3FF',

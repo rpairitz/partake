@@ -11,6 +11,7 @@ const MessageStack = ({ navigation, route }) => {
         <Stack.Navigator initialRouteName='Conversations'
             screenOptions={{
                 headerShown: false,
+                animation: 'none',
             }}
         >
             <Stack.Screen name="Conversations" component={Conversations} />
