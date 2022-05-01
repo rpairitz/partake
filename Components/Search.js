@@ -26,6 +26,19 @@ const Search = ({ navigation, route }) => {
     const [rankedUsers, setRankedUsers] = useState([]);
     const [username, setUsername] = useState('');
     const [isLoaded, setIsLoaded] = useState(false);
+    const [userID, setUserID] = useState();
+
+    const getID = () => {
+        var axios = require('axios');
+        let formData = new FormData();
+  
+        formData.append('username', username);
+        axios.post('http://23.22.183.138:8806/getID.php', formData)
+        .then((res) => {
+          setUserID(res.data);
+        })
+        .catch(err=>console.log(err));
+    };
 
     const handleSwipedRight = (card) => {
         var axios = require('axios');
@@ -33,7 +46,7 @@ const Search = ({ navigation, route }) => {
 
         let userSwipedOn = rankedUsers[card].id;
         let liked = 1;
-        let userSwiping = 10000;
+        let userSwiping = userID;
 
         formData.append('userSwipedOn', userSwipedOn);
         formData.append('userSwiping', userSwiping);
@@ -52,7 +65,7 @@ const Search = ({ navigation, route }) => {
 
         let userSwipedOn = rankedUsers[card].id;
         let liked = 0;
-        let userSwiping = 10000;
+        let userSwiping = userID;
 
         formData.append('userSwipedOn', userSwipedOn);
         formData.append('userSwiping', userSwiping);
@@ -98,6 +111,9 @@ const Search = ({ navigation, route }) => {
         })
         .then((uname) => {
             rankUsers(uname);
+        })
+        .then(() => {
+            getID();
         })
         .catch((error) => console.log(error))
     }, [rankedUsers.length]);
