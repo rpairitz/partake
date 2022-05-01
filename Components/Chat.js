@@ -96,10 +96,9 @@ const Chat = ({ navigation, route }) => {
     };
 
     useEffect(() => {
-      //const interval = setInterval(() => {
+      const interval = setInterval(() => {
         loadMessages();
-      //}, 1000);
-      //loadMessages();
+      }, 2000);
     }, []);
 
     const onSend = useCallback((messages = []) => {
