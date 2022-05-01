@@ -33,11 +33,11 @@ const BottomTabNavigator = ({ navigation, route }) => {
     };
 
     return(
-        <NavigationContainer independent={true}>
             <BottomTab.Navigator
                 initialRouteName='Search'
                 screenOptions={({ route }) => ({
                     headerShown: true,
+                    tabBarStyle: {position: 'absolute', height: 89},
                     tabBarIcon: ({ focused }) => {
                         if (route.name === "Search") {
                             return (
@@ -48,7 +48,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
                                 <Brandmark width={36.16} height={34} 
                                     color={colors.grayInactive} gradStart={colors.grayInactive} gradEnd={colors.grayInactive}/>
                             );
-                        } else if (route.name === "Chat") {
+                        } else if (route.name === "Messages") {
                             return (
                                 focused ?
                                 <MessagesIcon width={34} height={34}
@@ -90,7 +90,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
                         headerTintColor: '#75d2ff'
                     }}
                 />
-                <BottomTab.Screen name="Chat"
+                <BottomTab.Screen name="Messages"
                     component={MessageStack}
                     options={{
                         headerTintColor: '#75d2ff',
@@ -99,7 +99,6 @@ const BottomTabNavigator = ({ navigation, route }) => {
                 />
                
             </BottomTab.Navigator>
-        </NavigationContainer>
     );
 
 }

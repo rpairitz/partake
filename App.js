@@ -6,6 +6,7 @@ import axios from 'axios';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+import HomeStack from './Components/NavigationStacks/HomeStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ export default function App() {
   if(!user){
     return(<LoginStack />);
   } else{
-    return(<BottomTabNavigator />);
+    // return(<BottomTabNavigator />);
+    return (<HomeStack/>);
   }
 }
