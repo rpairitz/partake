@@ -35,6 +35,7 @@ const Chat = ({ navigation, route }) => {
                 let tempMessageObj = {};
                 tempMessageObj._id = tempMess[0];
                 tempMessageObj.text = tempMess[3];
+                tempMessageObj.createdAt = tempMess[6];
                 tempMessageObj.user = {
                   _id: tempMess[2],
                   avatar: 'https://placeimg.com/140/140/any'
@@ -52,6 +53,8 @@ const Chat = ({ navigation, route }) => {
         day: 'numeric', month: 'short', year: 'numeric'
       }).replace(/ /g, '-').toUpperCase();
       let sentTime = new Date().toLocaleTimeString().split(" ")[0];
+      let createdAt = new Date();
+      console.log(String(createdAt));
 
       let formData = new FormData();
 
@@ -61,6 +64,7 @@ const Chat = ({ navigation, route }) => {
       formData.append('content', message[0].text);
       formData.append('sentDate', sentDate);
       formData.append('sentTime', sentTime);
+      formData.append('createdAt', createdAt);
 
       axios.post('http://23.22.183.138:8806/addMessage.php', formData)
             .then(res=>{
