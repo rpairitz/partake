@@ -2,13 +2,26 @@ import React, { useEffect, useRef, useState } from 'react'
 import {
     View,
     Text,
-    ActivityIndicator
+    ActivityIndicator,
+    StyleSheet
 } from 'react-native';
 import EditProfileCard from './EditProfileCard';
 import Swiper from 'react-native-deck-swiper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import styles from '../styles/Search.styles'
+
+const styleSheet = StyleSheet.create({
+    loadingContainer: {
+        flex: 1,
+        justifyContent: "center"
+    },
+    horizontal: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        padding: 10
+    }
+});
 
 const Profile = ({ navigation, route }) => {
 
@@ -35,7 +48,6 @@ const Profile = ({ navigation, route }) => {
                 formData.append('email', email);
                 axios.post('http://23.22.183.138:8806/getProfile.php', formData)
                 .then(res=>{ 
-                    console.log(res.data);
                     var data = res.data.split("~");
                     console.log("Name: " + data[0]);
                     uName = {"name":data[0]};

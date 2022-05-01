@@ -91,7 +91,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
                     component={MessageStack}
                     options={{
                         headerTintColor: '#75d2ff',
-                        unmountOnBlur: true
+                        //unmountOnBlur: true
                     }}
                 />
                

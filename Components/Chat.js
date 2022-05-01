@@ -107,14 +107,7 @@ const Chat = ({ navigation, route }) => {
         addMessage(messages);
     }, []);
 
-    if(!isLoaded && !user) {
-      return(
-        <View style={[styles.loadingContainer, styles.horizontal]}>
-          <ActivityIndicator size="large" color="#75d2ff" />
-        </View>
-      );
-    }
-    else if(!isLoaded || !user) {
+    if(!isLoaded) {
       return(
         <View style={[styles.loadingContainer, styles.horizontal]}>
           <ActivityIndicator size="large" color="#75d2ff" />
