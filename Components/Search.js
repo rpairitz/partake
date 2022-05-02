@@ -75,7 +75,7 @@ const Search = ({ navigation, route }) => {
         formData.append('userSwiping', userSwiping);
         formData.append('liked', liked);
 
-        axios.post('http://23.22.183.138:8806/realLikedUser.php', formData)
+        axios.post('http://23.22.183.138:8806/likedUser.php', formData)
         .then(res => {
             //console.log(res.data);
         })
@@ -94,7 +94,7 @@ const Search = ({ navigation, route }) => {
         formData.append('userSwiping', userSwiping);
         formData.append('liked', liked);
 
-        axios.post('http://23.22.183.138:8806/realLikedUser.php', formData)
+        axios.post('http://23.22.183.138:8806/likedUser.php', formData)
         .then(res => {
             //console.log(res.data);
         })
@@ -111,22 +111,23 @@ const Search = ({ navigation, route }) => {
         axios.post('http://23.22.183.138:8806/rankUser.php', formData)
         .then(res=>{
             var allUsers = res.data.split("\n");
+            allUsers.pop();
             for(let i = 0; i < allUsers.length; i++) {
                 const random = Math.floor(Math.random() * (photos.length - 1));
                 const randomImage = photos[count + 1];
                 let tempUser = {};
                 let data = allUsers[i].split(",");
+                console.log(data);
                 let hobbyCount = parseInt(data[0]);
                 let hobbies = [];
                 for(let j = 0; j < hobbyCount; j++){
                     hobbies.push(data[j+1]);
                 }
-                
                 tempUser.hobbies = hobbies;
                 tempUser.id = data[hobbyCount+1];
                 tempUser.name = data[hobbyCount+2];
                 tempUser.bio = data[hobbyCount+3];
-                tempUser.photo = randomImage;
+                tempUser.photo = photos[Number(data[5])];
                 users.push(tempUser);
             }
             setRankedUsers(users);

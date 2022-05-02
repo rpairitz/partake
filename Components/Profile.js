@@ -34,7 +34,7 @@ const Profile = ({ navigation, route }) => {
         "bio": " ",
         "key": " ",
         "name": " ",
-        "photo": require('../assets/profile.png')
+        "photo": require('../assets/austin-wade-X6Uj51n5CE8-unsplash-min.jpg')
     }]);
     
     useEffect(() => {
@@ -49,6 +49,8 @@ const Profile = ({ navigation, route }) => {
                 axios.post('http://23.22.183.138:8806/getProfile.php', formData)
                 .then(res=>{ 
                     var data = res.data.split("~");
+                    data.pop();
+                    console.log(data);
                     console.log("Name: " + data[0]);
                     uName = {"name":data[0]};
                     uKey = {"key":data[1]};
