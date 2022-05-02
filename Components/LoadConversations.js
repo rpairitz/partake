@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, Pressable, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, Pressable, ActivityIndicator, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 20,
         padding: 35,
-        //alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
           width: 0,
@@ -49,6 +48,15 @@ const styles = StyleSheet.create({
         color: 'white',
         alignSelf: 'center',
         fontFamily: 'Avenir'
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: "center"
+    },
+    horizontal: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        padding: 10
     }
 });
 
@@ -57,7 +65,9 @@ const LoadConversations = ({ navigation, route }) => {
     const [conversations, setConversations] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [username, setUsername] = useState('');
+    const [isLoaded, setIsLoaded] = useState(false);
     const [newName, setNewName] = useState('');
+    const [user, setUser] = useState();
 
     const loadConversations = (uname) => {
         var axios = require('axios');
@@ -75,6 +85,19 @@ const LoadConversations = ({ navigation, route }) => {
             }).catch(err=>console.log(err));
     };
 
+    const getID = () => {
+        var axios = require('axios');
+        let formData = new FormData();
+  
+        formData.append('username', username);
+        axios.post('http://23.22.183.138:8806/getID.php', formData)
+        .then((res) => {
+          setUser(Number(res.data));
+          setIsLoaded(true);
+        })
+        .catch(err=>console.log(err));
+    };
+
     useEffect(() => {
         AsyncStorage.getItem('partakeCredentials')
         .then((gotItem) => {
@@ -84,8 +107,11 @@ const LoadConversations = ({ navigation, route }) => {
         .then((uname) => {
             loadConversations(uname);
         })
+        .then(() => {
+            getID();
+        })
         .catch((error) => console.log(error))
-    }, []);
+    }, [user]);
 
     const addToGroup = (convoID) => {
         var axios = require('axios');
@@ -101,47 +127,56 @@ const LoadConversations = ({ navigation, route }) => {
 
     }
 
-    return conversations.map((convo) => {
+    if(!isLoaded) {
         return(
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap ' }}>
-                <TouchableOpacity key={convo} onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo, username: username}});}}>
-                    <Text style={styles.section}>Conversation #{convo}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.icon} onPress={() => setModalVisible(true)}>
-                    <Ionicons name="add-outline" size="24px" color="#A4C4FF" />
-                </TouchableOpacity>
-                <Text>{'\n'}</Text>
-                <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                    <Pressable
-                        onPress={() => setModalVisible(!modalVisible)}
-                        >
-                        <Ionicons name="close-outline" size="24px" color="#A4C4FF" />
-                        </Pressable>
-                        <Text style={styles.modalText}>Enter name of the person you'd like to add to this group:</Text>
-                        <TextInput 
-                            placeholder='Name'
-                            onChangeText={(name) => setNewName(name)}
-                        />
-                        <Text>{'\n'}</Text>
-                        <TouchableOpacity onPress={() => {addToGroup(convo); setModalVisible(!modalVisible)}} style={styles.button}>
-                            <Text style={styles.buttonText}>Add</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </Modal>
+            <View style={[styles.loadingContainer, styles.horizontal]}>
+                <ActivityIndicator size="large" color="#75d2ff" />
             </View>
         );
-    });
+    }
+    else {
+        return conversations.map((convo) => {
+            return(
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap ' }}>
+                    <TouchableOpacity key={convo} onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo, username: username, userID: user}});}}>
+                        <Text style={styles.section}>Conversation #{convo}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.icon} onPress={() => setModalVisible(true)}>
+                        <Ionicons name="add-outline" size="24px" color="#A4C4FF" />
+                    </TouchableOpacity>
+                    <Text>{'\n'}</Text>
+                    <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                    }}
+                >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                        <Pressable
+                            onPress={() => setModalVisible(!modalVisible)}
+                            >
+                            <Ionicons name="close-outline" size="24px" color="#A4C4FF" />
+                            </Pressable>
+                            <Text style={styles.modalText}>Enter name of the person you'd like to add to this group:</Text>
+                            <TextInput 
+                                placeholder='Name'
+                                onChangeText={(name) => setNewName(name)}
+                            />
+                            <Text>{'\n'}</Text>
+                            <TouchableOpacity onPress={() => {addToGroup(convo); setModalVisible(!modalVisible)}} style={styles.button}>
+                                <Text style={styles.buttonText}>Add</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+                </View>
+            );
+        });
+    }
 };
 
 export default LoadConversations;

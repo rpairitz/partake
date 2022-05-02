@@ -65,16 +65,15 @@ const Profile = ({ navigation, route }) => {
                         ...card[0],
                         ...uBio,
                     }]));
-            
+                    setIsLoaded(true);
                 }).catch(err=>console.log(err));
             }
         });
-        setIsLoaded(true);
     }, [email])
     
     if(!isLoaded) {
         return(
-            <View style={[styles.loadingContainer, styles.horizontal]}>
+            <View style={[styleSheet.loadingContainer, styles.horizontal]}>
               <ActivityIndicator size="large" color="#75d2ff" />
             </View>
         );
