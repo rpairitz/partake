@@ -77,7 +77,7 @@ const Search = ({ navigation, route }) => {
 
         axios.post('http://23.22.183.138:8806/likedUser.php', formData)
         .then(res => {
-            //console.log(res.data);
+            console.log(res.data);
         })
         .catch(err=>console.log(err));
     };
@@ -96,7 +96,7 @@ const Search = ({ navigation, route }) => {
 
         axios.post('http://23.22.183.138:8806/likedUser.php', formData)
         .then(res => {
-            //console.log(res.data);
+            console.log(res.data);
         })
         .catch(err=>console.log(err));
     };

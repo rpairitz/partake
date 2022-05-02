@@ -30,12 +30,7 @@ const Profile = ({ navigation, route }) => {
     const[email, setEmail] = useState('');
     const [isLoaded, setIsLoaded] = useState(false);
 
-    const[card, setCard] = useState([{
-        "bio": " ",
-        "key": " ",
-        "name": " ",
-        "photo": require('../assets/austin-wade-X6Uj51n5CE8-unsplash-min.jpg')
-    }]);
+    const[card, setCard] = useState([{}]);
     
     useEffect(() => {
         AsyncStorage.getItem('partakeCredentials')
@@ -49,24 +44,19 @@ const Profile = ({ navigation, route }) => {
                 axios.post('http://23.22.183.138:8806/getProfile.php', formData)
                 .then(res=>{ 
                     var data = res.data.split("~");
-                    data.pop();
+                    let tempUser = {};
                     console.log(data);
-                    console.log("Name: " + data[0]);
-                    uName = {"name":data[0]};
-                    uKey = {"key":data[1]};
-                    uBio = {"bio":data[2]};
-                    setCard(card => ([{
-                        ...card[0],
-                        ...uName,
-                    }]));
-                    setCard(card => ([{
-                        ...card[0],
-                        ...uKey,
-                    }]));
-                    setCard(card => ([{
-                        ...card[0],
-                        ...uBio,
-                    }]));
+                    tempUser.name = data[0];
+                    tempUser.key = data[1];
+                    tempUser.bio = data[2];
+                    let hobbies = [];
+                    for(let i=3; i < data.length; i++){
+                        hobbies.push(data[i]);
+                    }   
+                    hobbies.pop();
+                    tempUser.hobbies = hobbies;
+                    let crdArray = [tempUser];
+                    setCard(crdArray);
                     setIsLoaded(true);
                 }).catch(err=>console.log(err));
             }

@@ -72,16 +72,24 @@ const LoadConversations = ({ navigation, route }) => {
     const loadConversations = (uname) => {
         var axios = require('axios');
         let formData = new FormData();
+        let allConvos = [];
 
         formData.append('username', uname);
 
         axios.post('http://23.22.183.138:8806/conversations.php', formData)
             .then(res=>{
                 console.log(res.data);
-                const convos = res.data.split(".");
-                convos.pop();
-                setConversations(convos);
-                
+                const convos = res.data.split("\n");
+                for(let i = 0; i < convos.length; i++){
+                    let tempConvo = {}
+                    let convoParts = convos[i].split("~");
+                    let convoId = convoParts[0];
+                    let convoNames = convoParts[1];
+                    tempConvo.convoId = convoId;
+                    tempConvo.names = convoNames;
+                    allConvos.push(tempConvo);
+                }
+                setConversations(allConvos);
             }).catch(err=>console.log(err));
     };
 
@@ -138,8 +146,8 @@ const LoadConversations = ({ navigation, route }) => {
         return conversations.map((convo) => {
             return(
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap ' }}>
-                    <TouchableOpacity key={convo} onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo, username: username, userID: user}});}}>
-                        <Text style={styles.section}>Conversation #{convo}</Text>
+                    <TouchableOpacity key={convo.convoId} onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo.convoId, username: username, userID: user}});}}>
+                        <Text style={styles.section}>{convo.names}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.icon} onPress={() => setModalVisible(true)}>
                         <Ionicons name="add-outline" size="24px" color="#A4C4FF" />
