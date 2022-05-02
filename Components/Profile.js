@@ -39,7 +39,6 @@ const Profile = ({ navigation, route }) => {
                 setEmail(loggedIn);
                 var axios = require('axios');
                 let formData = new FormData();
-                //let formData = new URLSearchParams();
                 formData.append('email', email);
                 axios.post('http://23.22.183.138:8806/getProfile.php', formData)
                 .then(res=>{ 
