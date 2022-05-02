@@ -5,6 +5,7 @@ import Card from './Card'
 import OverlayLabel from './OverlayLabel'
 import styles from '../styles/Search.styles'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import colors from '../styles/theme';
 
 const styleSheet = StyleSheet.create({
     loadingContainer: {
@@ -151,7 +152,7 @@ const Search = ({ navigation, route }) => {
     if(!isLoaded) {
         return(
             <View style={[styleSheet.loadingContainer, styleSheet.horizontal]}>
-              <ActivityIndicator size="large" color="#75d2ff" />
+              <ActivityIndicator size="large" color={colors.blue} />
             </View>
         );
     }
