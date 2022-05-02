@@ -8,13 +8,14 @@ const InlineButton = ({text, onPress}) => {
     return (
         <TouchableOpacity onPress={onPress} style={{alignSelf: 'flex-start'}}>
             <MaskedView maskElement={
-                <Text style={{fontSize: 13, fontWeight: 'bold',}}>{text}</Text>
+                <Text style={{fontSize: 13, fontFamily: 'Arial', fontWeight: 'bold', top:1}}>{text}</Text>
             }>
                 <LinearGradient colors={[colors.iceBlue, colors.orchid]}
                 start={[0, 1]} 
                 end={[1, 0]}
+                style={{top:1}}
                 >
-                    <Text style={{fontSize: 13, fontFamily: 'Avenir', fontWeight: 'bold',opacity: 0}}>{text}</Text>
+                    <Text style={{fontSize: 13, fontFamily: 'Arial', fontWeight: 'bold',opacity: 0}}>{text}</Text>
                 </LinearGradient>
             </MaskedView>
         </TouchableOpacity>

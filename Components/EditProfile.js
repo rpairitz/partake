@@ -91,9 +91,9 @@ const EditProfile = ({ navigation, route }) => {
                 />
             </View>
             <View style={styles.content}>
-                <TouchableOpacity>
+                {/* <TouchableOpacity>
                     <Text style={{ fontFamily: 'Avenir' }}>Edit</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <View style={{ paddingTop: 20 }}>
                     <View style={styles.inputView}>
                         <TextInput

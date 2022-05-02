@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { LogBox } from 'react-native';
-import BottomTabNavigator from './Components/NavigationStacks/BottomTab';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginStack from './Components/NavigationStacks/LoginStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import HomeStack from './Components/NavigationStacks/HomeStack';
+import { LogBox } from 'react-native';
 
 LogBox.ignoreLogs(['Warning: ...']);
 LogBox.ignoreAllLogs();
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
   const [user, setUser] = useState(false);
 
   useEffect(() => {
@@ -24,9 +23,17 @@ export default function App() {
     });
   }, [user])
 
-  if(!user){
-    return(<LoginStack />);
-  } else{
-    return(<BottomTabNavigator />);
-  }
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false,}}>
+      {
+        user ? (
+          <Stack.Screen name="HomeStack" component={HomeStack} />
+        ) : (
+          <Stack.Screen name="LoginStack" component={LoginStack} />
+        )
+      }
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }

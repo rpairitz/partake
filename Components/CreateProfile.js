@@ -9,6 +9,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import Button from './Button';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     },
     loginText: {
         color: '#FFFFFF',
-        fontFamily: 'Avenir',
+        fontFamily: 'Arial',
         fontWeight: 'bold'
     },
     inputView: {
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
         padding: 10,
         width: '100%',
         textAlign: 'center',
-        fontFamily: 'Avenir'
+        fontFamily: 'Arial'
       },
       login: {
         color: '#75d2ff',
@@ -142,7 +143,7 @@ const CreateProfile = ({ navigation, route }) => {
             </View>
             <View style={styles.content}>
                 <TouchableOpacity>
-                    <Text onPress={() => {handleChoosePhoto()}} style={{ fontFamily: 'Avenir' }}>Upload Profile Picture</Text>
+                    <Text onPress={() => {handleChoosePhoto()}} style={{ fontFamily: 'Arial' }}>Upload Profile Picture</Text>
                 </TouchableOpacity>
                 <View style={{ paddingTop: 20 }}>
                     <View style={styles.inputView}>
@@ -182,34 +183,35 @@ const CreateProfile = ({ navigation, route }) => {
                         />
                     </View>
                 </View>
-                <Text style={{ fontFamily: 'Avenir', fontSize: 16, paddingBottom: 8}}>Hobbies</Text>
+                <Text style={{ fontFamily: 'Arial', fontSize: 16, paddingBottom: 8}}>Hobbies</Text>
                 <View style={{flexDirection: 'row'}}>
                     <TouchableOpacity style={styles.tag}>
                         <Ionicons name="close-outline" size="14px" color="#ffffff" />
-                        <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 11}}>&nbsp;Soccer</Text>
+                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Soccer</Text>
                     </TouchableOpacity>
                     <Text>&nbsp;&nbsp;&nbsp;</Text>
                     <TouchableOpacity style={[styles.tag, {backgroundColor: '#9fa4d0'}]}>
                         <Ionicons name="close-outline" size="14px" color="#ffffff" />
-                        <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 11}}>&nbsp;Painting</Text>
+                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Painting</Text>
                     </TouchableOpacity>
                     <Text>&nbsp;&nbsp;&nbsp;</Text>
                     <TouchableOpacity style={[styles.tag, {backgroundColor: '#d7b1cd'}]}>
                         <Ionicons name="close-outline" size="14px" color="#ffffff" />
-                        <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 11}}>&nbsp;Poetry</Text>
+                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Poetry</Text>
                     </TouchableOpacity>
                     <Text style={{marginBottom: 15}}>{'\n'}</Text>
                 </View>
-                <LinearGradient
+                <Button onPress={() => {createProfile(); navigation.navigate('AddHobby')}} text={'Continue'} width={(windowWidth/1.618)}/>
+                {/* <LinearGradient
                     // Button Linear Gradient
                     colors={['#75d2ff', '#96a9d5', '#9fa4d0', '#bfa8e0', '#d7b1cd']}
                     start={[0, 1]} 
                     end={[1, 0]}
                     style={styles.loginBtn}>
-                        <TouchableOpacity onPress={() => {createProfile();}} style={styles.loginBtn}>
-                            <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 14, fontWeight: 'bold'}}>Continue</Text>
+                        <TouchableOpacity onPress={() => {createProfile(); navigation.navigate('AddHobby')}} style={styles.loginBtn}>
+                            <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 14, fontWeight: 'bold'}}>Continue</Text>
                         </TouchableOpacity>
-                </LinearGradient>
+                </LinearGradient> */}
             </View>
         </View>
     );
