@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import LoadConversations from './LoadConversations';
+import LoadFriends from './LoadFriends';
 
 const styles = StyleSheet.create({
     container: {
@@ -22,6 +23,8 @@ const Conversations = ({ navigation, route }) => {
 
     return(
         <View style={styles.container}>
+            <Text style={styles.section}>Friends</Text>
+            <LoadFriends navigation={navigation}/>
             <Text style={styles.section}>Messages</Text>
             <LoadConversations navigation={navigation}/>
         </View>

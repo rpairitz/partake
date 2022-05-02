@@ -47,7 +47,7 @@ const Chat = ({ navigation, route }) => {
                 tempMessageObj.createdAt = tempCreate;
                 tempMessageObj.user = {
                   _id: Number(tempMess[2]),
-                  avatar: 'https://placeimg.com/140/140/any'
+                  avatar: require('../assets/chatpic.jpeg')
                 };
                 mess.push(tempMessageObj);
               }
@@ -113,7 +113,7 @@ const Chat = ({ navigation, route }) => {
                 _id: route.params.userID,
                 name: 'Me',
                 createdAt: new Date(),
-                avatar: 'https://placeimg.com/140/140/any'
+                avatar: require('../assets/chatpic.jpeg')
             }}
         />
       );
