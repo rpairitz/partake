@@ -1,6 +1,6 @@
 import { useLayoutEffect, memo } from 'react';
-import { createBottomTabNavigator, BottomTabBar } from '@react-navigation/bottom-tabs';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import Search from '../Search';
 import ProfileStack from './ProfileStack';
@@ -10,9 +10,7 @@ import MessagesIcon from '../../img/icon_messages.svg';
 import ProfileIcon from '../../img/icon_profile.svg';
 import ForumsIcon from '../../img/icon_forum.svg';
 import colors from '../../styles/theme';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Forums from '../Forums';
-import PrefsMenu from "../PrefsMenu";
 
 const styles = StyleSheet.create({
     container: {
@@ -27,13 +25,6 @@ const styles = StyleSheet.create({
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNavigator = ({ navigation, route, showPrefs, onPrefsPress }) => {
-    // const logOut = () => {
-    //     AsyncStorage.setItem("partakeCredentials", '');
-    //     navigation.navigate('Login');
-    // };
-
-    // console.log('showPrefs (within BottomTab): ' + showPrefs);
-
     useLayoutEffect(() => {
         const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
         navigation.setOptions({

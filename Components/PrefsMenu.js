@@ -2,9 +2,17 @@ import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import PrefsIcon from "../img/icon_prefs.svg";
 import colors from "../styles/theme";
 import LogoutIcon from "../img/icon_log out.svg";
-import { logOut } from "./NavigationStacks/RootNavigation";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from "@react-navigation/native";
 
 const PrefsMenu = ({text, showPrefs, onPrefsPress}) => {
+    const navigation = useNavigation();
+
+    const logOut = () => {
+        AsyncStorage.setItem("partakeCredentials", '');
+        navigation.navigate('LoginStack', {screen: 'Login'});
+    };
+
     return (
         <SafeAreaView>
             <TouchableOpacity onPress={onPrefsPress}
