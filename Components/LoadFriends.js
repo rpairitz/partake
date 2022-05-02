@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
 const LoadFriends = ({ navigation, route }) => {
     const [friends, setFriends] = useState([]);
     const [username, setUsername] = useState('');
-    const [isLoaded, setIsLoaded] = useState(false);
     const [user, setUser] = useState();
     const [convoID, setConvoID] = useState();
 
@@ -41,7 +40,6 @@ const LoadFriends = ({ navigation, route }) => {
         axios.post('http://23.22.183.138:8806/getID.php', formData)
         .then((res) => {
           setUser(Number(res.data));
-          setIsLoaded(true);
         })
         .catch(err=>console.log(err));
     };
@@ -62,7 +60,6 @@ const LoadFriends = ({ navigation, route }) => {
                 userFriends.push(tempFriend);
             }
             setFriends(userFriends);
-            setIsLoaded(true);
         }).catch(err=>console.log(err));
     };
 

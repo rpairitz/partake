@@ -50,6 +50,7 @@ const Search = ({ navigation, route }) => {
     const [username, setUsername] = useState('');
     const [isLoaded, setIsLoaded] = useState(false);
     const [userID, setUserID] = useState();
+    const [count, setCount] = useState();
 
     const getID = () => {
         var axios = require('axios');
@@ -67,9 +68,9 @@ const Search = ({ navigation, route }) => {
         var axios = require('axios');
         let formData = new FormData();
 
-        let userSwipedOn = rankedUsers[card].id;
+        var userSwipedOn = rankedUsers[card].id;
         let liked = 1;
-        let userSwiping = userID;
+        var userSwiping = userID;
 
         formData.append('userSwipedOn', userSwipedOn);
         formData.append('userSwiping', userSwiping);
@@ -78,6 +79,15 @@ const Search = ({ navigation, route }) => {
         axios.post('http://23.22.183.138:8806/likedUser.php', formData)
         .then(res => {
             console.log(res.data);
+            var axios2 = require('axios');
+            let formData2 = new FormData();
+            formData2.append('userSwipedOn', userSwipedOn);
+            formData2.append('userSwiping', userSwiping);
+            axios2.post('http://23.22.183.138:8806/matchUser.php', formData2).then(res2 =>
+            {
+                console.log(res2.data);
+            })
+            .catch(err=>console.log(err));
         })
         .catch(err=>console.log(err));
     };
@@ -111,9 +121,10 @@ const Search = ({ navigation, route }) => {
         axios.post('http://23.22.183.138:8806/rankUser.php', formData)
         .then(res=>{
             var allUsers = res.data.split("\n");
+            allUsers.pop();
             for(let i = 0; i < allUsers.length; i++) {
                 const random = Math.floor(Math.random() * (photos.length - 1));
-                const randomImage = photos[random];
+                const randomImage = photos[count + 1];
                 let tempUser = {};
                 let data = allUsers[i].split(",");
                 let hobbyCount = parseInt(data[0]);
@@ -121,20 +132,22 @@ const Search = ({ navigation, route }) => {
                 for(let j = 0; j < hobbyCount; j++){
                     hobbies.push(data[j+1]);
                 }
-                
                 tempUser.hobbies = hobbies;
                 tempUser.id = data[hobbyCount+1];
                 tempUser.name = data[hobbyCount+2];
                 tempUser.bio = data[hobbyCount+3];
-                tempUser.photo = require('../assets/don-delfin-espino-nBywXevf_jE-unsplash-min-3.jpg')
+                tempUser.photo = photos[Number(data[data.length - 1])];
                 users.push(tempUser);
             }
             setRankedUsers(users);
             setIsLoaded(true);
+            var tempCount = count + 1;
+            setCount(tempCount);
         }).catch(err=>console.log(err));
     };
 
     useEffect(() => {
+        setCount(-1);
         AsyncStorage.getItem('partakeCredentials')
         .then((gotItem) => {
             setUsername(gotItem);
