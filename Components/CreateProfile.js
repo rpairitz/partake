@@ -113,7 +113,7 @@ const CreateProfile = ({ navigation, route }) => {
             .then(res=>{ 
                 console.log(res.data);
                 if(res.data === 'Success'){
-                    navigation.navigate('Home');
+                    navigation.navigate('AddHobby');
                 } else{
                     alert("Failed to register.");
                 }

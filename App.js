@@ -4,6 +4,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginStack from './Components/NavigationStacks/LoginStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeStack from './Components/NavigationStacks/HomeStack';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs();
 
 const Stack = createNativeStackNavigator();
 

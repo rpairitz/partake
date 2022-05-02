@@ -457,9 +457,8 @@ const AddHobby = ({ navigation, route }) => {
                     colors={['#75d2ff', '#96a9d5', '#9fa4d0', '#bfa8e0', '#d7b1cd']}
                     start={[0, 1]} 
                     end={[1, 0]}
-                    onPress={() => navigation.navigate('Home')}
                     style={styles.loginBtn}>
-                    <TouchableOpacity onPress={() => {saveHobbies();}} style={styles.loginBtn}>
+                    <TouchableOpacity onPress={() => {saveHobbies(); navigation.navigate('Home')}} style={styles.loginBtn}>
                         <Text style={styles.loginText}>Save Changes</Text>
                     </TouchableOpacity>
                 </LinearGradient>

@@ -1,21 +1,30 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import {
+    StyleSheet,
     View,
-    Text,
-    StyleSheet
+    ActivityIndicator
 } from 'react-native';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import { GiftedChat } from 'react-native-gifted-chat';
 
 const styles = StyleSheet.create({
     container: {
       paddingTop: 10
     },
+    loadingContainer: {
+      flex: 1,
+      justifyContent: "center"
+    },
+    horizontal: {
+      flexDirection: "row",
+      justifyContent: "space-around",
+      padding: 10
+    }
 });
 
 const Chat = ({ navigation, route }) => {
 
     const [messages, setMessages] = useState([]);
-    const [user, setUser] = useState();
+    const [isLoaded, setIsLoaded] = useState(false);
 
     const loadMessages = () => {
       var axios = require('axios');
@@ -26,7 +35,6 @@ const Chat = ({ navigation, route }) => {
 
       axios.post('http://23.22.183.138:8806/messages.php', formData)
           .then(res=>{
-              console.log(res.data);
               const allMessages = res.data.split("\n");
               allMessages.pop();
               var mess = [];
@@ -35,15 +43,16 @@ const Chat = ({ navigation, route }) => {
                 let tempMessageObj = {};
                 tempMessageObj._id = tempMess[0];
                 tempMessageObj.text = tempMess[3];
-                tempMessageObj.createdAt = tempMess[6];
+                let tempCreate = new Date(Number(tempMess[6]));
+                tempMessageObj.createdAt = tempCreate;
                 tempMessageObj.user = {
-                  _id: tempMess[2],
-                  avatar: 'https://placeimg.com/140/140/any'
+                  _id: Number(tempMess[2]),
+                  avatar: require('../assets/chatpic.jpeg')
                 };
-                setUser(tempMess[2]);
                 mess.push(tempMessageObj);
               }
               setMessages(mess);
+              setIsLoaded(true);
           }).catch(err=>console.log(err));
     };
 
@@ -53,8 +62,7 @@ const Chat = ({ navigation, route }) => {
         day: 'numeric', month: 'short', year: 'numeric'
       }).replace(/ /g, '-').toUpperCase();
       let sentTime = new Date().toLocaleTimeString().split(" ")[0];
-      let createdAt = new Date();
-      console.log(String(createdAt));
+      let createdAt = Date.now();
 
       let formData = new FormData();
 
@@ -68,38 +76,16 @@ const Chat = ({ navigation, route }) => {
 
       axios.post('http://23.22.183.138:8806/addMessage.php', formData)
             .then(res=>{
-                console.log(res.data);
+                
             }).catch(err=>console.log(err));
     };
 
-    const renderBubble = () => {
-      return(
-        <Bubble 
-          wrapperStyle={{
-            right: {
-              backgroundColor: '#75d2ff'
-            },
-            left: {
-              backgroundColor: '#75d2ff'
-            }
-          }}
-          textStyle={{
-            left: {
-              color: 'black'
-            },
-            right: {
-              color: 'white'
-            }
-          }}
-        />
-      );
-    };
-
     useEffect(() => {
-      //const interval = setInterval(() => {
+      console.log('username: ', route.params.username);
+      console.log('id: ', route.params.userID);
+      const interval = setInterval(() => {
         loadMessages();
-      //}, 1000);
-      //loadMessages();
+      }, 1000);
     }, []);
 
     const onSend = useCallback((messages = []) => {
@@ -108,7 +94,15 @@ const Chat = ({ navigation, route }) => {
         addMessage(messages);
     }, []);
 
-    return(
+    if(!isLoaded) {
+      return(
+        <View style={[styles.loadingContainer, styles.horizontal]}>
+          <ActivityIndicator size="large" color="#75d2ff" />
+        </View>
+      );
+    }
+    else {
+      return(
         <GiftedChat
             style={styles.container}
             messages={messages}
@@ -116,13 +110,14 @@ const Chat = ({ navigation, route }) => {
             onSend={messages => onSend(messages)}
             alignTop={true}
             user={{
-                _id: user,
+                _id: route.params.userID,
                 name: 'Me',
-                avatar: 'https://placeimg.com/140/140/any'
+                createdAt: new Date(),
+                avatar: require('../assets/chatpic.jpeg')
             }}
         />
-    );
-
+      );
+    }
 }
 
 export default Chat;
