@@ -117,7 +117,6 @@ const Search = ({ navigation, route }) => {
                 const randomImage = photos[count + 1];
                 let tempUser = {};
                 let data = allUsers[i].split(",");
-                console.log(data);
                 let hobbyCount = parseInt(data[0]);
                 let hobbies = [];
                 for(let j = 0; j < hobbyCount; j++){
@@ -127,7 +126,7 @@ const Search = ({ navigation, route }) => {
                 tempUser.id = data[hobbyCount+1];
                 tempUser.name = data[hobbyCount+2];
                 tempUser.bio = data[hobbyCount+3];
-                tempUser.photo = photos[Number(data[5])];
+                tempUser.photo = photos[Number(data[data.length - 1])];
                 users.push(tempUser);
             }
             setRankedUsers(users);
