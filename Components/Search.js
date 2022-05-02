@@ -74,7 +74,7 @@ const Search = ({ navigation, route }) => {
         formData.append('userSwiping', userSwiping);
         formData.append('liked', liked);
 
-        axios.post('http://23.22.183.138:8806/likedUser.php', formData)
+        axios.post('http://23.22.183.138:8806/realLikedUser.php', formData)
         .then(res => {
             //console.log(res.data);
         })
@@ -93,7 +93,7 @@ const Search = ({ navigation, route }) => {
         formData.append('userSwiping', userSwiping);
         formData.append('liked', liked);
 
-        axios.post('http://23.22.183.138:8806/likedUser.php', formData)
+        axios.post('http://23.22.183.138:8806/realLikedUser.php', formData)
         .then(res => {
             //console.log(res.data);
         })
@@ -115,10 +115,17 @@ const Search = ({ navigation, route }) => {
                 const randomImage = photos[random];
                 let tempUser = {};
                 let data = allUsers[i].split(",");
-                tempUser.id = data[0];
-                tempUser.name = data[1];
-                tempUser.bio = data[2];
-                tempUser.photo = randomImage;
+                let hobbyCount = parseInt(data[0]);
+                let hobbies = [];
+                for(let j = 0; j < hobbyCount; j++){
+                    hobbies.push(data[j+1]);
+                }
+                
+                tempUser.hobbies = hobbies;
+                tempUser.id = data[hobbyCount+1];
+                tempUser.name = data[hobbyCount+2];
+                tempUser.bio = data[hobbyCount+3];
+                tempUser.photo = require('../assets/don-delfin-espino-nBywXevf_jE-unsplash-min-3.jpg')
                 users.push(tempUser);
             }
             setRankedUsers(users);
