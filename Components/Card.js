@@ -29,7 +29,7 @@ const Card = ({ card }) => (
         {`${card.bio}`}
       </Text>
     
-  </View>
+        </View>
   </View>
 )
 
