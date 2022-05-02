@@ -1,18 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, Pressable, ActivityIndicator, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import colors from '../styles/theme';
+import CustomModal from './CustomModal';
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    section: {
-        color: "#A4C4FF",
-        fontFamily: 'Avenir',
+    messageContainer: {
+        paddingTop: 0,
+        paddingRight: 15,
+        paddingBottom: 21,
+        paddingLeft: 16,
+    },
+    labelName: {
+        color: colors.grayActive,
+        fontFamily: 'Arial',
+        fontSize: 18,
         fontWeight: 'bold',
-        paddingLeft: 15,
-        paddingTop: 10
+        padding: 5,
+        paddingRight: 0,
+        paddingLeft: 0,
+    },
+    labelPreview: {
+        color: colors.grayInactive,
+        fontFamily: 'Arial',
+        fontSize: 15,
+        paddingBottom: 5,
     },
     centeredView: {
         flex: 1,
@@ -57,6 +73,16 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         padding: 10
+    },
+    altContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    defaultText: {
+        fontFamily: 'Arial',
+        fontSize: 15,
+        color: colors.grayActive,
     }
 });
 
@@ -139,52 +165,36 @@ const LoadConversations = ({ navigation, route }) => {
     if(!isLoaded) {
         return(
             <View style={[styles.loadingContainer, styles.horizontal]}>
-                <ActivityIndicator size="large" color="#75d2ff" />
+                <ActivityIndicator size="large" color={colors.blue} />
             </View>
         );
     }
-    else {
+    else if (conversations.length != 0) {
         return conversations.map((convo) => {
             return(
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap ' }}>
-                    <TouchableOpacity key={convo.convoId} onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo.convoId, username: username, userID: user}});}}>
-                        <Text style={styles.section}>{convo.names}</Text>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                    <TouchableOpacity key={convo.convoId} 
+                        style={styles.messageContainer}
+                        onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo.convoId, username: username, userID: user}});}}>
+                        <Text style={styles.labelName}>{convo.names}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.icon} onPress={() => setModalVisible(true)}>
-                        <Ionicons name="add-outline" size="24px" color="#A4C4FF" />
+                        <Ionicons name="add-outline" size="24px" color="black" />
                     </TouchableOpacity>
-                    <Text>{'\n'}</Text>
-                    <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
-                    setModalVisible(!modalVisible);
-                    }}
-                >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                        <Pressable
-                            onPress={() => setModalVisible(!modalVisible)}
-                            >
-                            <Ionicons name="close-outline" size="24px" color="#A4C4FF" />
-                            </Pressable>
-                            <Text style={styles.modalText}>Enter name of the person you'd like to add to this group:</Text>
-                            <TextInput 
-                                placeholder='Name'
-                                onChangeText={(name) => setNewName(name)}
-                            />
-                            <Text>{'\n'}</Text>
-                            <TouchableOpacity onPress={() => {addToGroup(convo); setModalVisible(!modalVisible)}} style={styles.button}>
-                                <Text style={styles.buttonText}>Add</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </Modal>
+
+                    <CustomModal modalVisible={modalVisible} setModalVisible={() => setModalVisible(!modalVisible)}
+                        setNewName={(name) => setNewName(name)}
+                        onPressButton={() => { addToGroup(convo); setModalVisible(!modalVisible) }} />
                 </View>
             );
         });
+    }
+    else {
+        return (
+            <View style={styles.altContainer}>
+                <Text style={styles.defaultText}>You have no conversations.</Text>
+            </View>
+        )
     }
 };
 

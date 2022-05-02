@@ -42,7 +42,6 @@ const BottomTabNavigator = ({ navigation, route, showPrefs, onPrefsPress }) => {
             <PrefsMenu text={'Log out'} showPrefs={showPrefs} onPrefsPress={onPrefsPress}/>
         </View> */}
         <BottomTab.Navigator
-            // tabBar={props => <BottomTabBar {...props} state={{...props.state, routes: props.state.routes.slice(0,3)}}/>}
             initialRouteName='Search'
             screenOptions={({ route }) => ({
                 headerShown: false,
@@ -81,25 +80,13 @@ const BottomTabNavigator = ({ navigation, route, showPrefs, onPrefsPress }) => {
         >
             <BottomTab.Screen name="Profile"
                 component={ProfileStack}
-                options={{
-                    headerTintColor: '#75d2ff',
-                    headerRight: () => (
-                        <TouchableOpacity onPress={() => { logOut() }}>
-                            <Text style={styles.container}>Log Out</Text>
-                        </TouchableOpacity>
-                    ),
-                }}
             />
             <BottomTab.Screen name="Search"
                 component={Search}
-                options={{
-                    headerTintColor: '#75d2ff'
-                }}
             />
             <BottomTab.Screen name="Forums"
                 component={Forums}
                 options={{
-                    headerTintColor: '#75d2ff',
                     unmountOnBlur: true,
                 }}
             />

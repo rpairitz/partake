@@ -1,17 +1,20 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useState, useLayoutEffect } from "react";
+import { useState } from "react";
 import Chat from "../Chat";
 import BottomTabNavigator from "./BottomTab";
 import Wordmark from "../../img/logo_wordmark.svg";
 import PrefsMenu from "../PrefsMenu";
 import PrefsIcon from "../../img/icon_prefs.svg";
+import ActionsIcon from "../../img/icon_ellipses.svg";
+import BackIcon from "../../img/icon_back.svg";
 import { TouchableOpacity, SafeAreaView } from "react-native";
+import colors from "../../styles/theme";
 
 const Stack = createNativeStackNavigator();
 
 const HomeStack = ({navigation, route}) => {
     const [showPrefs, setShowPrefs] = useState(false);
-    const [showPrefsMenu, setShowPrefsMenu] = useState(true);
+    // const [showPrefsMenu, setShowPrefsMenu] = useState(true);
 
     const onPrefsPress = () => {
         setShowPrefs(!showPrefs);
@@ -55,10 +58,23 @@ const HomeStack = ({navigation, route}) => {
                         headerLeft: () => <TouchableOpacity onPress={onPrefsPress}>
                             <PrefsIcon width={34} height={34}/>
                         </TouchableOpacity>
-                        // headerLeft: () => <PrefsMenu text={'Log out'}/>,
                     })}
                 />
-                <Stack.Screen name="Chat" component={Chat} options={{ contentStyle: { backgroundColor: "#FFFFFF" }}} />
+                <Stack.Screen name="Chat" component={Chat} 
+                // screenOptions={{
+                // headerRight: () => (
+                //     <ActionsIcon width={34} height={34}/>
+                // )}}
+                options={{ contentStyle: { backgroundColor: colors.white },
+                headerBackTitleVisible: false,
+                headerLeft: () => (
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <BackIcon width={34} height={34}/>
+                    </TouchableOpacity>
+                ),
+                headerRight: () => (
+                    <ActionsIcon width={34} height={34}/>
+                )}} />
             </Stack.Navigator>
         </>
     );
