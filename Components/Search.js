@@ -98,7 +98,6 @@ const Search = ({ navigation, route }) => {
             //console.log(res.data);
         })
         .catch(err=>console.log(err));
-
     };
 
     const rankUsers = (uname) => {
