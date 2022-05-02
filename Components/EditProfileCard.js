@@ -10,7 +10,7 @@ const EditProfileCard = ({ card, navigation, route }) => (
   >
     <Image
       style={styles.image}
-      source={require("../assets/profile.png")}
+      source={(card.name == 'Maggie Farrell') ? require('../assets/IMG_9476.jpg') : require('../assets/austin-wade-X6Uj51n5CE8-unsplash-min.jpg')}
       resizeMode="cover"
     />
     <View style={styles.photoDescriptionContainer}>
