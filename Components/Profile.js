@@ -45,7 +45,6 @@ const Profile = ({ navigation, route }) => {
                 .then(res=>{ 
                     var data = res.data.split("~");
                     let tempUser = {};
-                    console.log(data);
                     tempUser.name = data[0];
                     tempUser.key = data[1];
                     tempUser.bio = data[2];
