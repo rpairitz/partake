@@ -74,9 +74,9 @@ const Search = ({ navigation, route }) => {
         formData.append('userSwiping', userSwiping);
         formData.append('liked', liked);
 
-        axios.post('http://23.22.183.138:8806/realLikedUser.php', formData)
+        axios.post('http://23.22.183.138:8806/likedUser.php', formData)
         .then(res => {
-            //console.log(res.data);
+            console.log(res.data);
         })
         .catch(err=>console.log(err));
     };
@@ -93,9 +93,9 @@ const Search = ({ navigation, route }) => {
         formData.append('userSwiping', userSwiping);
         formData.append('liked', liked);
 
-        axios.post('http://23.22.183.138:8806/realLikedUser.php', formData)
+        axios.post('http://23.22.183.138:8806/likedUser.php', formData)
         .then(res => {
-            //console.log(res.data);
+            console.log(res.data);
         })
         .catch(err=>console.log(err));
     };
