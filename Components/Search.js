@@ -49,7 +49,6 @@ const Search = ({ navigation, route }) => {
     const [username, setUsername] = useState('');
     const [isLoaded, setIsLoaded] = useState(false);
     const [userID, setUserID] = useState();
-    const [count, setCount] = useState();
 
     const getID = () => {
         var axios = require('axios');
@@ -113,8 +112,6 @@ const Search = ({ navigation, route }) => {
             var allUsers = res.data.split("\n");
             allUsers.pop();
             for(let i = 0; i < allUsers.length; i++) {
-                const random = Math.floor(Math.random() * (photos.length - 1));
-                const randomImage = photos[count + 1];
                 let tempUser = {};
                 let data = allUsers[i].split(",");
                 let hobbyCount = parseInt(data[0]);
@@ -131,13 +128,10 @@ const Search = ({ navigation, route }) => {
             }
             setRankedUsers(users);
             setIsLoaded(true);
-            var tempCount = count + 1;
-            setCount(tempCount);
         }).catch(err=>console.log(err));
     };
 
     useEffect(() => {
-        setCount(-1);
         AsyncStorage.getItem('partakeCredentials')
         .then((gotItem) => {
             setUsername(gotItem);

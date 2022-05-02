@@ -86,7 +86,7 @@ const EditProfile = ({ navigation, route }) => {
         <View style={{flex: 1, paddingTop: 15}}>
             <View style={styles.container}>
                 <Image 
-                    source={require('../assets/gift-habeshaw-dlbiYGwEe9U-unsplash-min.jpg')}  
+                    source={require('../assets/austin-wade-X6Uj51n5CE8-unsplash-min.jpg')}  
                     style={{width: 100, height: 100, borderRadius: 100/ 2}} 
                 />
             </View>

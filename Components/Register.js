@@ -10,6 +10,7 @@ import Logomark from '../img/logo_logomark.svg';
 import colors from '../styles/theme';
 import InlineButton from './InlineButton';
 import Button from './Button';
+import HideKeyboard from './HideKeyboard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const windowWidth = Dimensions.get('window').width;
@@ -89,49 +90,51 @@ const Register = ({ navigation, route }) => {
     }
 
     return(
-        <View style={styles.container}>
-            <View style={styles.logoContainer}>
-                <Logomark width={(windowWidth/1.618)+26} height='100%'/>
-            </View>
-            <View style={styles.authInputContainer}>
-                <TextInput
-                    style={styles.authInput}
-                    value={username}
-                    placeholder='Email'
-                    placeholderTextColor={colors.grayInactive}
-                    onChangeText={(username) => setUsername(username)}
-                />
-            </View>
-            <View style={styles.authInputContainer}>
-                <TextInput
-                    style={styles.authInput}
-                    value={password}
-                    placeholder='Password'
-                    placeholderTextColor={colors.grayInactive}
-                    secureTextEntry={true}
-                    onChangeText={(password) => setPassword(password)}
-                />
-            </View>
-            <View style={styles.authInputContainer}>
-                <TextInput
-                    style={styles.authInput}
-                    value={repeatPassword}
-                    placeholder='Repeat password'
-                    placeholderTextColor={colors.grayInactive}
-                    secureTextEntry={true}
-                    onChangeText={(repeatPassword) => setRepeatPassword(repeatPassword)}
-                />
-            </View>
-            <Button onPress={() => { register() }} text={'Sign up'} width={(windowWidth/1.618)}/>
+        <HideKeyboard>
+            <View style={styles.container}>
+                <View style={styles.logoContainer}>
+                    <Logomark width={(windowWidth/1.618)+26} height='100%'/>
+                </View>
+                <View style={styles.authInputContainer}>
+                    <TextInput
+                        style={styles.authInput}
+                        value={username}
+                        placeholder='Email'
+                        placeholderTextColor={colors.grayInactive}
+                        onChangeText={(username) => setUsername(username)}
+                    />
+                </View>
+                <View style={styles.authInputContainer}>
+                    <TextInput
+                        style={styles.authInput}
+                        value={password}
+                        placeholder='Password'
+                        placeholderTextColor={colors.grayInactive}
+                        secureTextEntry={true}
+                        onChangeText={(password) => setPassword(password)}
+                    />
+                </View>
+                <View style={styles.authInputContainer}>
+                    <TextInput
+                        style={styles.authInput}
+                        value={repeatPassword}
+                        placeholder='Repeat password'
+                        placeholderTextColor={colors.grayInactive}
+                        secureTextEntry={true}
+                        onChangeText={(repeatPassword) => setRepeatPassword(repeatPassword)}
+                    />
+                </View>
+                <Button onPress={() => { register() }} text={'Sign up'} width={(windowWidth/1.618)}/>
 
-            <View style={styles.inlineContainer}>
-                <Text style={styles.inlineLabel}>
-                    Already a user?{'\u00A0'}
-                </Text>
-                <InlineButton onPress={() => navigation.navigate('Login')} text={'Log in.'} />
+                <View style={styles.inlineContainer}>
+                    <Text style={styles.inlineLabel}>
+                        Already a user?{'\u00A0'}
+                    </Text>
+                    <InlineButton onPress={() => navigation.navigate('Login')} text={'Log in.'} />
+                </View>
+                <View style={{ flex: 1 }} />
             </View>
-            <View style={{ flex: 1 }} />
-        </View>
+        </HideKeyboard>
     );
 }
 
