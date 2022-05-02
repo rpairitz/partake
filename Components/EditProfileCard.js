@@ -10,22 +10,16 @@ const EditProfileCard = ({ card, navigation, route }) => (
   >
     <Image
       style={styles.image}
-      source={card.photo}
+      source={require("../assets/profile.png")}
       resizeMode="cover"
     />
     <View style={styles.photoDescriptionContainer}>
-      <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity style={styles.tag}>
-          <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 12}}>&nbsp;Soccer</Text>
-        </TouchableOpacity>
-        <Text>&nbsp;&nbsp;&nbsp;</Text>
-        <TouchableOpacity style={[styles.tag, {backgroundColor: '#9fa4d0'}]}>
-          <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 12}}>&nbsp;Painting</Text>
-        </TouchableOpacity>
-        <Text>&nbsp;&nbsp;&nbsp;</Text>
-        <TouchableOpacity style={[styles.tag, {backgroundColor: '#d7b1cd'}]}>
-          <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 12}}>&nbsp;Poetry</Text>
-        </TouchableOpacity>
+      <View style={{flexDirection: 'row', flexWrap:"wrap"}}>
+        {card.hobbies.map((hobby) => (
+          <TouchableOpacity style={[styles.tag, {backgroundColor: '#9fa4d0'}]}>
+            <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 12}}>&nbsp;{hobby}</Text>
+          </TouchableOpacity>
+        ))}
         <Text style={{marginBottom: 15}}>{'\n'}</Text>
       </View>
       <Text style={styles.text}>
