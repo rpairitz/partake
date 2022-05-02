@@ -95,14 +95,7 @@ const LoadFriends = ({ navigation, route }) => {
         .catch((error) => console.log(error))
     }, [user]);
 
-    if(!isLoaded) {
-        return(
-            <View>
-                <Text>Loading...</Text>
-            </View>
-        );
-    }
-    else if (friends.length != 0) {
+    if (friends.length != 0) {
         return (
             friends.map((friend) => {
             return(
