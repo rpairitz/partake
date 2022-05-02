@@ -1,6 +1,6 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, memo } from 'react';
 import { createBottomTabNavigator, BottomTabBar } from '@react-navigation/bottom-tabs';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import Search from '../Search';
 import ProfileStack from './ProfileStack';
@@ -12,6 +12,7 @@ import ForumsIcon from '../../img/icon_forum.svg';
 import colors from '../../styles/theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Forums from '../Forums';
+import PrefsMenu from "../PrefsMenu";
 
 const styles = StyleSheet.create({
     container: {
@@ -25,14 +26,16 @@ const styles = StyleSheet.create({
 
 const BottomTab = createBottomTabNavigator();
 
-const BottomTabNavigator = ({ navigation, route }) => {
-    const logOut = () => {
-        AsyncStorage.setItem("partakeCredentials", '');
-        navigation.navigate('Login');
-    };
+const BottomTabNavigator = ({ navigation, route, showPrefs, onPrefsPress }) => {
+    // const logOut = () => {
+    //     AsyncStorage.setItem("partakeCredentials", '');
+    //     navigation.navigate('Login');
+    // };
+
+    // console.log('showPrefs (within BottomTab): ' + showPrefs);
 
     useLayoutEffect(() => {
-        const routeName = getFocusedRouteNameFromRoute(route) ?? 'Messages';
+        const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
         navigation.setOptions({
             headerRight: () => (
                 <MessagesIcon width={34} height={34}
@@ -43,12 +46,17 @@ const BottomTabNavigator = ({ navigation, route }) => {
     }, [navigation, route]);
 
     return (
+        <>
+        {/* <View style={{position: 'absolute', top:-12, left:0, zIndex: 99999}}>
+            <PrefsMenu text={'Log out'} showPrefs={showPrefs} onPrefsPress={onPrefsPress}/>
+        </View> */}
         <BottomTab.Navigator
             // tabBar={props => <BottomTabBar {...props} state={{...props.state, routes: props.state.routes.slice(0,3)}}/>}
             initialRouteName='Search'
             screenOptions={({ route }) => ({
                 headerShown: false,
                 tabBarStyle: { height: 89 },
+                // exclude Messages button from bottom tab
                 tabBarButton: ["Messages"].includes(route.name) ? () => {return null} : undefined,
                 tabBarIcon: ({ focused }) => {
                     if (route.name === "Search") {
@@ -101,15 +109,16 @@ const BottomTabNavigator = ({ navigation, route }) => {
                 component={Forums}
                 options={{
                     headerTintColor: '#75d2ff',
-                    unmountOnBlur: true
+                    unmountOnBlur: true,
                 }}
             />
             <BottomTab.Screen name="Messages"
                 component={MessageStack}
             />
         </BottomTab.Navigator>
+        </>
     );
 
-}
+};
 
-export default BottomTabNavigator;
+export default memo(BottomTabNavigator);
