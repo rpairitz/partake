@@ -80,6 +80,7 @@ const LoadConversations = ({ navigation, route }) => {
             .then(res=>{
                 console.log(res.data);
                 const convos = res.data.split("\n");
+                convos.pop();
                 for(let i = 0; i < convos.length; i++){
                     let tempConvo = {}
                     let convoParts = convos[i].split("~");
