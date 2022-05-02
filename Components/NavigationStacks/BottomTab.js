@@ -1,15 +1,16 @@
-import React from 'react'
+import { useLayoutEffect, memo } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import Search from '../Search';
 import ProfileStack from './ProfileStack';
 import MessageStack from './MessageStack';
 import Brandmark from '../../img/logo_brandmark.svg';
 import MessagesIcon from '../../img/icon_messages.svg';
 import ProfileIcon from '../../img/icon_profile.svg';
+import ForumsIcon from '../../img/icon_forum.svg';
 import colors from '../../styles/theme';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Forums from '../Forums';
 
 const styles = StyleSheet.create({
     container: {
@@ -23,82 +24,92 @@ const styles = StyleSheet.create({
 
 const BottomTab = createBottomTabNavigator();
 
-const BottomTabNavigator = ({ navigation, route }) => {
+const BottomTabNavigator = ({ navigation, route, showPrefs, onPrefsPress }) => {
+    useLayoutEffect(() => {
+        const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
+        navigation.setOptions({
+            headerRight: () => (
+                <MessagesIcon width={34} height={34}
+                    color={routeName === "Messages" ? colors.grayActive : colors.grayInactive}
+                    onPress={() => navigation.navigate("Messages")} />
+            ),
+        });
+    }, [navigation, route]);
 
-    const logOut = () => {
-        AsyncStorage.setItem("partakeCredentials", '');
-    };
-
-    return(
-        <NavigationContainer independent={true}>
-            <BottomTab.Navigator
-                initialRouteName='Search'
-                screenOptions={({ route }) => ({
-                    headerShown: true,
-                    tabBarIcon: ({ focused }) => {
-                        if (route.name === "Search") {
-                            return (
-                                focused ? 
-                                <Brandmark width={36.16} height={34} 
-                                    color={colors.logoActive} gradStart={colors.iceBlue} gradEnd={colors.orchid}/>
+    return (
+        <>
+        {/* <View style={{position: 'absolute', top:-12, left:0, zIndex: 99999}}>
+            <PrefsMenu text={'Log out'} showPrefs={showPrefs} onPrefsPress={onPrefsPress}/>
+        </View> */}
+        <BottomTab.Navigator
+            // tabBar={props => <BottomTabBar {...props} state={{...props.state, routes: props.state.routes.slice(0,3)}}/>}
+            initialRouteName='Search'
+            screenOptions={({ route }) => ({
+                headerShown: false,
+                tabBarStyle: { height: 89 },
+                // exclude Messages button from bottom tab
+                tabBarButton: ["Messages"].includes(route.name) ? () => {return null} : undefined,
+                tabBarIcon: ({ focused }) => {
+                    if (route.name === "Search") {
+                        return (
+                            focused ?
+                                <Brandmark width={36.16} height={34}
+                                    color={colors.logoActive} gradStart={colors.iceBlue} gradEnd={colors.orchid} />
                                 :
-                                <Brandmark width={36.16} height={34} 
-                                    color={colors.grayInactive} gradStart={colors.grayInactive} gradEnd={colors.grayInactive}/>
-                            );
-                        } else if (route.name === "Chat") {
-                            return (
-                                focused ?
-                                <MessagesIcon width={34} height={34}
-                                    color={colors.grayActive}/>
-                                :
-                                <MessagesIcon width={34} height={34}
-                                    color={colors.grayInactive}/>
-                            );
-                        } else if (route.name === "Profile") {
-                            return (
-                                focused ?
-                                <ProfileIcon width={34} height={34}
-                                    color={colors.grayActive}/>
-                                :
-                                <ProfileIcon width={34} height={34}
-                                    color={colors.grayInactive}/>
-                            );
-                        }
-                    },
-                    tabBarActiveTintColor: "#75d2ff",
-                    tabBarInactiveTintColor: "#75d2ff",
-                    tabBarShowLabel: false,
-                })}
-            >
-                <BottomTab.Screen name="Profile"
-                    component={ProfileStack}
-                    options={{
-                        headerTintColor: '#75d2ff',
-                        headerRight: () => (
-                            <TouchableOpacity onPress={() => {logOut(); navigation.navigate('Login');}}>
-                                <Text style={styles.container}>Log Out</Text>
-                            </TouchableOpacity>
-                        ),
-                    }}
-                />
-                <BottomTab.Screen name="Search"
-                    component={Search}
-                    options={{
-                        headerTintColor: '#75d2ff'
-                    }}
-                />
-                <BottomTab.Screen name="Chat"
-                    component={MessageStack}
-                    options={{
-                        headerTintColor: '#75d2ff',
-                        //unmountOnBlur: true
-                    }}
-                />
-               
-            </BottomTab.Navigator>
-        </NavigationContainer>
+                                <Brandmark width={36.16} height={34}
+                                    color={colors.grayInactive} gradStart={colors.grayInactive} gradEnd={colors.grayInactive} />
+                        );
+                    } else if (route.name === "Forums") {
+                        return (
+                            <ForumsIcon width={34} height={34}
+                                color={focused ? colors.grayActive : colors.grayInactive}
+                                spoke1={focused ? colors.blue : colors.grayInactive}
+                                spoke2={focused ? colors.lavender : colors.grayInactive}
+                                spoke3={focused ? colors.purple : colors.grayInactive} />
+                        );
+                    } else if (route.name === "Profile") {
+                        return (
+                            <ProfileIcon width={34} height={34}
+                                color={focused ? colors.grayActive : colors.grayInactive} />
+                        );
+                    }
+                },
+                tabBarActiveTintColor: "#75d2ff",
+                tabBarInactiveTintColor: "#75d2ff",
+                tabBarShowLabel: false,
+            })}
+        >
+            <BottomTab.Screen name="Profile"
+                component={ProfileStack}
+                options={{
+                    headerTintColor: '#75d2ff',
+                    headerRight: () => (
+                        <TouchableOpacity onPress={() => { logOut() }}>
+                            <Text style={styles.container}>Log Out</Text>
+                        </TouchableOpacity>
+                    ),
+                }}
+            />
+            <BottomTab.Screen name="Search"
+                component={Search}
+                options={{
+                    headerTintColor: '#75d2ff'
+                }}
+            />
+            <BottomTab.Screen name="Forums"
+                component={Forums}
+                options={{
+                    headerTintColor: '#75d2ff',
+                    unmountOnBlur: true,
+                }}
+            />
+            <BottomTab.Screen name="Messages"
+                component={MessageStack}
+            />
+        </BottomTab.Navigator>
+        </>
     );
 
-}
+};
 
-export default BottomTabNavigator;
+export default memo(BottomTabNavigator);

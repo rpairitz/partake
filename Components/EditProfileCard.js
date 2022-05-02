@@ -30,6 +30,9 @@ const EditProfileCard = ({ card, navigation, route }) => (
       </View>
       <Text style={styles.text}>
         {`${card.name}`}
+        {/* <TouchableOpacity onPress={() => navigation.navigate("Messages")}>
+            <Text style={styles.edit}>&nbsp;&nbsp;&nbsp;Chat (TEST)</Text>
+        </TouchableOpacity> */}
         <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
             <Text style={styles.edit}>&nbsp;&nbsp;&nbsp;Edit</Text>
         </TouchableOpacity>

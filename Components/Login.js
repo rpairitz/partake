@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         width: (windowWidth / 1.618),
         fontSize: 13,
         textAlign: 'left',
-        fontFamily: 'Avenir',
+        fontFamily: 'Arial',
     },
     inlineContainer: { 
         flexDirection: 'row', 
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         alignItems: 'baseline',
     },
     inlineLabel: { 
-        fontFamily: 'Avenir', 
+        fontFamily: 'Arial', 
         fontWeight: 'bold', 
         color: colors.grayActive 
     },

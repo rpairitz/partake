@@ -16,7 +16,7 @@ const MessageStack = ({ navigation, route }) => {
             }}
         >
             <Stack.Screen name="Conversations" component={Conversations} />
-            <Stack.Screen name="Chat" component={Chat} options={{ contentStyle: { backgroundColor: "#FFFFFF" }}} />
+            {/* <Stack.Screen name="Chat" component={Chat} options={{ contentStyle: { backgroundColor: "#FFFFFF" }}} /> */}
             <Stack.Screen name="LoadConversations" component={LoadConversations} />
             <Stack.Screen name="LoadFriends" component={LoadFriends} />
         </Stack.Navigator>
