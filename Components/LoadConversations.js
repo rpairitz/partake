@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, Pressable, ActivityIndicator, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet,ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../styles/theme';
-import ProfilePlaceholder from '../img/logo_profile-placeholder.svg';
-import CustomModal from './CustomModal';
-import Ionicons from "@expo/vector-icons/Ionicons";
 
 const styles = StyleSheet.create({
     container: {
@@ -59,8 +56,31 @@ const styles = StyleSheet.create({
 });
 
 const LoadConversations = ({ navigation, route }) => {
+
+    const photos = [
+        require('../assets/don-delfin-espino-nBywXevf_jE-unsplash-min-3.jpg'), 
+        require('../assets/aleksander-borzenets-ozda-XbeP0k-unsplash-min.jpg'), 
+        require('../assets/austin-wade-ex6qfO4TPMY-unsplash-min.jpg'), 
+        require('../assets/austin-wade-X6Uj51n5CE8-unsplash-min.jpg'), 
+        require('../assets/caique-silva-3ujVzg9i2EI-unsplash-min.jpg'), 
+        require('../assets/caique-silva-S409PylpOiQ-unsplash-min.jpg'), 
+        require('../assets/christina-wocintechchat-com-0Zx1bDv5BNY-unsplash-min.jpg'), 
+        require('../assets/eduardo-dutra-ZHy0efLnzVc-unsplash-min.jpg'), 
+        require('../assets/gift-habeshaw-dlbiYGwEe9U-unsplash-min.jpg'), 
+        require('../assets/guilherme-stecanella-_dH-oQF9w-Y-unsplash-min.jpg'),
+        require('../assets/henri-pham-Ml4tr2WO7JE-unsplash-min.jpg'),
+        require('../assets/jonathan-borba-n1B6ftPB5Eg-unsplash-min.jpg'),
+        require('../assets/linkedin-sales-solutions-EI50ZDA-l8Y-unsplash-min.jpg'),
+        require('../assets/nico-marks-mFcc5b_t74Q-unsplash-min.jpg'),
+        require('../assets/sirio-Ty4f_NOFO60-unsplash-min.jpg'),
+        require('../assets/stephanie-cook-NDCy2-9JhUs-unsplash-min.jpg'),
+        require('../assets/teymi-townsend-AvLHH8qYbAI-unsplash-min.jpg'),
+        require('../assets/tyler-nix-ZGa9d1a_4tA-unsplash-min.jpg'),
+        require('../assets/venrick-azcueta-Sl15cCSOtYQ-unsplash-min.jpg'),
+        require('../assets/wesley-tingey-TvPCUHten1o-unsplash-min.jpg')
+    ];
+
     const [conversations, setConversations] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
     const [username, setUsername] = useState('');
     const [isLoaded, setIsLoaded] = useState(false);
     const [newName, setNewName] = useState('');
@@ -83,8 +103,10 @@ const LoadConversations = ({ navigation, route }) => {
                     let convoParts = convos[i].split("~");
                     let convoId = convoParts[0];
                     let convoNames = convoParts[1];
+                    let convoPic = convoParts[2];
                     tempConvo.convoId = convoId;
                     tempConvo.names = convoNames;
+                    tempConvo.pic = convoPic;
                     allConvos.push(tempConvo);
                 }
                 setConversations(allConvos);
@@ -146,22 +168,15 @@ const LoadConversations = ({ navigation, route }) => {
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                     <TouchableOpacity key={convo.convoId} 
                         style={styles.messageContainer}
-                        onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo.convoId, username: username, userID: user}});}}>
+                        onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo.convoId, username: username, userID: user, pic: convo.pic}});}}>
                         <View style={styles.profilePicture}>
-                            <ProfilePlaceholder width={81} height={81}/>
+                            <Image source={photos[convo.pic]} style={{width: 81, height: 81, borderRadius: 100 / 2}}/>
                         </View>
                         <View>
                             <Text style={styles.labelName}>{convo.names}</Text>
                             <Text style={styles.labelPreview}>Test</Text>
                         </View>
                     </TouchableOpacity>
-                    {/* <TouchableOpacity style={styles.icon} onPress={() => setModalVisible(true)}>
-                        <Ionicons name="add-outline" size="24px" color="black" />
-                    </TouchableOpacity>
-
-                    <CustomModal modalVisible={modalVisible} setModalVisible={() => setModalVisible(!modalVisible)}
-                        setNewName={(name) => setNewName(name)}
-                        onPressButton={() => { addToGroup(convo); setModalVisible(!modalVisible) }} /> */}
                 </View>
             );
         });

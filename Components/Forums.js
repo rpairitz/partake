@@ -78,7 +78,7 @@ const Forums = () => {
                 return(
                     <View>
                         <TouchableOpacity>
-                            <Text style={styles.hobbies}>{hobby.name} &#127918;</Text>
+                            <Text key={hobby.id} style={styles.hobbies}>{hobby.name} &#127918;</Text>
                         </TouchableOpacity>
                     </View>
                 );
