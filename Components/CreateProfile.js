@@ -14,6 +14,11 @@ import colors from '../styles/theme';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import colors from '../styles/theme';
+import HobbyTag from './HobbyTag';
+import ProfilePlaceholder from '../img/logo_profile-placeholder.svg';
+import InlineButton from './InlineButton';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -21,8 +26,10 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: colors.white
     },
     title: {
         textAlign: 'center',
@@ -36,35 +43,18 @@ const styles = StyleSheet.create({
         fontFamily: 'Arial',
         fontWeight: 'bold'
     },
-    inputView: {
-        backgroundColor: '#ffffff',
-        borderRadius: 8,
-        width: 300,
-        height: 45,
-        marginBottom: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 1,
-        borderColor: "#d4d4d4"
+    inputContainer: {
+        borderRadius: 13,
+        padding: 13,
+        marginBottom: 13,
+        borderWidth: 0.618,
+        borderColor: colors.grayInactive
       },
-      TextInput: {
-        height: 50,
-        flex: 1,
-        padding: 10,
-        width: '100%',
-        textAlign: 'center',
-        fontFamily: 'Arial'
-      },
-      login: {
-        color: '#75d2ff',
-        textAlign: 'center'
-      },
-      loginBtn: {
-        width: 300,
-        borderRadius: 8,
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
+      input: {
+        width: (windowWidth-42-26),
+        fontSize: 13,
+        textAlign: 'left',
+        fontFamily: 'Arial',
       },
     tag: {
         borderRadius: 14,
@@ -89,25 +79,25 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         paddingTop: 10
     },
-    authInputContainer: {
-        backgroundColor: '#ffffff',
-        borderRadius: 13,
+    hobbiesContainer: {
+        alignSelf: 'flex-start',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'flex-start',
+    },
+    labelContainer: {
+        width: windowWidth - 42,
         padding: 13,
-        marginBottom: 13,
-        justifyContent: 'center',
-        borderWidth: 0.618,
-        borderColor: colors.grayInactive
     },
-    authInput: {
-        width: (windowWidth / 1.618),
-        fontSize: 13,
-        textAlign: 'left',
+    label: {
         fontFamily: 'Arial',
-    },
+        fontWeight: 'bold',
+        fontSize: 13,
+        color: colors.grayActive,
+    }
 });
 
 const CreateProfile = ({ navigation, route }) => {
-
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [zipCode, setZipCode] = useState('');
@@ -162,69 +152,98 @@ const CreateProfile = ({ navigation, route }) => {
     
 
     return(
-        <View style={{flex: 1, paddingTop: 30}}>
-            <View style={styles.container}>
-            {image && <Image 
-                    source={image ? {uri:image} : require('../assets/profile.png')}
-                    style={{width: 100, height: 100, borderRadius: 100/ 2}} 
-            />}
-            </View>
-            <View style={styles.content}>
-                <TouchableOpacity>
-                    <Text onPress={() => {handleChoosePhoto()}} style={styles.labelText}>Upload Profile Picture</Text>
+        <SafeAreaView style={styles.container}>
+            <View style={{
+                flex: 1,
+                alignSelf: 'center',
+                justifyContent: 'center',
+                alignItems: 'flex-start',
+                }}>
+                <TouchableOpacity style={styles.labelContainer}>
+                    <Text onPress={() => {handleChoosePhoto()}} style={styles.label}>Profile Picture</Text>
                 </TouchableOpacity>
-                <View style={{ paddingTop: 30 }}>
-                    <View style={styles.authInputContainer}>
+                <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center',alignSelf: 'center',}}>
+            {image ? (<Image 
+                    source={image ? {uri:image} : require('../assets/profile.png')}
+                    style={{width: 89, height: 89, borderRadius: 89}}/> )
+                :(
+                            <TouchableOpacity style={{alignSelf: 'center'}} onPress={() => { handleChoosePhoto() }}
+                            >
+                                <ProfilePlaceholder width={89} height={89} />
+                            </TouchableOpacity>
+                )
+            }
+            <View style={{alignSelf: 'center'}}>
+                <InlineButton text='Edit' onPress={() => {handleChoosePhoto()}}/></View>
+            </View>
+            <View>
+                <View style={{ paddingTop: 20 }}>
+                    <View style={styles.inputContainer}>
                         <TextInput
-                            style={styles.authInput}
+                            style={styles.input}
                             value={firstName}
-                            placeholder='First Name'
-                            placeholderTextColor='#bfbfbf'
+                            placeholder='First name'
+                            placeholderTextColor={colors.grayInactive}
                             onChangeText={(firstName) => setFirstName(firstName)}
                         />
                     </View>
-                    <View style={styles.authInputContainer}>
+                    <View style={styles.inputContainer}>
                         <TextInput
-                            style={styles.authInput}
+                            style={styles.input}
                             value={lastName}
-                            placeholder='Last Name'
-                            placeholderTextColor='#bfbfbf'
+                            placeholder='Last name'
+                            placeholderTextColor={colors.grayInactive}
                             onChangeText={(lastName) => setLastName(lastName)}
                         />
                     </View>
-                    <View style={styles.authInputContainer}>
+                    <View style={styles.inputContainer}>
                         <TextInput
-                            style={styles.authInput}
+                            style={styles.input}
                             value={bio}
                             placeholder='Bio'
-                            placeholderTextColor='#bfbfbf'
+                            placeholderTextColor={colors.grayInactive}
                             onChangeText={(bio) => setBio(bio)}
                         />
                     </View>
-                    <View style={styles.authInputContainer}>
+                    <View style={styles.inputContainer}>
                         <TextInput
-                            style={styles.authInput}
+                            style={styles.input}
                             value={zipCode}
-                            placeholder='Zip Code'
-                            placeholderTextColor='#bfbfbf'
+                            placeholder='Zip code'
+                            placeholderTextColor={colors.grayInactive}
                             onChangeText={(zipCode) => setZipCode(zipCode)}
                         />
                     </View>
                 </View>
-                <Text>{'\n'}</Text>
-                <Button onPress={() => {createProfile(); navigation.navigate('AddHobby')}} text={'Continue'} width={(windowWidth/1.618)}/>
-                {/* <LinearGradient
-                    // Button Linear Gradient
-                    colors={['#75d2ff', '#96a9d5', '#9fa4d0', '#bfa8e0', '#d7b1cd']}
-                    start={[0, 1]} 
-                    end={[1, 0]}
-                    style={styles.loginBtn}>
-                        <TouchableOpacity onPress={() => {createProfile(); navigation.navigate('AddHobby')}} style={styles.loginBtn}>
-                            <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 14, fontWeight: 'bold'}}>Continue</Text>
-                        </TouchableOpacity>
-                </LinearGradient> */}
+                <View style={styles.labelContainer}>
+                    <Text style={styles.label}>Hobbies</Text>
+                </View>
+                <View style={styles.hobbiesContainer}>
+                    {['Soccer', 'Painting', 'Poetry'].map((hobby, key) => (
+                        <HobbyTag hobby={hobby} id={key} />
+                    ))}
+                    {/* <TouchableOpacity style={styles.tag}>
+                        <Ionicons name="close-outline" size="14px" color="#ffffff" />
+                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Soccer</Text>
+                    </TouchableOpacity>
+                    <Text>&nbsp;&nbsp;&nbsp;</Text>
+                    <TouchableOpacity style={[styles.tag, {backgroundColor: '#9fa4d0'}]}>
+                        <Ionicons name="close-outline" size="14px" color="#ffffff" />
+                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Painting</Text>
+                    </TouchableOpacity>
+                    <Text>&nbsp;&nbsp;&nbsp;</Text>
+                    <TouchableOpacity style={[styles.tag, {backgroundColor: '#d7b1cd'}]}>
+                        <Ionicons name="close-outline" size="14px" color="#ffffff" />
+                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Poetry</Text>
+                    </TouchableOpacity>
+                    <Text style={{marginBottom: 15}}>{'\n'}</Text> */}
+                </View>
             </View>
-        </View>
+            </View>
+                <View style={{bottom: 0,alignSelf: 'center'}} width={windowWidth/1.618}>
+                    <Button onPress={() => {createProfile(); navigation.navigate('AddHobby')}} text={'Continue'} width={(windowWidth/1.618)}/>
+                </View>
+        </SafeAreaView>
     );
 
 }
