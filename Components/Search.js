@@ -1,21 +1,38 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, Dimensions } from 'react-native';
 import Swiper from 'react-native-deck-swiper'
 import Card from './Card'
-import OverlayLabel from './OverlayLabel'
-import styles from '../styles/Search.styles'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../styles/theme';
+import CancelIcon from '../img/icon_cancel.svg';
+import RecruitIcon from '../img/icon_recruit.svg';
+
+const windowHeight = Dimensions.get('window').height;
 
 const styleSheet = StyleSheet.create({
     loadingContainer: {
       flex: 1,
-      justifyContent: "center"
+      justifyContent: "center",
+      backgroundColor: colors.white
     },
     horizontal: {
       flexDirection: "row",
       justifyContent: "space-around",
       padding: 10
+    },
+    swipeLabelContainer: {
+        padding: 21,
+        borderWidth: 3,
+        borderColor: colors.grayInactive,
+        borderRadius: 100,
+        height: 100,
+        width: 100,
+    },
+    swipeLabel: {
+        fontFamily: 'Arial',
+        fontWeight: 'bold',
+        fontSize: 34,
+        color: colors.grayInactive
     }
 });
 
@@ -159,50 +176,59 @@ const Search = ({ navigation, route }) => {
     if(!isLoaded) {
         return(
             <View style={[styleSheet.loadingContainer, styleSheet.horizontal]}>
-              <ActivityIndicator size="large" color={colors.blue} />
+              <ActivityIndicator size="large" color={colors.lavender} />
             </View>
         );
     }
     else {
         return(
-            <View style={styles.container}>
-                <View style={styles.swiperContainer}>
+            <View style={{backgroundColor: colors.white, flex: 1,}}>
                     <Swiper
                     ref={useSwiper}
                     animateCardOpacity
-                    containerStyle={styles.container}
                     cards={rankedUsers}
                     renderCard={card => <Card card={card} />}
                     cardIndex={0}
-                    backgroundColor="white"
+                    backgroundColor={colors.white}
                     stackSize={2}
                     infinite
-                    showSecondCard
+                    showSecondCard={true}
+                    cardHorizontalMargin={0}
+                    cardVerticalMargin={8}
                     onSwipedLeft={(card) => handleSwipedLeft(card)}
                     onSwipedRight={(card) => handleSwipedRight(card)}
                     animateOverlayLabelsOpacity
                     overlayLabels={{
                         left: {
                         title: 'NOPE',
-                        element: <OverlayLabel label="NOPE" color="#d7b1cd" />,
+                        // element: <OverlayLabel label="NO THANKS" color={colors.grayActive} />,
+                        element: <CancelIcon width={55} height={55}/>,
                         style: {
-                            wrapper: styles.overlayWrapper,
+                            wrapper: {
+                                position: 'absolute',
+                                alignItems: 'flex-end',
+                                top: 34,
+                                right: 8+21,
+                                },
                         },
                         },
                         right: {
                         title: 'LIKE',
-                        element: <OverlayLabel label="LIKE" color="#75d2ff" />,
+                        // element: <OverlayLabel label="RECRUIT" color={colors.orchid} />,
+                        element: 
+                            <RecruitIcon width={89} height={89} gradStart={colors.iceBlue} gradEnd={colors.orchid}/>
+                        ,
                         style: {
                             wrapper: {
-                            ...styles.overlayWrapper,
+                            position: 'absolute',
                             alignItems: 'flex-start',
-                            marginLeft: 30,
+                            top: 34-21,
+                            left: 8+8,
                             },
                         },
                         },
                     }}
                     />
-                </View>
             </View>
         );
     }

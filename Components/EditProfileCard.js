@@ -1,7 +1,11 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { shape, string, number } from 'prop-types'
+import HobbyTag from './HobbyTag';
 import styles from '../styles/Card.styles'
+import colors from '../styles/theme';
+import RecruitIcon from '../img/icon_recruit.svg';
+import InlineButton from './InlineButton';
 
 const EditProfileCard = ({ card, navigation, route }) => (
   <View
@@ -14,26 +18,42 @@ const EditProfileCard = ({ card, navigation, route }) => (
       resizeMode="cover"
     />
     <View style={styles.photoDescriptionContainer}>
-      <View style={{flexDirection: 'row', flexWrap:"wrap"}}>
-        {card.hobbies.map((hobby) => (
-          <TouchableOpacity style={[styles.tag, {backgroundColor: '#9fa4d0'}]}>
-            <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 12}}>&nbsp;{hobby}</Text>
-          </TouchableOpacity>
+      <View style={styles.hobbiesContainer}>
+        {card.hobbies.map((hobby, key) => (
+          <HobbyTag hobby={hobby} id={key} />
         ))}
-        <Text style={{marginBottom: 15}}>{'\n'}</Text>
       </View>
-      <Text style={styles.text}>
+      <View style={styles.infoWrapper}>
+        <View style={styles.infoContainer}>
+          <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-end'}}>
+            <Text style={styles.name}>
+              {`${card.name}`}
+            </Text>
+            <View style={{alignSelf: 'baseline', top: 29-15-1.5}}>
+            <InlineButton text="&nbsp;Edit" style={{fontSize: 15,}} onPress={() => navigation.navigate('EditProfile')}/>
+            </View>
+          </View>
+          <Text style={styles.bio}>
+            {`${card.bio}`}
+          </Text>
+        </View>
+        <View
+          style={[styles.recruitButtonContainer,{opacity:.618*.85}]}>
+          <View style={styles.recruitButton}>
+            <RecruitIcon width={55} height={55} gradStart={colors.iceBlue} gradEnd={colors.orchid}/>
+          </View>
+          <InlineButton text='Recruit' style={{fontStyle: 'italic', fontSize: 15}}/>
+        </View>
+      </View>
+      {/* <Text style={styles.text}>
         {`${card.name}`}
-        {/* <TouchableOpacity onPress={() => navigation.navigate("Messages")}>
-            <Text style={styles.edit}>&nbsp;&nbsp;&nbsp;Chat (TEST)</Text>
-        </TouchableOpacity> */}
         <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
             <Text style={styles.edit}>&nbsp;&nbsp;&nbsp;Edit</Text>
         </TouchableOpacity>
       </Text>
       <Text style={styles.bio}>
         {`${card.bio}`}
-      </Text>
+      </Text> */}
     </View>
   </View>
 )

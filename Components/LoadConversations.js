@@ -157,7 +157,7 @@ const LoadConversations = ({ navigation, route }) => {
     if(!isLoaded) {
         return(
             <View style={[styles.loadingContainer, styles.horizontal]}>
-                <ActivityIndicator size="large" color={colors.blue} />
+                <ActivityIndicator size="large" color={colors.lavender} />
             </View>
         );
     }
@@ -183,7 +183,7 @@ const LoadConversations = ({ navigation, route }) => {
     else {
         return (
             <View style={styles.altContainer}>
-                <Text style={styles.defaultText}>You have no conversations.</Text>
+                <Text style={styles.defaultText}>You have no messages.</Text>
             </View>
         )
     }

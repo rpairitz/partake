@@ -1,10 +1,8 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Conversations from '../Conversations';
-import Chat from '../Chat';
 import LoadConversations from '../LoadConversations';
 import LoadFriends from '../LoadFriends';
-import colors from '../../styles/theme';
 
 const Stack = createNativeStackNavigator();
 
