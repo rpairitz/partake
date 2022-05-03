@@ -4,18 +4,24 @@ import { LinearGradient } from 'expo-linear-gradient';
 import colors from '../styles/theme';
 import { TouchableOpacity } from 'react-native';
 
-const InlineButton = ({text, onPress}) => {
+const InlineButton = ({text, onPress, style}) => {
     return (
         <TouchableOpacity onPress={onPress} style={{alignSelf: 'flex-start'}}>
             <MaskedView maskElement={
-                <Text style={{fontSize: 13, fontFamily: 'Arial', fontWeight: 'bold', top:1}}>{text}</Text>
+                <Text style={[
+                    { fontSize: 13, fontFamily: 'Arial', fontWeight: 'bold', top: 1 },
+                    style
+                ]}>{text}</Text>
             }>
                 <LinearGradient colors={[colors.iceBlue, colors.orchid]}
                 start={[0, 1]} 
                 end={[1, 0]}
                 style={{top:1}}
                 >
-                    <Text style={{fontSize: 13, fontFamily: 'Arial', fontWeight: 'bold',opacity: 0}}>{text}</Text>
+                    <Text style={[
+                        { fontSize: 13, fontFamily: 'Arial', fontWeight: 'bold', opacity: 0 },
+                        style
+                    ]}>{text}</Text>
                 </LinearGradient>
             </MaskedView>
         </TouchableOpacity>

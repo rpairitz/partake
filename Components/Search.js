@@ -5,6 +5,7 @@ import Card from './Card'
 import OverlayLabel from './OverlayLabel'
 import styles from '../styles/Search.styles'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import colors from '../styles/theme';
 
 const styleSheet = StyleSheet.create({
     loadingContainer: {
@@ -66,9 +67,9 @@ const Search = ({ navigation, route }) => {
         var axios = require('axios');
         let formData = new FormData();
 
-        let userSwipedOn = rankedUsers[card].id;
+        var userSwipedOn = rankedUsers[card].id;
         let liked = 1;
-        let userSwiping = userID;
+        var userSwiping = userID;
 
         formData.append('userSwipedOn', userSwipedOn);
         formData.append('userSwiping', userSwiping);
@@ -77,6 +78,15 @@ const Search = ({ navigation, route }) => {
         axios.post('http://23.22.183.138:8806/likedUser.php', formData)
         .then(res => {
             console.log(res.data);
+            var axios2 = require('axios');
+            let formData2 = new FormData();
+            formData2.append('userSwipedOn', userSwipedOn);
+            formData2.append('userSwiping', userSwiping);
+            axios2.post('http://23.22.183.138:8806/matchUser.php', formData2).then(res2 =>
+            {
+                console.log(res2.data);
+            })
+            .catch(err=>console.log(err));
         })
         .catch(err=>console.log(err));
     };
@@ -149,7 +159,7 @@ const Search = ({ navigation, route }) => {
     if(!isLoaded) {
         return(
             <View style={[styleSheet.loadingContainer, styleSheet.horizontal]}>
-              <ActivityIndicator size="large" color="#75d2ff" />
+              <ActivityIndicator size="large" color={colors.blue} />
             </View>
         );
     }

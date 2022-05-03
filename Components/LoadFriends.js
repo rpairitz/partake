@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Touchable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import colors from '../styles/theme';
+import InlineButton from './InlineButton';
 
 const styles = StyleSheet.create({
     section: {
@@ -10,10 +12,21 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10
     },
+    friendContainer: {
+        flexDirection: 'row'
+    },
+    altContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    defaultText: {
+        fontFamily: 'Arial',
+        fontSize: 15,
+        color: colors.grayActive,
+    }
 });
 
 const LoadFriends = ({ navigation, route }) => {
-
     const [friends, setFriends] = useState([]);
     const [username, setUsername] = useState('');
     const [user, setUser] = useState();
@@ -82,15 +95,30 @@ const LoadFriends = ({ navigation, route }) => {
         .catch((error) => console.log(error))
     }, [user]);
 
-        return friends.map((friend) => {
+    if (friends.length != 0) {
+        return (
+            friends.map((friend) => {
             return(
-                <View>
+                <View style={styles.friendContainer}>
                     <TouchableOpacity onPress={() => {startConversation(user, Number(friend[1])); navigation.navigate({name: 'Chat', params: {convoID: convoID, username: username, userID: user}});}}>
                         <Text style={styles.section}>{friend[0]}</Text>
                     </TouchableOpacity>
                 </View>
             );
-        });
+        })
+        );
+    }
+    else {
+        return (
+            <View style={{height: 89, flexDirection: 'row', justifyContent: 'center',alignItems: 'center',}}>
+                <View style={styles.altContainer}>
+                    <Text style={styles.defaultText}>You have no friends.{'\u00A0'}</Text>
+                    <InlineButton text='Meet people with similar hobbies!' onPress={() => navigation.navigate('Search')}
+                        style={{ fontSize: 15, fontWeight: 'regular', top: 0.5 }} />
+                </View>
+            </View>
+        )
+    }
 };
 
 export default LoadFriends;

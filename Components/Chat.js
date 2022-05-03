@@ -5,6 +5,7 @@ import {
     ActivityIndicator
 } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
+import colors from '../styles/theme';
 
 const styles = StyleSheet.create({
     container: {
@@ -97,7 +98,7 @@ const Chat = ({ navigation, route }) => {
     if(!isLoaded) {
       return(
         <View style={[styles.loadingContainer, styles.horizontal]}>
-          <ActivityIndicator size="large" color="#75d2ff" />
+          <ActivityIndicator size="large" color={colors.lavender} />
         </View>
       );
     }
