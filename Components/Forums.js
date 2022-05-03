@@ -46,6 +46,7 @@ const Forums = () => {
                     tempHobby.icon = hobbyParts[2];
                     hobbies.push(tempHobby);
                 }
+                console.log(hobbies);
                 setAllHobbies(hobbies);
                 setIsLoaded(true);
             }).catch(err=>console.log(err));
@@ -78,7 +79,7 @@ const Forums = () => {
                 return(
                     <View>
                         <TouchableOpacity>
-                            <Text key={hobby.id} style={styles.hobbies}>{hobby.name} {String.fromCodePoint('128690')}</Text>
+                            <Text key={hobby.id} style={styles.hobbies}>{hobby.name} {String.fromCodePoint(hobby.icon)}</Text>
                         </TouchableOpacity>
                     </View>
                 );
