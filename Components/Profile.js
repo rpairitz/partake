@@ -9,7 +9,7 @@ import EditProfileCard from './EditProfileCard';
 import Swiper from 'react-native-deck-swiper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import styles from '../styles/Search.styles'
+import colors from '../styles/theme';
 
 const styleSheet = StyleSheet.create({
     loadingContainer: {
@@ -63,19 +63,17 @@ const Profile = ({ navigation, route }) => {
     
     if(!isLoaded) {
         return(
-            <View style={[styleSheet.loadingContainer, styles.horizontal]}>
-              <ActivityIndicator size="large" color="#75d2ff" />
+            <View style={[styleSheet.loadingContainer, styleSheet.horizontal]}>
+              <ActivityIndicator size="large" color={colors.lavender} />
             </View>
         );
     }
     else {
         return(
-            <View style={styles.container}>
-                <View style={styles.swiperContainer}>
-                    <Swiper
+            <View style={{backgroundColor: colors.white, flex: 1,}}>
+                <Swiper
                     ref={useSwiper}
                     animateCardOpacity
-                    containerStyle={styles.container}
                     cards={card}
                     renderCard={card => <EditProfileCard card={card} navigation={navigation} />}
                     cardIndex={0}
@@ -84,10 +82,11 @@ const Profile = ({ navigation, route }) => {
                     horizontalSwipe={false}
                     verticalSwipe={false}
                     infinite
-                    showSecondCard
+                    showSecondCard={false}
+                    cardHorizontalMargin={0}
+                    cardVerticalMargin={8}
                     animateOverlayLabelsOpacity
-                    />
-                </View>
+                />
             </View>
         );
     }
