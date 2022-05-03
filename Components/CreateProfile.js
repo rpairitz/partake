@@ -15,7 +15,6 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import colors from '../styles/theme';
 import HobbyTag from './HobbyTag';
 import ProfilePlaceholder from '../img/logo_profile-placeholder.svg';
 import InlineButton from './InlineButton';
