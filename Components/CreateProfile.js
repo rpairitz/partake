@@ -214,29 +214,6 @@ const CreateProfile = ({ navigation, route }) => {
                         />
                     </View>
                 </View>
-                <View style={styles.labelContainer}>
-                    <Text style={styles.label}>Hobbies</Text>
-                </View>
-                <View style={styles.hobbiesContainer}>
-                    {['Soccer', 'Painting', 'Poetry'].map((hobby, key) => (
-                        <HobbyTag hobby={hobby} id={key} />
-                    ))}
-                    {/* <TouchableOpacity style={styles.tag}>
-                        <Ionicons name="close-outline" size="14px" color="#ffffff" />
-                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Soccer</Text>
-                    </TouchableOpacity>
-                    <Text>&nbsp;&nbsp;&nbsp;</Text>
-                    <TouchableOpacity style={[styles.tag, {backgroundColor: '#9fa4d0'}]}>
-                        <Ionicons name="close-outline" size="14px" color="#ffffff" />
-                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Painting</Text>
-                    </TouchableOpacity>
-                    <Text>&nbsp;&nbsp;&nbsp;</Text>
-                    <TouchableOpacity style={[styles.tag, {backgroundColor: '#d7b1cd'}]}>
-                        <Ionicons name="close-outline" size="14px" color="#ffffff" />
-                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Poetry</Text>
-                    </TouchableOpacity>
-                    <Text style={{marginBottom: 15}}>{'\n'}</Text> */}
-                </View>
             </View>
             </View>
                 <View style={{bottom: 0,alignSelf: 'center'}} width={windowWidth/1.618}>

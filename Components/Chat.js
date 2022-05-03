@@ -85,7 +85,11 @@ const Chat = ({ navigation, route }) => {
       let sentDate = new Date().toLocaleDateString('en-GB', {
         day: 'numeric', month: 'short', year: 'numeric'
       }).replace(/ /g, '-').toUpperCase();
-      let sentTime = new Date().toLocaleTimeString().split(" ")[0];
+      let date = new Date();
+      let hours = date.getHours();
+      let mins = date.getMinutes();
+      let sec = date.getSeconds();
+      let sentTime = hours + ':' + mins + ':' + sec;
       let createdAt = Date.now();
 
       let formData = new FormData();
