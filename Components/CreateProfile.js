@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Button from './Button';
+import colors from '../styles/theme';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
@@ -63,6 +64,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#75d2ff',
         justifyContent: 'center'
+    },
+    labelText: {
+        color: colors.blue,
+        fontFamily: 'Arial',
+        fontWeight: 'bold',
+        fontSize: 14,
+        padding: 8,
+        paddingLeft: 5,
+        paddingRight: 5,
     },
     content: {
         flex: 5, 

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, Image } from 'react-native';
+import { Card } from 'react-native-elements';
+import colors from '../styles/theme';
 
 const styles = StyleSheet.create({
     loadingContainer: {
@@ -10,6 +12,15 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around",
         padding: 10
+    },
+    labelText: {
+        color: colors.blue,
+        fontFamily: 'Arial',
+        fontWeight: 'bold',
+        fontSize: 16,
+        padding: 8,
+        paddingLeft: 5,
+        paddingRight: 5,
     },
 });
 
@@ -65,9 +76,11 @@ const HobbyPosts = ({ navigation, route }) => {
             return posts.map((post) => {
                 return(
                     <View>
-                        <Text>{post.postID}</Text>
-                        <Text>{post.content}</Text>
-                        <Text>{post.createdAt} {/* Turn this into a date for displaying in the post card*/}</Text>
+                        <Card key={post.postID}>
+                            <Text style={styles.labelText}>{route.params.name}</Text>
+                            <Text style={{ fontSize: 11, paddingLeft: 6}}>May 02, 2022{'\n'}</Text>
+                            <Text style={{ fontSize: 13, paddingLeft: 6}}>{post.content}</Text>
+                        </Card>
                     </View>
                 );
             });
