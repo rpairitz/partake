@@ -9,7 +9,7 @@ import MessagesIcon from '../../img/icon_messages.svg';
 import ProfileIcon from '../../img/icon_profile.svg';
 import ForumsIcon from '../../img/icon_forum.svg';
 import colors from '../../styles/theme';
-import Forums from '../Forums';
+import ForumStack from './ForumStack';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -72,7 +72,7 @@ const BottomTabNavigator = ({ navigation, route, showPrefs, onPrefsPress }) => {
                 component={Search}
             />
             <BottomTab.Screen name="Forums"
-                component={Forums}
+                component={ForumStack}
                 options={{
                     unmountOnBlur: true,
                 }}

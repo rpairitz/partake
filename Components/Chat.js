@@ -107,6 +107,7 @@ const Chat = ({ navigation, route }) => {
     useEffect(() => {
       console.log('username: ', route.params.username);
       console.log('id: ', route.params.userID);
+      console.log('convoID: ', route.params.convoID);
       const interval = setInterval(() => {
         loadMessages();
       }, 1000);

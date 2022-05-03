@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 // placeholder for forums screen
-const Forums = () => {
+const Forums = ({ navigation, route }) => {
 
     const [email, setEmail] = useState('');
     const [allHobbies, setAllHobbies] = useState([]);
@@ -78,7 +78,7 @@ const Forums = () => {
             return allHobbies.map((hobby) => {
                 return(
                     <View>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => {navigation.navigate({name: 'HobbyPosts', params: {hobbyID: hobby.id}});}}>
                             <Text key={hobby.id} style={styles.hobbies}>{hobby.name} {String.fromCodePoint(hobby.icon)}</Text>
                         </TouchableOpacity>
                     </View>

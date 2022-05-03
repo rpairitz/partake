@@ -173,7 +173,7 @@ const LoadConversations = ({ navigation, route }) => {
                         </View>
                         <View>
                             <Text style={styles.labelName}>{convo.names}</Text>
-                            <Text style={styles.labelPreview}>Test</Text>
+                            <Text style={styles.labelPreview}>Hey Gabriel</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
