@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, Pressable, ActivityIndicator, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../styles/theme';
+import ProfilePlaceholder from '../img/logo_profile-placeholder.svg';
 import CustomModal from './CustomModal';
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -10,10 +11,16 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     messageContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
         paddingTop: 0,
         paddingRight: 15,
         paddingBottom: 21,
         paddingLeft: 16,
+    },
+    profilePicture: {
+        marginRight: 13,
     },
     labelName: {
         color: colors.grayActive,
@@ -29,41 +36,6 @@ const styles = StyleSheet.create({
         fontFamily: 'Arial',
         fontSize: 15,
         paddingBottom: 5,
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-    },
-      modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-    },
-    button: {
-        backgroundColor: "#75d2ff",
-        width: 100,
-        padding: 5,
-        alignSelf: 'center'
-    },
-    buttonText: {
-        color: 'white',
-        alignSelf: 'center',
-        fontFamily: 'Avenir'
     },
     loadingContainer: {
         flex: 1,
@@ -87,7 +59,6 @@ const styles = StyleSheet.create({
 });
 
 const LoadConversations = ({ navigation, route }) => {
-
     const [conversations, setConversations] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [username, setUsername] = useState('');
@@ -176,15 +147,21 @@ const LoadConversations = ({ navigation, route }) => {
                     <TouchableOpacity key={convo.convoId} 
                         style={styles.messageContainer}
                         onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo.convoId, username: username, userID: user}});}}>
-                        <Text style={styles.labelName}>{convo.names}</Text>
+                        <View style={styles.profilePicture}>
+                            <ProfilePlaceholder width={81} height={81}/>
+                        </View>
+                        <View>
+                            <Text style={styles.labelName}>{convo.names}</Text>
+                            <Text style={styles.labelPreview}>Test</Text>
+                        </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.icon} onPress={() => setModalVisible(true)}>
+                    {/* <TouchableOpacity style={styles.icon} onPress={() => setModalVisible(true)}>
                         <Ionicons name="add-outline" size="24px" color="black" />
                     </TouchableOpacity>
 
                     <CustomModal modalVisible={modalVisible} setModalVisible={() => setModalVisible(!modalVisible)}
                         setNewName={(name) => setNewName(name)}
-                        onPressButton={() => { addToGroup(convo); setModalVisible(!modalVisible) }} />
+                        onPressButton={() => { addToGroup(convo); setModalVisible(!modalVisible) }} /> */}
                 </View>
             );
         });

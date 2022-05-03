@@ -2,18 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Touchable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../styles/theme';
+import ProfilePlaceholder from '../img/logo_profile-placeholder.svg';
 import InlineButton from './InlineButton';
 
 const styles = StyleSheet.create({
-    section: {
-        color: "#000",
-        fontFamily: 'Avenir',
-        paddingLeft: 15,
-        paddingTop: 10,
-        paddingBottom: 10
-    },
     friendContainer: {
-        flexDirection: 'row'
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginRight: 16,
+        marginBottom: 13,
+    },
+    labelPic: {
+        height: 81,
+        width: 81,
+        borderRadius: 81,
+        marginBottom: 8,
+    },
+    labelName: {
+        width: 81,
+        overflow: 'hidden',
+        color: colors.grayActive,
+        fontFamily: 'Arial',
+        fontSize: 15,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        paddingTop: 8,
     },
     altContainer: {
         flexDirection: 'row',
@@ -23,7 +36,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Arial',
         fontSize: 15,
         color: colors.grayActive,
-    }
+    },
 });
 
 const LoadFriends = ({ navigation, route }) => {
@@ -98,13 +111,14 @@ const LoadFriends = ({ navigation, route }) => {
     if (friends.length != 0) {
         return (
             friends.map((friend) => {
-            return(
-                <View style={styles.friendContainer}>
-                    <TouchableOpacity onPress={() => {startConversation(user, Number(friend[1])); navigation.navigate({name: 'Chat', params: {convoID: convoID, username: username, userID: user}});}}>
-                        <Text style={styles.section}>{friend[0]}</Text>
+                return (
+                    <TouchableOpacity
+                        style={styles.friendContainer}
+                        onPress={() => { startConversation(user, Number(friend[1])); navigation.navigate({ name: 'Chat', params: { convoID: convoID, username: username, userID: user } }); }}>
+                        <ProfilePlaceholder width={81} height={81}/>
+                        <Text style={styles.labelName}>{friend[0].split(' ')[0]}</Text>
                     </TouchableOpacity>
-                </View>
-            );
+                );
         })
         );
     }
