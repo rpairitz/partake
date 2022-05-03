@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import colors from '../styles/theme';
 import LoadConversations from './LoadConversations';
 import LoadFriends from './LoadFriends';
@@ -8,7 +7,6 @@ import InlineButton from './InlineButton';
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: colors.white,
     },
     labelSpan: {
@@ -31,6 +29,12 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         paddingRight: 5,
     },
+    friendsContainer: {
+        maxHeight: 119,
+    },
+    friendsContentContainer: {
+        paddingLeft: 16,
+    },
     icon: {
         alignSelf: 'flex-end',
         paddingRight: 5,
@@ -38,24 +42,29 @@ const styles = StyleSheet.create({
 });
 
 const Conversations = ({ navigation, route }) => {
-
-    return(
-        <View style={styles.container}>
-            <View style={styles.labelSpan}>
-                <View style={styles.labelContainer}>
-                    <RecruitIcon width={34} height={34} gradStart={colors.blue} gradEnd={colors.blue} />
-                    <Text style={styles.labelText}>Friends</Text>
+    return (
+        <View style={[styles.container, {flex: 1}]}>
+            <ScrollView contentContainerStyle={styles.container} overScrollMode='always'>
+                <View style={styles.labelSpan}>
+                    <View style={styles.labelContainer}>
+                        <RecruitIcon width={34} height={34} gradStart={colors.blue} gradEnd={colors.blue} />
+                        <Text style={styles.labelText}>Friends</Text>
+                    </View>
+                    {/* need to add inlineButton for Create Group */}
+                    <View style={[styles.labelText, { top: -1 }]}>
+                        <InlineButton text={'Create Group'} onPress={console.log('create group')} style={{ fontSize: 15 }} />
+                    </View>
                 </View>
-                {/* need to add inlineButton for Create Group */}
-                <View style={[styles.labelText, {top: -1}]}>
-                    <InlineButton text={'Create Group'} onPress={console.log('create group')} style={{fontSize: 15}}/>
+                <View style={styles.friendsContainer}>
+                    <ScrollView contentContainerStyle={styles.friendsContentContainer} horizontal={true}>
+                        <LoadFriends navigation={navigation} />
+                    </ScrollView>
                 </View>
-            </View>
-            <LoadFriends navigation={navigation}/>
-            <View style={styles.labelSpan}>
-                <Text style={styles.labelText}>Messages</Text>
-            </View>
-            <LoadConversations navigation={navigation}/>
+                <View style={styles.labelSpan}>
+                    <Text style={styles.labelText}>Messages</Text>
+                </View>
+                <LoadConversations navigation={navigation} />
+            </ScrollView>
         </View>
     );
 };
