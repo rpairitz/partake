@@ -95,7 +95,6 @@ const LoadConversations = ({ navigation, route }) => {
 
         axios.post('http://23.22.183.138:8806/conversations.php', formData)
             .then(res=>{
-                console.log(res.data);
                 const convos = res.data.split("\n");
                 convos.pop();
                 for(let i = 0; i < convos.length; i++){

@@ -78,7 +78,7 @@ const Forums = () => {
                 return(
                     <View>
                         <TouchableOpacity>
-                            <Text key={hobby.id} style={styles.hobbies}>{hobby.name}</Text>
+                            <Text key={hobby.id} style={styles.hobbies}>{hobby.name} {String.fromCodePoint('128690')}</Text>
                         </TouchableOpacity>
                     </View>
                 );
