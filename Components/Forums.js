@@ -37,6 +37,7 @@ const Forums = () => {
                 let hobbies = [];
                 var data = res.data.split("\n");
                 data.pop();
+                console.log(data);
                 for(let i=0; i < data.length; i++){
                     let tempHobby = {};
                     let hobbyParts = data[i].split("~");
@@ -45,7 +46,6 @@ const Forums = () => {
                     tempHobby.icon = hobbyParts[2];
                     hobbies.push(tempHobby);
                 }
-                console.log(hobbies);
                 setAllHobbies(hobbies);
                 setIsLoaded(true);
             }).catch(err=>console.log(err));
