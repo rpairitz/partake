@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Button from './Button';
+import colors from '../styles/theme';
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
@@ -74,11 +75,35 @@ const styles = StyleSheet.create({
         backgroundColor: '#75d2ff',
         justifyContent: 'center'
     },
+    labelText: {
+        color: colors.blue,
+        fontFamily: 'Arial',
+        fontWeight: 'bold',
+        fontSize: 14,
+        padding: 8,
+        paddingLeft: 5,
+        paddingRight: 5,
+    },
     content: {
         flex: 5, 
         alignItems: 'center', 
         paddingTop: 10
-    }
+    },
+    authInputContainer: {
+        backgroundColor: '#ffffff',
+        borderRadius: 13,
+        padding: 13,
+        marginBottom: 13,
+        justifyContent: 'center',
+        borderWidth: 0.618,
+        borderColor: colors.grayInactive
+    },
+    authInput: {
+        width: (windowWidth / 1.618),
+        fontSize: 13,
+        textAlign: 'left',
+        fontFamily: 'Arial',
+    },
 });
 
 const CreateProfile = ({ navigation, route }) => {
@@ -137,7 +162,7 @@ const CreateProfile = ({ navigation, route }) => {
     
 
     return(
-        <View style={{flex: 1, paddingTop: 15}}>
+        <View style={{flex: 1, paddingTop: 30}}>
             <View style={styles.container}>
             {image && <Image 
                     source={image ? {uri:image} : require('../assets/profile.png')}
@@ -146,39 +171,39 @@ const CreateProfile = ({ navigation, route }) => {
             </View>
             <View style={styles.content}>
                 <TouchableOpacity>
-                    <Text onPress={() => {handleChoosePhoto()}} style={{ fontFamily: 'Arial' }}>Upload Profile Picture</Text>
+                    <Text onPress={() => {handleChoosePhoto()}} style={styles.labelText}>Upload Profile Picture</Text>
                 </TouchableOpacity>
-                <View style={{ paddingTop: 20 }}>
-                    <View style={styles.inputView}>
+                <View style={{ paddingTop: 30 }}>
+                    <View style={styles.authInputContainer}>
                         <TextInput
-                            style={styles.TextInput}
+                            style={styles.authInput}
                             value={firstName}
                             placeholder='First Name'
                             placeholderTextColor='#bfbfbf'
                             onChangeText={(firstName) => setFirstName(firstName)}
                         />
                     </View>
-                    <View style={styles.inputView}>
+                    <View style={styles.authInputContainer}>
                         <TextInput
-                            style={styles.TextInput}
+                            style={styles.authInput}
                             value={lastName}
                             placeholder='Last Name'
                             placeholderTextColor='#bfbfbf'
                             onChangeText={(lastName) => setLastName(lastName)}
                         />
                     </View>
-                    <View style={styles.inputView}>
+                    <View style={styles.authInputContainer}>
                         <TextInput
-                            style={styles.TextInput}
+                            style={styles.authInput}
                             value={bio}
                             placeholder='Bio'
                             placeholderTextColor='#bfbfbf'
                             onChangeText={(bio) => setBio(bio)}
                         />
                     </View>
-                    <View style={styles.inputView}>
+                    <View style={styles.authInputContainer}>
                         <TextInput
-                            style={styles.TextInput}
+                            style={styles.authInput}
                             value={zipCode}
                             placeholder='Zip Code'
                             placeholderTextColor='#bfbfbf'
@@ -186,6 +211,7 @@ const CreateProfile = ({ navigation, route }) => {
                         />
                     </View>
                 </View>
+                <Text>{'\n'}</Text>
                 <Button onPress={() => {createProfile(); navigation.navigate('AddHobby')}} text={'Continue'} width={(windowWidth/1.618)}/>
                 {/* <LinearGradient
                     // Button Linear Gradient

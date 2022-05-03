@@ -13,17 +13,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         padding: 10
     },
-    labelSpan: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        margin: 5,
-        marginLeft: 13,
-        marginRight: 13,
-    },
-    labelContainer: {
-        flexDirection: 'row',
-    },
     labelText: {
         color: colors.blue,
         fontFamily: 'Arial',
