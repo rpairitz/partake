@@ -1,6 +1,5 @@
 import { useLayoutEffect, memo } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import Search from '../Search';
 import ProfileStack from './ProfileStack';
@@ -11,16 +10,6 @@ import ProfileIcon from '../../img/icon_profile.svg';
 import ForumsIcon from '../../img/icon_forum.svg';
 import colors from '../../styles/theme';
 import Forums from '../Forums';
-
-const styles = StyleSheet.create({
-    container: {
-      color: "#75d2ff",
-      fontFamily: 'Avenir',
-      fontSize: 16,
-      fontWeight: 'bold',
-      paddingRight: 15
-    },
-});
 
 const BottomTab = createBottomTabNavigator();
 
@@ -73,8 +62,6 @@ const BottomTabNavigator = ({ navigation, route, showPrefs, onPrefsPress }) => {
                         );
                     }
                 },
-                tabBarActiveTintColor: "#75d2ff",
-                tabBarInactiveTintColor: "#75d2ff",
                 tabBarShowLabel: false,
             })}
         >
