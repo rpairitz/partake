@@ -186,24 +186,6 @@ const CreateProfile = ({ navigation, route }) => {
                         />
                     </View>
                 </View>
-                <Text style={{ fontFamily: 'Arial', fontSize: 16, paddingBottom: 8}}>Hobbies</Text>
-                <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity style={styles.tag}>
-                        <Ionicons name="close-outline" size="14px" color="#ffffff" />
-                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Soccer</Text>
-                    </TouchableOpacity>
-                    <Text>&nbsp;&nbsp;&nbsp;</Text>
-                    <TouchableOpacity style={[styles.tag, {backgroundColor: '#9fa4d0'}]}>
-                        <Ionicons name="close-outline" size="14px" color="#ffffff" />
-                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Painting</Text>
-                    </TouchableOpacity>
-                    <Text>&nbsp;&nbsp;&nbsp;</Text>
-                    <TouchableOpacity style={[styles.tag, {backgroundColor: '#d7b1cd'}]}>
-                        <Ionicons name="close-outline" size="14px" color="#ffffff" />
-                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Poetry</Text>
-                    </TouchableOpacity>
-                    <Text style={{marginBottom: 15}}>{'\n'}</Text>
-                </View>
                 <Button onPress={() => {createProfile(); navigation.navigate('AddHobby')}} text={'Continue'} width={(windowWidth/1.618)}/>
                 {/* <LinearGradient
                     // Button Linear Gradient
