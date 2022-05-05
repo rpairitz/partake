@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet,ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../styles/theme';
+import ProfilePlaceholder from '../img/logo_profile-placeholder.svg';
 
 const styles = StyleSheet.create({
     container: {
@@ -167,9 +168,13 @@ const LoadConversations = ({ navigation, route }) => {
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                     <TouchableOpacity key={convo.convoId} 
                         style={styles.messageContainer}
-                        onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo.convoId, username: username, userID: user, pic: convo.pic}});}}>
+                        onPress={() => {navigation.navigate({name: 'Chat', params: {convoID: convo.convoId, username: username, userID: user, pic: convo.pic, participants: convo.names}});}}>
                         <View style={styles.profilePicture}>
+                            {photos[convo.pic] ? 
                             <Image source={photos[convo.pic]} style={{width: 81, height: 81, borderRadius: 100 / 2}}/>
+                            :
+                            <ProfilePlaceholder width={81} height={81}/>
+                            }
                         </View>
                         <View>
                             <Text style={styles.labelName}>{convo.names}</Text>

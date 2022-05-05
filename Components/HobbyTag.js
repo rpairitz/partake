@@ -30,12 +30,20 @@ const styles = (mod) => StyleSheet.create({
     }
 });
 
-const HobbyTag = ({hobby,id}) => {
+const HobbyTag = ({hobby,id,icon}) => {
+    console.log(icon);
+    if (icon)
+    return (
+        <TouchableOpacity style={styles((id)%8).tagContainer}>
+          <Text style={styles((id)%8).tagLabel}>{hobby} {/*String.fromCodePoint(icon)*/}</Text>
+        </TouchableOpacity>
+    );
+    else
     return (
         <TouchableOpacity style={styles((id)%8).tagContainer}>
           <Text style={styles((id)%8).tagLabel}>{hobby}</Text>
         </TouchableOpacity>
-    );
+    )
 };
 
 export default HobbyTag;

@@ -66,7 +66,7 @@ const Forums = ({ navigation, route }) => {
     if(!isLoaded) {
         return(
             <View style={[styles.loadingContainer, styles.horizontal]}>
-              <ActivityIndicator size="large" color="#75d2ff" />
+              <ActivityIndicator size="large" color={colors.lavender} />
             </View>
         );
     }
@@ -88,7 +88,8 @@ const Forums = ({ navigation, route }) => {
             return allHobbies.map((hobby) => {
                 return(
                     <Card>
-                        <TouchableOpacity onPress={() => {navigation.navigate({name: 'HobbyPosts', params: {hobbyID: hobby.id, name: hobby.name}});}}>
+                        <TouchableOpacity onPress={() => {if(hobby.name === 'Sewing') console.log(hobby.icon);
+                            navigation.navigate({name: 'HobbyPosts', params: {hobbyID: hobby.id, name: hobby.name}});}}>
                             <Text key={hobby.id} style={styles.labelText}>{hobby.name} {String.fromCodePoint(hobby.icon)}</Text>
                         </TouchableOpacity>
                     </Card>

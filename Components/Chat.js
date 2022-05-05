@@ -1,55 +1,63 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import {
-    StyleSheet,
-    View,
-    ActivityIndicator
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  TouchableOpacity,
+  Text,
 } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import BackIcon from "../img/icon_back.svg";
+import ActionsMenu from './ActionsMenu';
 import colors from '../styles/theme';
 import ProfilePlaceholder from '../img/logo_profile-placeholder.svg';
 
 const styles = StyleSheet.create({
-    container: {
-      paddingTop: 10
-    },
-    loadingContainer: {
-      flex: 1,
-      justifyContent: "center"
-    },
-    horizontal: {
-      flexDirection: "row",
-      justifyContent: "space-around",
-      padding: 10
-    }
+  container: {
+    paddingTop: 13,
+    flex: 1,
+    zIndex: 0,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center"
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 13
+  }
 });
 
 const Chat = ({ navigation, route }) => {
 
   const photos = [
-      require('../assets/don-delfin-espino-nBywXevf_jE-unsplash-min-3.jpg'), 
-      require('../assets/aleksander-borzenets-ozda-XbeP0k-unsplash-min.jpg'), 
-      require('../assets/austin-wade-ex6qfO4TPMY-unsplash-min.jpg'), 
-      require('../assets/austin-wade-X6Uj51n5CE8-unsplash-min.jpg'), 
-      require('../assets/caique-silva-3ujVzg9i2EI-unsplash-min.jpg'), 
-      require('../assets/caique-silva-S409PylpOiQ-unsplash-min.jpg'), 
-      require('../assets/christina-wocintechchat-com-0Zx1bDv5BNY-unsplash-min.jpg'), 
-      require('../assets/eduardo-dutra-ZHy0efLnzVc-unsplash-min.jpg'), 
-      require('../assets/gift-habeshaw-dlbiYGwEe9U-unsplash-min.jpg'), 
-      require('../assets/guilherme-stecanella-_dH-oQF9w-Y-unsplash-min.jpg'),
-      require('../assets/henri-pham-Ml4tr2WO7JE-unsplash-min.jpg'),
-      require('../assets/jonathan-borba-n1B6ftPB5Eg-unsplash-min.jpg'),
-      require('../assets/linkedin-sales-solutions-EI50ZDA-l8Y-unsplash-min.jpg'),
-      require('../assets/nico-marks-mFcc5b_t74Q-unsplash-min.jpg'),
-      require('../assets/sirio-Ty4f_NOFO60-unsplash-min.jpg'),
-      require('../assets/stephanie-cook-NDCy2-9JhUs-unsplash-min.jpg'),
-      require('../assets/teymi-townsend-AvLHH8qYbAI-unsplash-min.jpg'),
-      require('../assets/tyler-nix-ZGa9d1a_4tA-unsplash-min.jpg'),
-      require('../assets/venrick-azcueta-Sl15cCSOtYQ-unsplash-min.jpg'),
-      require('../assets/wesley-tingey-TvPCUHten1o-unsplash-min.jpg')
+    require('../assets/don-delfin-espino-nBywXevf_jE-unsplash-min-3.jpg'),
+    require('../assets/aleksander-borzenets-ozda-XbeP0k-unsplash-min.jpg'),
+    require('../assets/austin-wade-ex6qfO4TPMY-unsplash-min.jpg'),
+    require('../assets/austin-wade-X6Uj51n5CE8-unsplash-min.jpg'),
+    require('../assets/caique-silva-3ujVzg9i2EI-unsplash-min.jpg'),
+    require('../assets/caique-silva-S409PylpOiQ-unsplash-min.jpg'),
+    require('../assets/christina-wocintechchat-com-0Zx1bDv5BNY-unsplash-min.jpg'),
+    require('../assets/eduardo-dutra-ZHy0efLnzVc-unsplash-min.jpg'),
+    require('../assets/gift-habeshaw-dlbiYGwEe9U-unsplash-min.jpg'),
+    require('../assets/guilherme-stecanella-_dH-oQF9w-Y-unsplash-min.jpg'),
+    require('../assets/henri-pham-Ml4tr2WO7JE-unsplash-min.jpg'),
+    require('../assets/jonathan-borba-n1B6ftPB5Eg-unsplash-min.jpg'),
+    require('../assets/linkedin-sales-solutions-EI50ZDA-l8Y-unsplash-min.jpg'),
+    require('../assets/nico-marks-mFcc5b_t74Q-unsplash-min.jpg'),
+    require('../assets/sirio-Ty4f_NOFO60-unsplash-min.jpg'),
+    require('../assets/stephanie-cook-NDCy2-9JhUs-unsplash-min.jpg'),
+    require('../assets/teymi-townsend-AvLHH8qYbAI-unsplash-min.jpg'),
+    require('../assets/tyler-nix-ZGa9d1a_4tA-unsplash-min.jpg'),
+    require('../assets/venrick-azcueta-Sl15cCSOtYQ-unsplash-min.jpg'),
+    require('../assets/wesley-tingey-TvPCUHten1o-unsplash-min.jpg')
   ];
 
-    const [messages, setMessages] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [showActions, setShowActions] = useState(false); // for actions within chat
 
     const loadMessages = () => {
       var axios = require('axios');
@@ -132,22 +140,35 @@ const Chat = ({ navigation, route }) => {
       );
     }
     else {
-      return(
+    return (
+      <>
+        <SafeAreaView style={{ height: 89, zIndex: 99999, borderBottomColor: colors.grayInactive, borderBottomWidth: 0.38}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          <TouchableOpacity onPress={() => navigation.navigate('Messages')} style={{marginRight: 5,}}>
+            <BackIcon width={34} height={34} />
+          </TouchableOpacity>
+          <Text style={{flex:1,textAlign: 'left',fontFamily: 'Arial',fontWeight:'bold',fontSize: 18,color: colors.grayActive,maxWidth: 310,}}>
+            {route.params.participants}
+          </Text>
+          <ActionsMenu showActions={showActions} onActionsPress={onActionsPress} />
+          </View>
+        </SafeAreaView>
         <GiftedChat
-            style={styles.container}
-            messages={messages}
-            showAvatarForEveryMessage={true}
-            onSend={messages => onSend(messages)}
-            alignTop={true}
-            user={{
-                _id: route.params.userID,
-                name: 'Me',
-                createdAt: new Date(),
-                avatar: require('../assets/chatpic.jpeg')
-            }}
+          style={styles.container}
+          messages={messages}
+          showAvatarForEveryMessage={true}
+          onSend={messages => onSend(messages)}
+          alignTop={true}
+          user={{
+            _id: route.params.userID,
+            name: 'Me',
+            createdAt: new Date(),
+            avatar: require('../assets/chatpic.jpeg')
+          }}
         />
-      );
-    }
+      </>
+    );
+  }
 }
 
 export default Chat;
