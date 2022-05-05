@@ -144,7 +144,16 @@ const Search = ({ navigation, route }) => {
                 let hobbyCount = parseInt(data[0]);
                 let hobbies = [];
                 for(let j = 0; j < hobbyCount; j++){
-                    hobbies.push(data[j+1]);
+                    // hobbies.push(data[j+1]);
+                    // console.log(data[j+2]);
+                    let tempHobby = {};
+                    // let hobbyParts = data[j].split("~");
+                    // tempHobby.id = hobbyParts[0];
+                    tempHobby.name = data[j+1];
+                    tempHobby.icon = data[j+2];
+                    // console.log(tempHobby.name);
+                    // console.log(tempHobby);
+                    hobbies.push(tempHobby);
                 }
                 tempUser.hobbies = hobbies;
                 tempUser.id = data[hobbyCount+1];
