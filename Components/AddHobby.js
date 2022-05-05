@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, Dimensions, TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
+import colors from '../styles/theme';
+import Button from './Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container: {
@@ -10,12 +15,20 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20, 
-        color: "#75d2ff", 
-        fontFamily: 'Avenir', 
+        color: colors.blue,
+        fontFamily: 'Arial', 
         fontWeight: 'bold', 
         alignSelf: 'center', 
         paddingTop: 55,
         paddingBottom: 10
+    },
+    labelText: {
+        color: colors.blue,
+        fontFamily: 'Arial',
+        fontWeight: 'bold',
+        fontSize: 16,
+        padding: 8,
+        paddingLeft: 10,
     },
     loginText: {
         color: '#FFFFFF',
@@ -444,7 +457,7 @@ const AddHobby = ({ navigation, route }) => {
         <View style={styles.container}>
             <Text style={styles.title}>Select Hobbies</Text>
             <ScrollView>
-                <Text style={styles.section}>Sports</Text>
+                <Text style={styles.labelText}>Sports</Text>
                 <CheckBox fontFamily='Avenir' checkedColor='#75d2ff' title="Airsoft &#128299;" checked={isAirsoftSelected} onPress={() => setIsAirsoftSelected(!isAirsoftSelected)} />
                 <CheckBox fontFamily='Avenir' checkedColor='#75d2ff' title="Archery &#127993;" checked={isArchSelected} onPress={() => setIsArchSelected(!isArchSelected)} />
                 <CheckBox fontFamily='Avenir' checkedColor='#75d2ff' title="Backpacking &#127890;" checked={isBackSelected} onPress={() => setIsBackSelected(!isBackSelected)} />
@@ -542,16 +555,7 @@ const AddHobby = ({ navigation, route }) => {
                 <CheckBox fontFamily='Avenir' checkedColor='#75d2ff' title="Video Games &#127918;" checked={isVideoSelected} onPress={() => setIsVideoSelected(!isVideoSelected)} />
             </ScrollView>
             <View style={{alignSelf: 'center', paddingBottom: 35}}>
-                <LinearGradient
-                    // Button Linear Gradient
-                    colors={['#75d2ff', '#96a9d5', '#9fa4d0', '#bfa8e0', '#d7b1cd']}
-                    start={[0, 1]} 
-                    end={[1, 0]}
-                    style={styles.loginBtn}>
-                    <TouchableOpacity onPress={() => {saveHobbies(); navigation.navigate('Home')}} style={styles.loginBtn}>
-                        <Text style={styles.loginText}>Save Changes</Text>
-                    </TouchableOpacity>
-                </LinearGradient>
+            <Button onPress={() => {saveHobbies(); navigation.navigate('Home')}} text={'Save Changes'} width={(windowWidth/1.618)} />
             </View>
         </View>
     );

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Touchable } from 'react-native';
 import colors from '../styles/theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Card } from 'react-native-elements';
  
 const styles = StyleSheet.create({
     loadingContainer: {
@@ -15,11 +16,20 @@ const styles = StyleSheet.create({
     },
     hobbies: {
         padding: 10
-    }
+    },
+    labelText: {
+        color: colors.blue,
+        fontFamily: 'Arial',
+        fontWeight: 'bold',
+        fontSize: 16,
+        padding: 8,
+        paddingLeft: 5,
+        paddingRight: 5,
+    },
 });
 
 // placeholder for forums screen
-const Forums = () => {
+const Forums = ({ navigation, route }) => {
 
     const [email, setEmail] = useState('');
     const [allHobbies, setAllHobbies] = useState([]);
@@ -37,6 +47,7 @@ const Forums = () => {
                 let hobbies = [];
                 var data = res.data.split("\n");
                 data.pop();
+                console.log(data);
                 for(let i=0; i < data.length; i++){
                     let tempHobby = {};
                     let hobbyParts = data[i].split("~");
@@ -76,11 +87,11 @@ const Forums = () => {
         } else{
             return allHobbies.map((hobby) => {
                 return(
-                    <View>
-                        <TouchableOpacity>
-                            <Text key={hobby.id} style={styles.hobbies}>{hobby.name}</Text>
+                    <Card>
+                        <TouchableOpacity onPress={() => {navigation.navigate({name: 'HobbyPosts', params: {hobbyID: hobby.id, name: hobby.name}});}}>
+                            <Text key={hobby.id} style={styles.labelText}>{hobby.name} {String.fromCodePoint(hobby.icon)}</Text>
                         </TouchableOpacity>
-                    </View>
+                    </Card>
                 );
             });
         }

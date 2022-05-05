@@ -95,7 +95,6 @@ const LoadConversations = ({ navigation, route }) => {
 
         axios.post('http://23.22.183.138:8806/conversations.php', formData)
             .then(res=>{
-                console.log(res.data);
                 const convos = res.data.split("\n");
                 convos.pop();
                 for(let i = 0; i < convos.length; i++){
@@ -158,7 +157,7 @@ const LoadConversations = ({ navigation, route }) => {
     if(!isLoaded) {
         return(
             <View style={[styles.loadingContainer, styles.horizontal]}>
-                <ActivityIndicator size="large" color={colors.blue} />
+                <ActivityIndicator size="large" color={colors.lavender} />
             </View>
         );
     }
@@ -174,7 +173,7 @@ const LoadConversations = ({ navigation, route }) => {
                         </View>
                         <View>
                             <Text style={styles.labelName}>{convo.names}</Text>
-                            <Text style={styles.labelPreview}>Test</Text>
+                            <Text style={styles.labelPreview}>Hey Gabriel</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -184,7 +183,7 @@ const LoadConversations = ({ navigation, route }) => {
     else {
         return (
             <View style={styles.altContainer}>
-                <Text style={styles.defaultText}>You have no conversations.</Text>
+                <Text style={styles.defaultText}>You have no messages.</Text>
             </View>
         )
     }

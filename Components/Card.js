@@ -1,7 +1,12 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
+// import { LinearGradient } from 'expo-linear-gradient';
 import { shape, string } from 'prop-types'
 import styles from '../styles/Card.styles'
+import colors from '../styles/theme';
+import RecruitIcon from '../img/icon_recruit.svg';
+import InlineButton from './InlineButton';
+import HobbyTag from './HobbyTag';
 
 const Card = ({ card }) => (
   <View
@@ -16,26 +21,33 @@ const Card = ({ card }) => (
     />
   
     <View style={styles.photoDescriptionContainer}>
-      <View style={{flexDirection: 'row', flexWrap:"wrap"}}>
-        {card.hobbies.map((hobby) => (
-          <TouchableOpacity style={[styles.tag, {backgroundColor: '#9fa4d0'}]}>
-            <Text style={{color: 'white', fontFamily: 'Avenir', fontSize: 12}}>&nbsp;{hobby}</Text>
-          </TouchableOpacity>
+      <View style={styles.hobbiesContainer}>
+        {card.hobbies.map((hobby,key) => (
+          <HobbyTag hobby={hobby} id={key} />
         ))}
-        <Text style={{marginBottom: 15}}>{'\n'}</Text>
       </View>
-      <Text style={styles.text}>
-        {`${card.name ? card.name : "Out of Profiles"}`}
-      </Text>
-      <Text style={styles.bio}>
-        {`${card.bio ? card.bio : "We'll have more soon!"}`}
-      </Text>
-    
+      <View style={styles.infoWrapper}>
+        <View style={styles.infoContainer}>
+          <Text style={styles.name}>
+            {`${card.name.split(' ')[0]}`}
+          </Text>
+          <Text style={styles.bio}>
+            {`${card.bio}`}
+          </Text>
         </View>
+        <TouchableOpacity
+          style={styles.recruitButtonContainer}>
+          <View style={styles.recruitButton}>
+            <RecruitIcon width={55} height={55} gradStart={colors.iceBlue} gradEnd={colors.orchid}/>
+          </View>
+          <InlineButton text='Recruit' style={{fontStyle: 'italic', fontSize: 15}}/>
+        </TouchableOpacity>
+      </View>
+    </View>
   </View>
 )
 
-Card.propTypes = { 
+Card.propTypes = {
   card: shape({
     name: string,
     bio: string
