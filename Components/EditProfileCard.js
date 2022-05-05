@@ -20,7 +20,7 @@ const EditProfileCard = ({ card, navigation, route }) => (
     <View style={styles.photoDescriptionContainer}>
       <View style={styles.hobbiesContainer}>
         {card.hobbies.map((hobby, key) => (
-          <HobbyTag hobby={hobby} id={key} />
+          <HobbyTag hobby={hobby.name} id={key} />
         ))}
       </View>
       <View style={styles.infoWrapper}>
@@ -39,10 +39,6 @@ const EditProfileCard = ({ card, navigation, route }) => (
         </View>
         <View
           style={[styles.recruitButtonContainer,{opacity:.618*.85}]}>
-          <View style={styles.recruitButton}>
-            <RecruitIcon width={55} height={55} gradStart={colors.iceBlue} gradEnd={colors.orchid}/>
-          </View>
-          <InlineButton text='Recruit' style={{fontStyle: 'italic', fontSize: 15}}/>
         </View>
       </View>
     </View>

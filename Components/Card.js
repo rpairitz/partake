@@ -23,7 +23,7 @@ const Card = ({ card }) => (
     <View style={styles.photoDescriptionContainer}>
       <View style={styles.hobbiesContainer}>
         {card.hobbies.map((hobby,key) => (
-          <HobbyTag hobby={hobby.name} id={key} icon={hobby.icon}/>
+          <HobbyTag hobby={hobby.name} icon={hobby.icon} id={key}/>
         ))}
       </View>
       <View style={styles.infoWrapper}>

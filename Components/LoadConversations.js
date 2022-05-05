@@ -92,10 +92,12 @@ const LoadConversations = ({ navigation, route }) => {
         let formData = new FormData();
         let allConvos = [];
 
-        formData.append('username', uname);
+        var newUname = uname.replaceAll("\"", '');
+        formData.append('username', newUname);
 
         axios.post('http://23.22.183.138:8806/conversations.php', formData)
             .then(res=>{
+                console.log(res.data);
                 const convos = res.data.split("\n");
                 convos.pop();
                 for(let i = 0; i < convos.length; i++){
@@ -140,20 +142,6 @@ const LoadConversations = ({ navigation, route }) => {
         })
         .catch((error) => console.log(error))
     }, [user]);
-
-    const addToGroup = (convoID) => {
-        var axios = require('axios');
-        let formData = new FormData();
-
-        formData.append('name', newName);
-        formData.append('convoID', convoID);
-
-        axios.post('http://23.22.183.138:8806/addToGroup.php', formData)
-        .then(res=>{
-            console.log(res.data);
-        }).catch(err=>console.log(err));
-
-    }
 
     if(!isLoaded) {
         return(

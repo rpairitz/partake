@@ -42,16 +42,22 @@ const Profile = ({ navigation, route }) => {
                 formData.append('email', email);
                 axios.post('http://23.22.183.138:8806/getProfile.php', formData)
                 .then(res=>{ 
-                    var data = res.data.split("~");
+                    var data = res.data.split("[");
                     let tempUser = {};
-                    tempUser.name = data[0];
-                    tempUser.key = data[1];
-                    tempUser.bio = data[2];
+                    var userData = data[0].split("~");
+                    userData.pop();
+                    var hobbyData = data.shift();
+                    tempUser.name = userData[0];
+                    tempUser.key = userData[1];
+                    tempUser.bio = userData[2];
                     let hobbies = [];
-                    for(let i=3; i < data.length; i++){
-                        hobbies.push(data[i]);
+                    for(let i=0; i < data.length; i++){
+                        let tempHobby = {};
+                        let hobbyData = data[i].split("~");
+                        tempHobby.name = hobbyData[0];
+                        tempHobby.icon = hobbyData[1];
+                        hobbies.push(tempHobby);
                     }   
-                    hobbies.pop();
                     tempUser.hobbies = hobbies;
                     let crdArray = [tempUser];
                     setCard(crdArray);

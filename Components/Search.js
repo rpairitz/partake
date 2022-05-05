@@ -141,28 +141,34 @@ const Search = ({ navigation, route }) => {
             for(let i = 0; i < allUsers.length; i++) {
                 let tempUser = {};
                 let data = allUsers[i].split(",");
+                if(data[0] == "1") {
+                    data.splice(3, 1);
+                }
+                else if(data[0] == "2") {
+                    data.splice(5, 1);
+                }
+                else if(data[0] == "3") {
+                    data.splice(7, 1);
+                }
+                else if(data[0] == "4") {
+                    data.splice(9, 1);
+                }
+                else if(data[0] == "5") {
+                    data.splice(11, 1);
+                }
                 let hobbyCount = parseInt(data[0]);
                 let hobbies = [];
-                for(let j = 0; j < hobbyCount; j++){
-                    // hobbies.push(data[j+1]);
-                    // console.log(data[j+2]);
+                for(let j = 0; j < hobbyCount+1; j+=2){
                     let tempHobby = {};
-                    // let hobbyParts = data[j].split("~");
-                    // tempHobby.id = hobbyParts[0];
                     tempHobby.name = data[j+1];
                     tempHobby.icon = data[j+2];
-                    // console.log(tempHobby.name);
-                    // console.log(tempHobby);
                     hobbies.push(tempHobby);
                 }
                 tempUser.hobbies = hobbies;
-                tempUser.id = data[hobbyCount+1];
-                tempUser.name = data[hobbyCount+2];
-                tempUser.bio = data[hobbyCount+3];
+                tempUser.id = data[hobbyCount+3];
+                tempUser.name = data[hobbyCount+4];
+                tempUser.bio = data[hobbyCount+5];
                 tempUser.photo = photos[Number(data[data.length - 1])];
-                if(!tempUser.photo){
-                    tempUser.photo = require("../assets/profile.png");
-                }
                 users.push(tempUser);
             }
             setRankedUsers(users);

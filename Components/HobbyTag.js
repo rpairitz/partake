@@ -35,7 +35,7 @@ const HobbyTag = ({hobby,id,icon}) => {
     if (icon)
     return (
         <TouchableOpacity style={styles((id)%8).tagContainer}>
-          <Text style={styles((id)%8).tagLabel}>{hobby} {/*String.fromCodePoint(icon)*/}</Text>
+          <Text style={styles((id)%8).tagLabel}>{hobby} {String.fromCodePoint(icon)}</Text>
         </TouchableOpacity>
     );
     else

@@ -57,6 +57,7 @@ const Chat = ({ navigation, route }) => {
 
   const [messages, setMessages] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [newName, setNewName] = useState('');
   const [showActions, setShowActions] = useState(false); // for actions within chat
 
     const loadMessages = () => {
@@ -88,6 +89,20 @@ const Chat = ({ navigation, route }) => {
               setIsLoaded(true);
           }).catch(err=>console.log(err));
     };
+
+    const addToGroup = (convoID) => {
+      var axios = require('axios');
+      let formData = new FormData();
+
+      formData.append('name', newName);
+      formData.append('convoID', convoID);
+
+      axios.post('http://23.22.183.138:8806/addToGroup.php', formData)
+      .then(res=>{
+          console.log(res.data);
+      }).catch(err=>console.log(err));
+
+  };
 
     const addMessage = (message) => {
       var axios = require('axios');
@@ -150,7 +165,7 @@ const Chat = ({ navigation, route }) => {
           <Text style={{flex:1,textAlign: 'left',fontFamily: 'Arial',fontWeight:'bold',fontSize: 18,color: colors.grayActive,maxWidth: 310,}}>
             {route.params.participants}
           </Text>
-          <ActionsMenu showActions={showActions} onActionsPress={onActionsPress} />
+          <ActionsMenu showActions={showActions} onActionsPress={addToGroup(route.params.convoID)} />
           </View>
         </SafeAreaView>
         <GiftedChat

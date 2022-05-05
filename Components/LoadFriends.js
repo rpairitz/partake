@@ -61,7 +61,8 @@ const LoadFriends = ({ navigation, route }) => {
         var axios = require('axios');
         let formData = new FormData();
 
-        formData.append('username', uname);
+        var newUname = uname.replaceAll("\"", '');
+        formData.append('username', newUname);
 
         axios.post('http://23.22.183.138:8806/getFriends.php', formData)
         .then(res=>{
