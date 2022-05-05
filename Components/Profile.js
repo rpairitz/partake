@@ -36,7 +36,7 @@ const Profile = ({ navigation, route }) => {
         AsyncStorage.getItem('partakeCredentials')
         .then((loggedIn) => {
             if(loggedIn !== ""){
-                setEmail(loggedIn);
+                setEmail(JSON.parse(loggedIn));
                 var axios = require('axios');
                 let formData = new FormData();
                 formData.append('email', email);

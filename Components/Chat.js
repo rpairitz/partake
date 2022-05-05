@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import colors from '../styles/theme';
+import ProfilePlaceholder from '../img/logo_profile-placeholder.svg';
 
 const styles = StyleSheet.create({
     container: {

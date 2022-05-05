@@ -100,7 +100,7 @@ const AddHobby = ({ navigation, route }) => {
         AsyncStorage.getItem('partakeCredentials').
         then((gotItem) => {
             console.log(gotItem);
-            setUsername(gotItem);
+            setUsername(JSON.parse(gotItem));
         })
         .catch((error) => console.log(error))
     }, [username]);
@@ -420,19 +420,24 @@ const AddHobby = ({ navigation, route }) => {
             hobbies.push('Video Games');
         }
 
-        var axios = require('axios');
-        let formData = new FormData();
+        if(hobbies.length == 0){
+            alert("Please select at least one hobby!");
+        } else{
+            var axios = require('axios');
+            let formData = new FormData();
 
-        formData.append('username', username);
-        for(let i = 0; i < hobbies.length; i++) {
-            formData.append('hobbies[]', hobbies[i]);
+            formData.append('username', username);
+            for(let i = 0; i < hobbies.length; i++) {
+                formData.append('hobbies[]', hobbies[i]);
+            }
+
+            axios.post('http://23.22.183.138:8806/addHobby.php', formData)
+                .then(res=>{
+                    AsyncStorage.setItem('hobbyFlag', JSON.stringify(true));
+                    console.log(res.data);
+                    
+                }).catch(err=>console.log(err));
         }
-
-        axios.post('http://23.22.183.138:8806/addHobby.php', formData)
-            .then(res=>{
-                console.log(res.data);
-                
-            }).catch(err=>console.log(err));
     };
 
     return(

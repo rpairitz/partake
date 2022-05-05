@@ -93,7 +93,7 @@ const CreateProfile = ({ navigation, route }) => {
     useEffect(() => {
         AsyncStorage.getItem('partakeCredentials').
         then((gotItem) => {
-            setUsername(gotItem);
+            setUsername(JSON.parse(gotItem));
         })
         .catch((error) => console.log(error))
     }, [username]);
@@ -101,26 +101,29 @@ const CreateProfile = ({ navigation, route }) => {
     const createProfile = () => {
         if(!firstName || !lastName || !zipCode || !bio) {
             alert('One or more fields is missing. Please fill out all fields.');
+        } else{
+            var axios = require('axios');
+            let formData = new FormData();
+            //let formData = new URLSearchParams();
+            var profFlag = true;
+            var fullName = firstName + ' ' + lastName;
+            //Decrypt username for use in query
+            console.log("Testing AsyncStorage:" + username);
+            formData.append('username', username);
+            formData.append('name', fullName);
+            formData.append('bio', bio);
+            formData.append('zipCode', zipCode);
+            axios.post('http://23.22.183.138:8806/createProfile.php', formData)
+                .then(res=>{ 
+                    console.log(res.data);
+                    if(res.data === 'Success'){
+                        AsyncStorage.setItem("profFlag", JSON.stringify(profFlag));
+                        navigation.navigate('AddHobby');
+                    } else{
+                        alert("Failed to register.");
+                    }
+                }).catch(err=>console.log(err));
         }
-        var axios = require('axios');
-        let formData = new FormData();
-        //let formData = new URLSearchParams();
-        var fullName = firstName + ' ' + lastName;
-        //Decrypt username for use in query
-        console.log("Testing AsyncStorage:" + username);
-        formData.append('username', username);
-        formData.append('name', fullName);
-        formData.append('bio', bio);
-        formData.append('zipCode', zipCode);
-        axios.post('http://23.22.183.138:8806/createProfile.php', formData)
-            .then(res=>{ 
-                console.log(res.data);
-                if(res.data === 'Success'){
-                    navigation.navigate('AddHobby');
-                } else{
-                    alert("Failed to register.");
-                }
-            }).catch(err=>console.log(err));
     } 
 
     const handleChoosePhoto = async () => {
@@ -186,35 +189,9 @@ const CreateProfile = ({ navigation, route }) => {
                         />
                     </View>
                 </View>
-                <Text style={{ fontFamily: 'Arial', fontSize: 16, paddingBottom: 8}}>Hobbies</Text>
-                <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity style={styles.tag}>
-                        <Ionicons name="close-outline" size="14px" color="#ffffff" />
-                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Soccer</Text>
-                    </TouchableOpacity>
-                    <Text>&nbsp;&nbsp;&nbsp;</Text>
-                    <TouchableOpacity style={[styles.tag, {backgroundColor: '#9fa4d0'}]}>
-                        <Ionicons name="close-outline" size="14px" color="#ffffff" />
-                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Painting</Text>
-                    </TouchableOpacity>
-                    <Text>&nbsp;&nbsp;&nbsp;</Text>
-                    <TouchableOpacity style={[styles.tag, {backgroundColor: '#d7b1cd'}]}>
-                        <Ionicons name="close-outline" size="14px" color="#ffffff" />
-                        <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 11}}>&nbsp;Poetry</Text>
-                    </TouchableOpacity>
-                    <Text style={{marginBottom: 15}}>{'\n'}</Text>
-                </View>
-                <Button onPress={() => {createProfile(); navigation.navigate('AddHobby')}} text={'Continue'} width={(windowWidth/1.618)}/>
-                {/* <LinearGradient
-                    // Button Linear Gradient
-                    colors={['#75d2ff', '#96a9d5', '#9fa4d0', '#bfa8e0', '#d7b1cd']}
-                    start={[0, 1]} 
-                    end={[1, 0]}
-                    style={styles.loginBtn}>
-                        <TouchableOpacity onPress={() => {createProfile(); navigation.navigate('AddHobby')}} style={styles.loginBtn}>
-                            <Text style={{color: 'white', fontFamily: 'Arial', fontSize: 14, fontWeight: 'bold'}}>Continue</Text>
-                        </TouchableOpacity>
-                </LinearGradient> */}
+                <Text style={{ fontFamily: 'Arial', fontSize: 16, paddingBottom: 8}}></Text>
+                <Text style={{ fontFamily: 'Arial', fontSize: 16, paddingBottom: 8}}></Text>
+                <Button onPress={() => {createProfile()}} text={'Continue'} width={(windowWidth/1.618)}/>
             </View>
         </View>
     );

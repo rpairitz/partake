@@ -65,27 +65,28 @@ const Register = ({ navigation, route }) => {
     const register = () => {
         if(!username || !password || !repeatPassword) {
             alert('One or more fields is missing. Please fill out all required fields.');
-        }
-        var axios = require('axios');
-        
-        let formData = new FormData();
-        //let formData = new URLSearchParams();
-        if(password === repeatPassword){
-            formData.append('email', username);
-            formData.append('password', password);
-            axios.post('http://23.22.183.138:8806/register.php', formData)
-            .then(res=>{
-                console.log(res.data);
-                if(res.data === 'Success'){
-                    AsyncStorage.setItem("partakeCredentials", username);
-                    navigation.navigate('CreateProfile');
-                    //Store username for future use
-                } else{
-                    alert("Unable to register. There may already be a user registered with this email.");
-                }
-            }).catch(err=>console.log(err));
         } else{
-            alert("Passwords don't match");
+            var axios = require('axios');
+            
+            let formData = new FormData();
+            //let formData = new URLSearchParams();
+            if(password === repeatPassword){
+                formData.append('email', username);
+                formData.append('password', password);
+                axios.post('http://23.22.183.138:8806/register.php', formData)
+                .then(res=>{
+                    console.log(res.data);
+                    if(res.data === 'Success'){
+                        AsyncStorage.setItem("partakeCredentials", JSON.stringify(username));
+                        navigation.navigate('CreateProfile');
+                        //Store username for future use
+                    } else{
+                        alert("Unable to register. There may already be a user registered with this email.");
+                    }
+                }).catch(err=>console.log(err));
+            } else{
+                alert("Passwords don't match");
+            }
         }
     }
 
