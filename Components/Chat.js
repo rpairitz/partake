@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import BackIcon from "../img/icon_back.svg";
 import ActionsMenu from './ActionsMenu';
 import colors from '../styles/theme';
+import ProfilePlaceholder from '../img/logo_profile-placeholder.svg';
 
 const styles = StyleSheet.create({
   container: {
@@ -58,87 +59,87 @@ const Chat = ({ navigation, route }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showActions, setShowActions] = useState(false); // for actions within chat
 
-  const loadMessages = () => {
-    var axios = require('axios');
-    let formData = new FormData();
+    const loadMessages = () => {
+      var axios = require('axios');
+      let formData = new FormData();
 
-    formData.append('username', route.params.username);
-    formData.append('convoID', route.params.convoID);
+      formData.append('username', route.params.username);
+      formData.append('convoID', route.params.convoID);
 
-    axios.post('http://23.22.183.138:8806/messages.php', formData)
-      .then(res => {
-        const allMessages = res.data.split("\n");
-        allMessages.pop();
-        var mess = [];
-        for (let i = 0; i < allMessages.length; i++) {
-          let tempMess = allMessages[i].split("|");
-          let tempMessageObj = {};
-          tempMessageObj._id = tempMess[0];
-          tempMessageObj.text = tempMess[3];
-          let tempCreate = new Date(Number(tempMess[6]));
-          tempMessageObj.createdAt = tempCreate;
-          tempMessageObj.user = {
-            _id: Number(tempMess[2]),
-            avatar: photos[route.params.pic]
-          };
-          mess.push(tempMessageObj);
-        }
-        setMessages(mess);
-        setIsLoaded(true);
-      }).catch(err => console.log(err));
-  };
+      axios.post('http://23.22.183.138:8806/messages.php', formData)
+          .then(res=>{
+              const allMessages = res.data.split("\n");
+              allMessages.pop();
+              var mess = [];
+              for(let i = 0; i < allMessages.length; i++) {
+                let tempMess = allMessages[i].split("|");
+                let tempMessageObj = {};
+                tempMessageObj._id = tempMess[0];
+                tempMessageObj.text = tempMess[3];
+                let tempCreate = new Date(Number(tempMess[6]));
+                tempMessageObj.createdAt = tempCreate;
+                tempMessageObj.user = {
+                  _id: Number(tempMess[2]),
+                  avatar: photos[route.params.pic]
+                };
+                mess.push(tempMessageObj);
+              }
+              setMessages(mess);
+              setIsLoaded(true);
+          }).catch(err=>console.log(err));
+    };
 
-  const addMessage = (message) => {
-    var axios = require('axios');
-    let sentDate = new Date().toLocaleDateString('en-GB', {
-      day: 'numeric', month: 'short', year: 'numeric'
-    }).replace(/ /g, '-').toUpperCase();
-    let sentTime = new Date().toLocaleTimeString().split(" ")[0];
-    let createdAt = Date.now();
+    const addMessage = (message) => {
+      var axios = require('axios');
+      let sentDate = new Date().toLocaleDateString('en-GB', {
+        day: 'numeric', month: 'short', year: 'numeric'
+      }).replace(/ /g, '-').toUpperCase();
+      let date = new Date();
+      let hours = date.getHours();
+      let mins = date.getMinutes();
+      let sec = date.getSeconds();
+      let sentTime = hours + ':' + mins + ':' + sec;
+      let createdAt = Date.now();
 
-    let formData = new FormData();
+      let formData = new FormData();
 
-    formData.append('messageID', message[0]._id);
-    formData.append('convoID', route.params.convoID);
-    formData.append('senderID', message[0].user._id);
-    formData.append('content', message[0].text);
-    formData.append('sentDate', sentDate);
-    formData.append('sentTime', sentTime);
-    formData.append('createdAt', createdAt);
+      formData.append('messageID', message[0]._id);
+      formData.append('convoID', route.params.convoID);
+      formData.append('senderID', message[0].user._id);
+      formData.append('content', message[0].text);
+      formData.append('sentDate', sentDate);
+      formData.append('sentTime', sentTime);
+      formData.append('createdAt', createdAt);
 
-    axios.post('http://23.22.183.138:8806/addMessage.php', formData)
-      .then(res => {
+      axios.post('http://23.22.183.138:8806/addMessage.php', formData)
+            .then(res=>{
+                
+            }).catch(err=>console.log(err));
+    };
 
-      }).catch(err => console.log(err));
-  };
+    useEffect(() => {
+      console.log('username: ', route.params.username);
+      console.log('id: ', route.params.userID);
+      console.log('convoID: ', route.params.convoID);
+      const interval = setInterval(() => {
+        loadMessages();
+      }, 1000);
+    }, []);
 
-  useEffect(() => {
-    console.log('username: ', route.params.username);
-    console.log('id: ', route.params.userID);
-    console.log('convoID: ', route.params.convoID);
-    const interval = setInterval(() => {
-      loadMessages();
-    }, 1000);
-  }, []);
+    const onSend = useCallback((messages = []) => {
+        setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
+        // also push new messages to DB
+        addMessage(messages);
+    }, []);
 
-  const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
-    // also push new messages to DB
-    addMessage(messages);
-  }, []);
-
-  const onActionsPress = () => {
-      setShowActions(!showActions);
-  }
-
-  if (!isLoaded) {
-    return (
-      <View style={[styles.loadingContainer, styles.horizontal]}>
-        <ActivityIndicator size="large" color={colors.lavender} />
-      </View>
-    );
-  }
-  else {
+    if(!isLoaded) {
+      return(
+        <View style={[styles.loadingContainer, styles.horizontal]}>
+          <ActivityIndicator size="large" color={colors.lavender} />
+        </View>
+      );
+    }
+    else {
     return (
       <>
         <SafeAreaView style={{ height: 89, zIndex: 99999, borderBottomColor: colors.grayInactive, borderBottomWidth: 0.38}}>

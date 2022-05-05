@@ -129,7 +129,7 @@ const LoadConversations = ({ navigation, route }) => {
     useEffect(() => {
         AsyncStorage.getItem('partakeCredentials')
         .then((gotItem) => {
-            setUsername(gotItem);
+            setUsername(JSON.parse(gotItem));
             return gotItem;
         })
         .then((uname) => {

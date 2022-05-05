@@ -13,6 +13,8 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [user, setUser] = useState(false);
+  const [prof, setProfile] = useState(false);
+  const [hobby, setHobby] = useState(false);
 
   useEffect(() => {
     AsyncStorage.getItem('partakeCredentials')
@@ -21,13 +23,25 @@ export default function App() {
         setUser(true);
       }
     });
-  }, [user])
+    AsyncStorage.getItem('profFlag')
+    .then((created) => {
+      if(created){
+        setProfile(true);
+      }
+    });
+    AsyncStorage.getItem('hobbyFlag')
+    .then((hobbied) => {
+      if(hobbied){
+        setHobby(true);
+      }
+    });
+  }, [user, prof, hobby])
 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false,}}>
       {
-        user ? (
+        (user && prof && hobby) ? (
           <Stack.Screen name="HomeStack" component={HomeStack} />
         ) : (
           <Stack.Screen name="LoginStack" component={LoginStack} />

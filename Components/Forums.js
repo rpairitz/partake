@@ -38,7 +38,7 @@ const Forums = ({ navigation, route }) => {
     useEffect(() => {
         AsyncStorage.getItem('partakeCredentials')
         .then((loggedIn) => {
-            setEmail(loggedIn);
+            setEmail(JSON.parse(loggedIn));
             var axios = require('axios');
             let formData = new FormData();
             formData.append('email', email);

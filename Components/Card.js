@@ -13,11 +13,13 @@ const Card = ({ card }) => (
     activeOpacity={1}
     style={styles.card}
   >
+    
     <Image
       style={styles.image}
       source={card.photo}
       resizeMode="cover"
     />
+  
     <View style={styles.photoDescriptionContainer}>
       <View style={styles.hobbiesContainer}>
         {card.hobbies.map((hobby,key) => (

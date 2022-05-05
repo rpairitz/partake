@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -62,18 +62,43 @@ const Login = ({ navigation, route }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    useEffect(() => {
+        AsyncStorage.getItem('partakeCredentials')
+        .then((loggedIn) => {
+          if(!loggedIn){
+            console.log('no state');
+          } else{
+                AsyncStorage.getItem('profFlag')
+                .then((created) => {
+                if(!created){
+                    navigation.navigate('CreateProfile');
+                    alert("Before you can Partake, we still need some user information from you");
+                } else{
+                    AsyncStorage.getItem('hobbyFlag')
+                    .then((hobbied) => {
+                    if(!hobbied){
+                        console.log('no hobbies');
+                        navigation.navigate('AddHobby');
+                        alert("Before you can Partake, we need to know your hobbies");
+
+                    }
+                    });
+                }
+                });
+            }
+        });
+      }, [])
+
     const login = () => {
         var axios = require('axios');
         let formData = new FormData();
-        //let formData = new URLSearchParams();
         formData.append('email', email);
         formData.append('password', password);
-        //console.log(cryptr.encrypt(password));
         axios.post('http://23.22.183.138:8806/login.php', formData)
             .then(res=>{ 
                 console.log(res.data);
                 if(res.data === 'Success'){
-                    AsyncStorage.setItem("partakeCredentials", email);
+                    AsyncStorage.setItem("partakeCredentials", JSON.stringify(email));
                     navigation.navigate('Home');
                     setEmail('');
                     setPassword('');

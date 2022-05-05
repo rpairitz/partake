@@ -160,6 +160,9 @@ const Search = ({ navigation, route }) => {
                 tempUser.name = data[hobbyCount+2];
                 tempUser.bio = data[hobbyCount+3];
                 tempUser.photo = photos[Number(data[data.length - 1])];
+                if(!tempUser.photo){
+                    tempUser.photo = require("../assets/profile.png");
+                }
                 users.push(tempUser);
             }
             setRankedUsers(users);
@@ -170,6 +173,7 @@ const Search = ({ navigation, route }) => {
     useEffect(() => {
         AsyncStorage.getItem('partakeCredentials')
         .then((gotItem) => {
+            var gotItem = JSON.parse(gotItem);
             setUsername(gotItem);
             return gotItem;
         })

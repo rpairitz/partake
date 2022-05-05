@@ -45,15 +45,6 @@ const EditProfileCard = ({ card, navigation, route }) => (
           <InlineButton text='Recruit' style={{fontStyle: 'italic', fontSize: 15}}/>
         </View>
       </View>
-      {/* <Text style={styles.text}>
-        {`${card.name}`}
-        <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
-            <Text style={styles.edit}>&nbsp;&nbsp;&nbsp;Edit</Text>
-        </TouchableOpacity>
-      </Text>
-      <Text style={styles.bio}>
-        {`${card.bio}`}
-      </Text> */}
     </View>
   </View>
 )
