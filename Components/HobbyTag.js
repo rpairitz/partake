@@ -15,9 +15,9 @@ const hobbyColors = {
 const styles = (mod) => StyleSheet.create({
     tagContainer: {
         padding: 13,
-        paddingTop: 5,
+        paddingTop: 3,
         paddingBottom: 5,
-        borderRadius: 13,
+        borderRadius: 21,
         backgroundColor: hobbyColors[mod],
         marginRight: 5,
         marginBottom: 5, 

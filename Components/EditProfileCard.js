@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, } from 'react-native'
 import { shape, string, number } from 'prop-types'
 import HobbyTag from './HobbyTag';
 import styles from '../styles/Card.styles'
-import colors from '../styles/theme';
-import RecruitIcon from '../img/icon_recruit.svg';
+// import colors from '../styles/theme';
+// import RecruitIcon from '../img/icon_recruit.svg';
 import InlineButton from './InlineButton';
 
 const EditProfileCard = ({ card, navigation, route }) => (
@@ -29,9 +29,9 @@ const EditProfileCard = ({ card, navigation, route }) => (
             <Text style={styles.name}>
               {`${card.name}`}
             </Text>
-            <View style={{alignSelf: 'baseline', top: 29-15-1.5}}>
+            {/* <View style={{alignSelf: 'baseline', top: 29-15-1.5}}>
             <InlineButton text="&nbsp;Edit" style={{fontSize: 15,}} onPress={() => navigation.navigate('EditProfile')}/>
-            </View>
+            </View> */}
           </View>
           <Text style={styles.bio}>
             {`${card.bio}`}
