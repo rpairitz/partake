@@ -129,7 +129,7 @@ const LoadFriends = ({ navigation, route }) => {
                 <View style={styles.altContainer}>
                     <Text style={styles.defaultText}>You have no friends.{'\u00A0'}</Text>
                     <InlineButton text='Meet people with similar hobbies!' onPress={() => navigation.navigate('Search')}
-                        style={{ fontSize: 15, fontWeight: 'regular', top: 0.5 }} />
+                        style={{ fontSize: 15, fontWeight: 'normal', top: 0.5 }} />
                 </View>
             </View>
         )

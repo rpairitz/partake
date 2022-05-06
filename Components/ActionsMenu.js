@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import ActionsIcon from "../img/icon_ellipses.svg";
 import colors from "../styles/theme";
 // import { useNavigation } from "@react-navigation/native";
@@ -6,9 +6,9 @@ import PlusIcon from '../img/icon_plus.svg';
 import { useState } from "react";
 import CustomModal from "./CustomModal";
 
-const ActionsMenu = ({showActions, onActionsPress}) => {
+const ActionsMenu = ({showActions,onActionsPress,modalVisible,setModalVisible,setNewName,handleAddToChat,onAddPress}) => {
     // const navigation = useNavigation();
-    const [modalVisible,setModalVisible] = useState(false);
+    // const [modalVisible,setModalVisible] = useState(false);
 
     // TODO: write add user method
     // const addUser = () => {
@@ -17,13 +17,17 @@ const ActionsMenu = ({showActions, onActionsPress}) => {
 
     return (
         <>
-            <CustomModal modalVisible={modalVisible} setModalVisible={()=>setModalVisible(!setModalVisible)}/>
+            <CustomModal modalVisible={modalVisible} setModalVisible={setModalVisible}
+                setNewName={setNewName}
+                onPressButton={handleAddToChat}
+                // onPressButton={() => {console.log('add friend to convo'); setModalVisible(!setModalVisible)}}
+            />
             <TouchableOpacity onPress={onActionsPress}
                 style={{zIndex: 99999,}}>
                 <ActionsIcon width={34} height={34} />
             </TouchableOpacity>
             {showActions &&
-                <TouchableOpacity onPress={() => {setModalVisible(true); onActionsPress(false);}}
+                <TouchableOpacity onPress={onAddPress}
                     style={{
                         position: "absolute",
                         zIndex: 99999,

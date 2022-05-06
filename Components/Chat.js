@@ -59,6 +59,7 @@ const Chat = ({ navigation, route }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [newName, setNewName] = useState('');
   const [showActions, setShowActions] = useState(false); // for actions within chat
+  const [modalVisible,setModalVisible] = useState(false);
 
     const loadMessages = () => {
       var axios = require('axios');
@@ -147,6 +148,17 @@ const Chat = ({ navigation, route }) => {
         addMessage(messages);
     }, []);
 
+    const onActionsPress = () => {
+      setShowActions(!showActions);
+    }
+
+    const handleAddToChat = () => {
+      // TODO: add to chat
+      setModalVisible(!setModalVisible);
+    }
+
+    const onAddPress = () => {setModalVisible(true); onActionsPress(false);}
+
     if(!isLoaded) {
       return(
         <View style={[styles.loadingContainer, styles.horizontal]}>
@@ -165,7 +177,9 @@ const Chat = ({ navigation, route }) => {
           <Text style={{flex:1,textAlign: 'left',fontFamily: 'Arial',fontWeight:'bold',fontSize: 18,color: colors.grayActive,maxWidth: 310,}}>
             {route.params.participants}
           </Text>
-          <ActionsMenu showActions={showActions} onActionsPress={addToGroup(route.params.convoID)} />
+          <ActionsMenu showActions={showActions} onActionsPress={onActionsPress} setNewName={(name) => setNewName(name)} handleAddToChat={handleAddToChat}
+            modalVisible={modalVisible} setModalVisible={()=>setModalVisible(!setModalVisible)} onAddPress={onAddPress}
+          />
           </View>
         </SafeAreaView>
         <GiftedChat

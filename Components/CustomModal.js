@@ -60,16 +60,19 @@ const CustomModal = ({modalVisible, setModalVisible, setNewName, onPressButton})
                     <Pressable style={{position: 'absolute',top:13, left: 13}}
                         onPress={setModalVisible}
                     >
+                        <View>
                         <CancelIcon width={13} height={13} />
+                        </View>
                     </Pressable>
                     <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.input}
                             placeholder="Enter a friend's name..."
+                            placeholderTextColor={colors.grayInactive}
                             onChangeText={setNewName}
                         />
                     </View>
-                    <Button text='Add' onPress={onPressButton}/>
+                    <Button text='Add' width={windowWidth/1.618} onPress={onPressButton}/>
                 </View>
             </View>
         </Modal>
