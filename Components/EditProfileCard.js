@@ -20,7 +20,7 @@ const EditProfileCard = ({ card, navigation, route }) => (
     <View style={styles.photoDescriptionContainer}>
       <View style={styles.hobbiesContainer}>
         {card.hobbies.map((hobby, key) => (
-          <HobbyTag hobby={hobby.name} id={key} />
+          <HobbyTag hobby={hobby.name} id={key} icon={hobby.icon} hobbyID={hobby.id}/>
         ))}
       </View>
       <View style={styles.infoWrapper}>

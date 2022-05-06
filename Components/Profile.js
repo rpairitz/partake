@@ -56,6 +56,7 @@ const Profile = ({ navigation, route }) => {
                         let hobbyData = data[i].split("~");
                         tempHobby.name = hobbyData[0];
                         tempHobby.icon = hobbyData[1];
+                        tempHobby.id = hobbyData[2];
                         hobbies.push(tempHobby);
                     }   
                     tempUser.hobbies = hobbies;

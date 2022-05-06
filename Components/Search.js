@@ -156,6 +156,21 @@ const Search = ({ navigation, route }) => {
                 else if(data[0] == "5") {
                     data.splice(11, 1);
                 }
+                else if(data[0] == "6") {
+                    data.splice(13, 1);
+                }
+                else if(data[0] == "7") {
+                    data.splice(15, 1);
+                }
+                else if(data[0] == "8") {
+                    data.splice(17, 1);
+                }
+                else if(data[0] == "9") {
+                    data.splice(19, 1);
+                }
+                else if(data[0] == "10") {
+                    data.splice(21, 1);
+                }
                 let hobbyCount = parseInt(data[0]);
                 let hobbies = [];
                 for(let j = 0; j < hobbyCount+1; j+=2){
