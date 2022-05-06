@@ -71,7 +71,18 @@ const Forums = ({ navigation, route }) => {
         );
     }
     else {
-        if(allHobbies.length == 0){
+        if(allHobbies.length != 0){
+            return allHobbies.map((hobby) => {
+                return(
+                    <Card>
+                        <TouchableOpacity onPress={() => {if(hobby.name === 'Sewing') console.log(hobby.icon);
+                            navigation.navigate({name: 'HobbyPosts', params: {hobbyID: hobby.id, name: hobby.name}});}}>
+                            <Text key={hobby.id} style={styles.labelText}>{hobby.name} {String.fromCodePoint(hobby.icon)}</Text>
+                        </TouchableOpacity>
+                    </Card>
+                );
+            });
+        } else{
             return (
                 <View style={{
                     flex: 1,
@@ -84,17 +95,6 @@ const Forums = ({ navigation, route }) => {
                     <Text style={{fontFamily: 'Arial', fontSize: 13, color: colors.grayActive}}>Forums not yet available.</Text>
                 </View>
             );
-        } else{
-            return allHobbies.map((hobby) => {
-                return(
-                    <Card>
-                        <TouchableOpacity onPress={() => {if(hobby.name === 'Sewing') console.log(hobby.icon);
-                            navigation.navigate({name: 'HobbyPosts', params: {hobbyID: hobby.id, name: hobby.name}});}}>
-                            <Text key={hobby.id} style={styles.labelText}>{hobby.name} {String.fromCodePoint(hobby.icon)}</Text>
-                        </TouchableOpacity>
-                    </Card>
-                );
-            });
         }
     }
 };
