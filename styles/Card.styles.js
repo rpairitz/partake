@@ -45,11 +45,11 @@ export default StyleSheet.create({
     width: windowWidth-32,
     position: 'absolute',
     maxWidth: windowWidth-16,
-    maxHeight: 350,
+    maxHeight: (windowHeight/1.618) + (windowHeight/(2.618*2.618)),
     paddingLeft: 13,
     paddingRight: 13,
     paddingBottom: 18,
-    top: (windowHeight/1.618) + (windowHeight/(2.618*2.618)) - 350,
+    top: 0,
   },
   infoWrapper: {
     flexDirection: 'row', 
