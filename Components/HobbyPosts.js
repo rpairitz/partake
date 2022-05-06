@@ -87,8 +87,14 @@ const HobbyPosts = ({ navigation, route }) => {
         }
         else {
             return(
-                <View>
-                    <Text>No posts yet for this hobby.</Text>
+                <View style={{
+                    flex: 1,
+                    flexDirection: 'column', 
+                    justifyContent: 'center', 
+                    alignItems: 'center',
+                    backgroundColor: colors.white,
+                    }}>
+                    <Text style={{fontFamily: 'Arial', fontSize: 13, color: colors.grayActive}}>No posts yet for this hobby.</Text>
                 </View>
             );
         }

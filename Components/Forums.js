@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Touchable } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Touchable, ScrollView } from 'react-native';
 import colors from '../styles/theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Card } from 'react-native-elements';
@@ -7,21 +7,22 @@ import { Card } from 'react-native-elements';
 const styles = StyleSheet.create({
     loadingContainer: {
         flex: 1,
-        justifyContent: "center"
+        justifyContent: "center",
+        backgroundColor: colors.white,
     },
     horizontal: {
         flexDirection: "row",
         justifyContent: "space-around",
-        padding: 10
+        padding: 13
     },
     hobbies: {
-        padding: 10
+        padding: 8
     },
     labelText: {
         color: colors.blue,
         fontFamily: 'Arial',
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 15,
         padding: 8,
         paddingLeft: 5,
         paddingRight: 5,
@@ -72,16 +73,19 @@ const Forums = ({ navigation, route }) => {
     }
     else {
         if(allHobbies.length != 0){
-            return allHobbies.map((hobby) => {
-                return(
+            return (
+                <ScrollView>
+                {allHobbies.map((hobby) =>
+                (
                     <Card>
                         <TouchableOpacity onPress={() => {if(hobby.name === 'Sewing') console.log(hobby.icon);
                             navigation.navigate({name: 'HobbyPosts', params: {hobbyID: hobby.id, name: hobby.name}});}}>
                             <Text key={hobby.id} style={styles.labelText}>{hobby.name} {String.fromCodePoint(hobby.icon)}</Text>
                         </TouchableOpacity>
                     </Card>
-                );
-            });
+                ))}
+                </ScrollView>
+            )
         } else{
             return (
                 <View style={{
