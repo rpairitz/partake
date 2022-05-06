@@ -141,6 +141,9 @@ const LoadConversations = ({ navigation, route }) => {
             getID();
         })
         .catch((error) => console.log(error))
+        const interval = setInterval(() => {
+            loadConversations(username);
+        }, 1000);
     }, [user]);
 
     if(!isLoaded) {
