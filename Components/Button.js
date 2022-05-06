@@ -21,14 +21,14 @@ const styles = StyleSheet.create({
 
 const Button = ({text, onPress, width}) => {
     return (
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={onPress} style={{width: width+26, alignSelf: 'center',}}>
             <LinearGradient
                 colors={[colors.iceBlue, colors.orchid]}
                 start={[0, 1]}
                 end={[1, 0]}
                 onPress={() => navigation.navigate('Home')}
                 style={styles.button}>
-                <Text style={[styles.buttonText,{width: width}]}>{text}</Text>
+                <Text style={[styles.buttonText,{maxWidth: width}]}>{text}</Text>
             </LinearGradient>
         </TouchableOpacity>
     );

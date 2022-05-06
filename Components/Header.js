@@ -1,21 +1,28 @@
-import { View } from "react-native";
-import PrefsMenu from "./PrefsMenu";
-import Wordmark from "../img/logo_wordmark.svg";
+import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import colors from "../styles/theme";
+import BackIcon from "../img/icon_back.svg";
 
-const Header = ({navigation}) => {
+const Header = ({ text, displayBack, onPressBack }) => {
     return (
-        <View style={{
-            marginTop: 42,
-            height: 47,
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-            zIndex: 1000000,
-            overflow: 'visible',
-        }}>
-            <PrefsMenu text={'Log out'}/>
-            <Wordmark width={136.9} height={38.43} onPress={() => navigation.navigate("Search")}/>
-        </View>
+        <SafeAreaView edges={['top']}
+            style={{ height: 89, zIndex: 99999, borderBottomColor: colors.grayInactive, borderBottomWidth: 0.38, }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                {displayBack ?
+                    <TouchableOpacity onPress={onPressBack} style={{ marginRight: 5, flex: 1 }}>
+                        <BackIcon width={34} height={34} />
+                    </TouchableOpacity>
+                    :
+                    <View style={{flex: 1}}/>
+                }
+                <Text style={[{
+                    textAlign: 'center', fontFamily: 'Arial', fontWeight: 'bold', fontSize: 18, color: colors.grayActive,
+                },displayBack??{textAlignVertical: 'bottom'}]}>
+                    {text}
+                </Text>
+                {/* <ActionsMenu showActions={showActions} onActionsPress={onActionsPress} /> */}
+                <View style={{ flex: 1 }} />
+            </View>
+        </SafeAreaView>
     );
 };
 
