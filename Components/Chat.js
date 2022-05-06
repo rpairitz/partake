@@ -153,7 +153,8 @@ const Chat = ({ navigation, route }) => {
     }
 
     const handleAddToChat = () => {
-      // TODO: add to chat
+      // add user who was entered into modal to chat
+      addToGroup(route.params.convoID);
       setModalVisible(!setModalVisible);
     }
 
